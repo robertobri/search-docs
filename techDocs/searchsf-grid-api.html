@@ -1,0 +1,1930 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SearchGrid — Integration Technical Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --surface: #ffffff;
+    --border: #d2d2d7;
+    --border-light: #e8e8ed;
+    --text-primary: #1d1d1f;
+    --text-secondary: #6e6e73;
+    --text-tertiary: #aeaeb2;
+    --accent: #0071e3;
+    --accent-light: #f0f6ff;
+    --mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+    --type-string: #0071e3;
+    --type-string-bg: #e8f1fb;
+    --type-bool: #6b3fa0;
+    --type-bool-bg: #f0eaf8;
+    --type-int: #0a7b7b;
+    --type-int-bg: #e5f4f4;
+    --type-array: #b35c00;
+    --type-array-bg: #fff3e0;
+    --type-obj: #5a5a5a;
+    --type-obj-bg: #f0f0f2;
+    --required-color: #c0392b;
+    --required-bg: #fdecea;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.5;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(245,245,247,0.88);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--border-light);
+  }
+  .nav-inner {
+    max-width: 1700px; margin: 0 auto; padding: 0 40px;
+    display: flex; align-items: center; gap: 2px; height: 48px;
+    overflow-x: auto;
+  }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-link {
+    font-size: 12px; font-weight: 500; color: var(--text-secondary);
+    padding: 5px 12px; border-radius: 6px; text-decoration: none;
+    white-space: nowrap; transition: color 0.15s, background 0.15s; flex-shrink: 0;
+  }
+  .nav-link:hover { color: var(--text-primary); background: rgba(0,0,0,0.04); }
+  .nav-link.active { color: var(--text-primary); background: rgba(0,0,0,0.06); }
+
+  /* PAGE */
+  .page { max-width: 1700px; margin: 0 auto; padding: 56px 40px 80px; }
+  @media (max-width: 640px) { .page { padding: 40px 20px 60px; } }
+
+  /* HERO */
+  .hero { margin-bottom: 48px; text-align: center; }
+  .eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 4vw, 46px); font-weight: 600;
+    letter-spacing: -0.03em; line-height: 1.08;
+    color: var(--text-primary); margin-bottom: 16px;
+  }
+  .hero-desc {
+    font-size: 15px; color: var(--text-secondary);
+    max-width: 640px; line-height: 1.7; margin-bottom: 28px;
+    margin-left: auto; margin-right: auto;
+  }
+  .meta-row { display: flex; gap: 28px; flex-wrap: wrap; justify-content: center; }
+  .meta-item { display: flex; flex-direction: column; gap: 3px; align-items: center; }
+  .meta-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-tertiary); }
+  .meta-value { font-size: 13px; font-weight: 500; color: var(--text-secondary); }
+
+  /* SCHEMA SPLIT */
+  .schema-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 720px) { .schema-split { grid-template-columns: 1fr; } }
+
+  .schema-panel {
+    background: #1d1d1f; border-radius: 16px;
+    padding: 20px 22px;
+    height: 500px;
+    overflow-y: auto; overflow-x: hidden;
+    display: flex; flex-direction: column;
+  }
+  .schema-panel::-webkit-scrollbar { width: 4px; }
+  .schema-panel::-webkit-scrollbar-track { background: transparent; }
+  .schema-panel::-webkit-scrollbar-thumb { background: #3a3a3c; border-radius: 2px; }
+
+  .panel-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px; flex-shrink: 0;
+    position: sticky; top: 0; background: #1d1d1f; z-index: 2; padding-bottom: 6px;
+  }
+  .panel-label {
+    font-size: 10px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.07em; color: #6e6e73;
+  }
+  .panel-actions { display: flex; gap: 6px; }
+  .panel-btn {
+    font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+    color: #5e5e63; background: none; border: 1px solid #3a3a3c;
+    padding: 2px 8px; border-radius: 4px; cursor: pointer;
+    font-family: var(--mono); transition: color 0.15s, border-color 0.15s;
+  }
+  .panel-btn:hover { color: #aeaeb2; border-color: #6e6e73; }
+
+  .jv-search-wrap {
+    display: flex; align-items: center; gap: 5px; flex: 1;
+    margin: 0 10px;
+  }
+  .jv-search-input {
+    flex: 1; min-width: 0;
+    background: #2a2a2e; border: 1px solid #3a3a3c;
+    border-radius: 6px; padding: 3px 10px;
+    font-size: 11px; font-family: var(--mono); color: #e8e8ed;
+    outline: none; transition: border-color 0.15s;
+  }
+  .jv-search-input:focus { border-color: #5e9cd3; }
+  .jv-search-input::placeholder { color: #4a4a4f; }
+  .jv-match-count {
+    font-size: 10px; color: #6e6e73; white-space: nowrap;
+    font-family: var(--mono); min-width: 44px; text-align: right;
+  }
+  #jsonViewer mark.jvm {
+    background: rgba(255, 203, 107, 0.25); color: inherit;
+    border-radius: 2px; padding: 0 1px;
+  }
+  #jsonViewer mark.jvm.jvm-active {
+    background: #ffcb6b; color: #1d1d1f;
+  }
+
+  /* SCHEMA TREE */
+  .tree {
+    font-family: var(--mono); font-size: 12px; line-height: 2;
+    color: #8e8e93; white-space: pre; flex: 1;
+  }
+  .tr { color: #e8e8ed; font-weight: 600; }
+  .tf { color: #8e8e93; }
+  .tf.req { color: #f5f5f7; font-weight: 500; }
+  .ts { color: #5e9cd3; }
+  .ts.req-star { color: #ff6b6b; font-weight: 700; }
+  .tc { color: #4a9e6a; font-style: italic; }
+
+  /* JSON VIEWER */
+  .jv {
+    font-family: var(--mono); font-size: 12px; line-height: 1.75;
+    color: #8e8e93; flex: 1;
+  }
+  .jv .jrow { display: block; padding-left: 0; }
+  .jv .jrb  { display: block; padding-left: 14px; }
+  .jv .jrc  { display: block; }
+  .jv .jrh  { display: block; }
+  .jv .jrcl { display: block; }
+  .jv .jrc:not(.jvo) .jrb,
+  .jv .jrc:not(.jvo) .jrcl,
+  .jv .jrc:not(.jvo) .jbop { display: none; }
+  .jv .jrc.jvo .jbcs { display: none; }
+  .jv .jp   { color: #8e8e93; }
+  .jv .jkey { color: #78b9f8; }
+  .jv .jstr { color: #a8dba8; }
+  .jv .jnum { color: #ffcb6b; }
+  .jv .jbool{ color: #c792ea; }
+  .jv .jnull{ color: #6e6e73; font-style: italic; }
+  .jv .jbcs .jp { color: #4a4a4f; }
+  .jv .jtog {
+    background: none; border: none; cursor: pointer;
+    color: #5e5e63; font-size: 11px; padding: 0 1px;
+    font-family: var(--mono); line-height: 1;
+    transition: color 0.1s; vertical-align: middle;
+  }
+  .jv .jtog:hover { color: #aeaeb2; }
+
+  /* SECTION */
+  .section {
+    background: var(--surface); border-radius: 16px;
+    border: 1px solid var(--border-light); margin-bottom: 20px; overflow: hidden;
+  }
+  .section-head {
+    padding: 20px 28px; border-bottom: 1px solid var(--border-light);
+    display: flex; align-items: flex-start; gap: 14px;
+  }
+  .section-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .section-title { font-size: 15px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.015em; }
+  .section-subtitle { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+  .section-mono {
+    margin-left: auto; font-family: var(--mono); font-size: 11px;
+    font-weight: 500; color: var(--text-tertiary); align-self: center; flex-shrink: 0;
+    background: var(--bg); padding: 3px 10px; border-radius: 6px; border: 1px solid var(--border-light);
+  }
+
+  /* INTRO */
+  .section-intro {
+    padding: 16px 28px; border-bottom: 1px solid var(--border-light);
+    font-size: 13px; color: var(--text-secondary); line-height: 1.7;
+  }
+  .section-intro strong { color: var(--text-primary); }
+
+  /* FIELDS TABLE */
+  .fields-table { width: 100%; border-collapse: collapse; }
+  .fields-table thead th {
+    padding: 9px 20px; text-align: left;
+    font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--text-tertiary); border-bottom: 1px solid var(--border-light);
+    background: #fafafa;
+  }
+  .fields-table tbody td {
+    padding: 13px 20px; font-size: 13px; color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-light); vertical-align: top;
+  }
+  .fields-table tbody tr:last-child td { border-bottom: none; }
+  .fields-table tbody tr:hover td { background: #fafafa; }
+  .fields-table tbody tr.row-req td { background: #fffbfb; }
+  .fields-table tbody tr.row-req:hover td { background: #fff5f5; }
+
+  .td-field {
+    font-family: var(--mono); font-size: 12px; font-weight: 500;
+    color: var(--text-primary); white-space: nowrap;
+  }
+  .td-field .req-star { color: var(--required-color); font-weight: 700; }
+  .td-desc { line-height: 1.65; }
+  .td-desc strong { color: var(--text-primary); font-weight: 600; }
+  .td-constraint {
+    font-family: var(--mono); font-size: 11px; color: var(--text-tertiary);
+    white-space: nowrap; padding-top: 2px;
+  }
+
+  /* BADGES */
+  .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 20px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.01em; white-space: nowrap;
+  }
+  .badge-string  { background: var(--type-string-bg);  color: var(--type-string);  font-family: var(--mono); }
+  .badge-boolean { background: var(--type-bool-bg);    color: var(--type-bool);    font-family: var(--mono); }
+  .badge-integer { background: var(--type-int-bg);     color: var(--type-int);     font-family: var(--mono); }
+  .badge-array   { background: var(--type-array-bg);   color: var(--type-array);   font-family: var(--mono); }
+  .badge-object  { background: var(--type-obj-bg);     color: var(--type-obj);     font-family: var(--mono); }
+  .badge-req     { background: var(--required-bg);     color: var(--required-color); }
+  .badge-opt     { background: #f0f0f2;                color: #aeaeb2; }
+  .badge-blue    { background: #e8f1fb; color: #0071e3; }
+  .badge-teal    { background: #e5f4f4; color: #0a7b7b; }
+  .badge-grey    { background: #f0f0f2; color: #6e6e73; }
+
+  /* ENUM */
+  .enum-list { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
+  .enum-val {
+    display: inline-block; padding: 1px 7px; border-radius: 4px;
+    font-family: var(--mono); font-size: 11px; font-weight: 500;
+    background: #f5f5f7; color: var(--text-secondary);
+    border: 1px solid var(--border-light);
+  }
+
+  /* CALLOUT */
+  .callout {
+    padding: 11px 16px; border-radius: 9px; font-size: 13px;
+    color: var(--text-secondary); line-height: 1.65;
+  }
+  .callout-info { background: var(--accent-light); border-left: 3px solid var(--accent); }
+  .callout-warn { background: #fff8ed; border-left: 3px solid #f0a500; }
+  .callout-note { background: #f5f5f7; border-left: 3px solid #d2d2d7; }
+  .callout strong { color: var(--text-primary); }
+  .callout-wrap { padding: 0 28px 20px; display: flex; flex-direction: column; gap: 10px; }
+
+  /* CODE */
+  .code-wrap { padding: 0 28px 24px; }
+  .code-label {
+    font-size: 10px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--text-tertiary); margin-bottom: 6px;
+  }
+  .code-block {
+    background: #1d1d1f; border-radius: 10px; padding: 16px 18px;
+    font-family: var(--mono); font-size: 12px;
+    color: #e8e8ed; line-height: 1.8; overflow-x: auto; white-space: pre;
+  }
+  .ck { color: #78b9f8; }
+  .cs { color: #a8dba8; }
+  .cn { color: #ffcb6b; }
+  .cb { color: #c792ea; }
+  .cm { color: #6e6e73; font-style: italic; }
+
+  /* LEGEND BAR */
+  .legend-bar {
+    padding: 12px 28px; background: #fafafa;
+    border-bottom: 1px solid var(--border-light);
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .legend-title { font-size: 11px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.04em; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-secondary); }
+
+  /* QUICK REF TABLE */
+  .qr-table { width: 100%; border-collapse: collapse; }
+  .qr-table thead th {
+    padding: 9px 20px; text-align: left;
+    font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--text-tertiary); border-bottom: 1px solid var(--border-light); background: #fafafa;
+  }
+  .qr-table tbody td {
+    padding: 11px 20px; font-size: 13px; color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-light); vertical-align: top;
+  }
+  .qr-table tbody tr:last-child td { border-bottom: none; }
+  .qr-table tbody tr:hover td { background: #fafafa; }
+  .qr-path {
+    font-family: var(--mono); font-size: 11px; font-weight: 500; color: var(--text-primary);
+    white-space: nowrap;
+  }
+  .qr-path .path-dim { color: var(--text-tertiary); }
+
+  /* FOOTER */
+  .footer { text-align: center; padding-top: 40px; border-top: 1px solid var(--border-light); margin-top: 8px; }
+  .footer p { font-size: 12px; color: var(--text-tertiary); }
+
+  /* ANIMATE */
+  @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+  .hero    { animation: fadeUp 0.5s ease both; }
+  .section { animation: fadeUp 0.5s ease both; }
+  .schema-split { animation: fadeUp 0.5s ease both; animation-delay: 0.04s; }
+  .section:nth-of-type(1) { animation-delay: 0.07s; }
+  .section:nth-of-type(2) { animation-delay: 0.11s; }
+  .section:nth-of-type(3) { animation-delay: 0.15s; }
+  .section:nth-of-type(4) { animation-delay: 0.19s; }
+  .section:nth-of-type(5) { animation-delay: 0.23s; }
+  .section:nth-of-type(6) { animation-delay: 0.27s; }
+  .section:nth-of-type(7) { animation-delay: 0.31s; }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-link active" href="#overview">Overview</a>
+    <a class="nav-link" href="#searchgrid">SearchGrid</a>
+    <a class="nav-link" href="#gridsection">GridSection</a>
+    <a class="nav-link" href="#gridblock">GridBlock</a>
+    <a class="nav-link" href="#commercial">CommercialComponent</a>
+    <a class="nav-link" href="#banner">PromotionalBanner</a>
+    <a class="nav-link" href="#context">GridContext</a>
+    <a class="nav-link" href="#valuedattr">ValuedAttribute</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="eyebrow">IOP Product · Search API</div>
+    <h1>SearchGrid<br>Integration Reference</h1>
+    <p class="hero-desc">Technical documentation for the root object <code style="font-family:var(--mono);font-size:13px;background:#f0f0f2;padding:1px 6px;border-radius:4px;">SearchGrid</code> returned by the Search API. Covers all required fields, types, constraints and value examples to ease frontend integration.</p>
+    <div class="meta-row">
+      <div class="meta-item">
+        <span class="meta-label">Root object</span>
+        <span class="meta-value" style="font-family:var(--mono);font-size:12px;">SearchGrid</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Required fields</span>
+        <span class="meta-value">14 fields * across 6 objects</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Audience</span>
+        <span class="meta-value">Frontend · Integrators</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Version</span>
+        <span class="meta-value">2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCHEMA SPLIT: TREE + JSON VIEWER -->
+  <div class="schema-split">
+
+    <!-- LEFT: Schema tree -->
+    <div class="schema-panel">
+      <div class="panel-header">
+        <span class="panel-label">Schema structure — * = required</span>
+      </div>
+      <div class="tree">
+<span class="tr">SearchGrid</span>
+├── <span class="tf">id</span>                          <span class="tc">// string · UUID · optional</span>
+├── <span class="tf">milestoneCode</span>               <span class="tc">// string · optional</span>
+├── <span class="tf req">sections</span><span class="ts req-star">*</span>                    <span class="tc">// [GridSection]</span>
+│   ├── <span class="tf">id</span>                      <span class="tc">// string · optional</span>
+│   ├── <span class="tf req">type</span><span class="ts req-star">*</span>                    <span class="tc">// string: 'main' | ...</span>
+│   ├── <span class="tf">title</span>                   <span class="tc">// string · optional</span>
+│   ├── <span class="tf req">elements</span><span class="ts req-star">*</span>               <span class="tc">// [GridBlock]</span>
+│   │   ├── <span class="tf req">id</span><span class="ts req-star">*</span>               <span class="tc">// string · GridBlockId</span>
+│   │   ├── <span class="tf">name</span>             <span class="tc">// string · optional</span>
+│   │   ├── <span class="tf req">kind</span><span class="ts req-star">*</span>             <span class="tc">// EDITORIAL|AUTOTEMPLATE|...</span>
+│   │   ├── <span class="tf req">isSectionIndex</span><span class="ts req-star">*</span>  <span class="tc">// boolean</span>
+│   │   ├── <span class="tf req">metadata</span><span class="ts req-star">*</span>         <span class="tc">// object (anyOf)</span>
+│   │   │   └── <span class="tf req">commercialComponents</span><span class="ts req-star">*</span>  <span class="tc">// AUTOTEMPLATE only</span>
+│   │   ├── <span class="tf">style</span>            <span class="tc">// GridStyle · optional</span>
+│   │   ├── <span class="tf req">linkedBlocks</span><span class="ts req-star">*</span>     <span class="tc">// [GridBlockId] · min: 2</span>
+│   │   └── <span class="tf req">tags</span><span class="ts req-star">*</span>             <span class="tc">// [string]</span>
+│   ├── <span class="tf req">attributes</span><span class="ts req-star">*</span>             <span class="tc">// [ValuedAttribute]</span>
+│   │   ├── <span class="tf req">key</span><span class="ts req-star">*</span>              <span class="tc">// string</span>
+│   │   └── <span class="tf req">value</span><span class="ts req-star">*</span>            <span class="tc">// string</span>
+│   ├── <span class="tf">autoTemplates</span>           <span class="tc">// [AutoTemplate] · optional</span>
+│   ├── <span class="tf">header</span>                  <span class="tc">// Header · optional</span>
+│   └── <span class="tf">blocksBeforePersonalization</span>  <span class="tc">// optional</span>
+├── <span class="tf req">promotionalBanners</span><span class="ts req-star">*</span>         <span class="tc">// [PromotionalBanner]</span>
+│   ├── <span class="tf req">id</span><span class="ts req-star">*</span>                   <span class="tc">// integer</span>
+│   ├── <span class="tf req">title</span><span class="ts req-star">*</span>                <span class="tc">// string</span>
+│   ├── <span class="tf req">description</span><span class="ts req-star">*</span>          <span class="tc">// string</span>
+│   ├── <span class="tf">disableClose</span>         <span class="tc">// boolean · optional</span>
+│   └── <span class="tf">link</span>                 <span class="tc">// PromotionalBannerLink · optional</span>
+├── <span class="tf">topbar</span>                      <span class="tc">// MenuItemTopBar · optional</span>
+├── <span class="tf req">context</span><span class="ts req-star">*</span>                     <span class="tc">// GridContext</span>
+│   ├── <span class="tf req">isPlainImageSelectorEnabled</span><span class="ts req-star">*</span>
+│   ├── <span class="tf req">autoTemplatePattern</span><span class="ts req-star">*</span>
+│   ├── <span class="tf req">attributes</span><span class="ts req-star">*</span>          <span class="tc">// [ValuedAttribute]</span>
+│   ├── <span class="tf">isOverlayEnabled</span>     <span class="tc">// optional</span>
+│   ├── <span class="tf">gridPaginationInfo</span>   <span class="tc">// optional</span>
+│   ├── <span class="tf">categoryTitle</span>        <span class="tc">// optional</span>
+│   └── <span class="tf">autoTemplates</span>        <span class="tc">// optional</span>
+├── <span class="tf">style</span>                       <span class="tc">// GridStyle · optional</span>
+├── <span class="tf">filters</span>                     <span class="tc">// [SearchFilter] · max: 30</span>
+├── <span class="tf">sortings</span>                    <span class="tc">// SearchGridSortings · optional</span>
+├── <span class="tf">section</span>                     <span class="tc">// WOMAN|MAN|KID|Z3D|HOME|...</span>
+├── <span class="tf">metadata</span>                    <span class="tc">// SearchGridMetadata · optional</span>
+└── <span class="tf">additionalEntities</span>          <span class="tc">// max: 200 · optional</span>
+      </div>
+    </div>
+
+    <!-- RIGHT: JSON viewer -->
+    <div class="schema-panel">
+      <div class="panel-header">
+        <span class="panel-label">Response example</span>
+        <div class="jv-search-wrap">
+          <input id="jvSearchInput" class="jv-search-input" type="text"
+            placeholder="Search…" spellcheck="false" autocomplete="off"
+            oninput="jvSearch(this.value)">
+          <span id="jvMatchCount" class="jv-match-count"></span>
+          <button class="panel-btn" title="Previous match (Shift+Enter)" onclick="jvNavMatch(-1)">↑</button>
+          <button class="panel-btn" title="Next match (Enter)" onclick="jvNavMatch(1)">↓</button>
+        </div>
+        <div class="panel-actions">
+          <button class="panel-btn" onclick="jvExpandAll()">Expand all</button>
+          <button class="panel-btn" onclick="jvCollapseAll()">Collapse all</button>
+        </div>
+      </div>
+      <div class="jv" id="jsonViewer"></div>
+    </div>
+
+  </div>
+
+  <!-- QUICK REFERENCE -->
+  <div id="overview" class="section">
+    <div class="section-head">
+      <div class="section-dot" style="background:#0071e3;"></div>
+      <div>
+        <div class="section-title">Quick reference — required fields</div>
+        <div class="section-subtitle">All fields marked with <strong>*</strong> grouped by object</div>
+      </div>
+    </div>
+    <div class="legend-bar">
+      <span class="legend-title">Types</span>
+      <span class="legend-item"><span class="badge badge-string">string</span></span>
+      <span class="legend-item"><span class="badge badge-boolean">boolean</span></span>
+      <span class="legend-item"><span class="badge badge-integer">integer</span></span>
+      <span class="legend-item"><span class="badge badge-array">array</span></span>
+      <span class="legend-item"><span class="badge badge-object">object</span></span>
+      <span style="margin-left:auto;" class="legend-item"><span class="badge badge-req">required</span> <span style="font-size:12px;color:var(--text-tertiary);">= required field</span></span>
+    </div>
+    <table class="qr-table">
+      <thead>
+        <tr>
+          <th>Field path</th>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="qr-path">sections<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-array">[GridSection]</span></td>
+          <td>Sections that compose the grid</td>
+        </tr>
+        <tr>
+          <td><span class="qr-path"><span class="path-dim">sections[].</span>type<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-string">string</span></td>
+          <td>Section type: <code style="font-family:var(--mono);font-size:11px;">main</code>, <code style="font-family:var(--mono);font-size:11px;">stock-clearance</code>, etc.</td>
+        </tr>
+        <tr>
+          <td><span class="qr-path"><span class="path-dim">sections[].</span>elements<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-array">[GridBlock]</span></td>
+          <td>Renderable content blocks within the section</td>
+        </tr>
+        <tr>
+          <td><span class="qr-path"><span class="path-dim">sections[].elements[].</span>id<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-string">string</span></td>
+          <td>Unique block identifier (UUID)</td>
+        </tr>
+        <tr>
+          <td><span class="qr-path"><span class="path-dim">sections[].elements[].</span>kind<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-string">string</span></td>
+          <td>Block type: EDITORIAL, AUTOTEMPLATE, SDUI, CAROUSEL, PERSONALIZATION</td>
+        </tr>
+        <tr>
+          <td><span class="qr-path"><span class="path-dim">sections[].elements[].</span>isSectionIndex<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-boolean">boolean</span></td>
+          <td>Whether this block acts as a section index anchor</td>
+        </tr>
+        <tr>
+          <td><span class="qr-path"><span class="path-dim">sections[].elements[].</span>metadata<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-object">object</span></td>
+          <td>Block-specific configuration (shape varies by <code style="font-family:var(--mono);font-size:11px;">kind</code>)</td>
+        </tr>
+        <tr>
+          <td><span class="qr-path"><span class="path-dim">sections[].elements[].metadata.</span>commercialComponents<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-array">[CommercialComponent]</span></td>
+          <td>Products in the block — only present on <code style="font-family:var(--mono);font-size:11px;">AUTOTEMPLATE</code> blocks</td>
+        </tr>
+        <tr>
+          <td><span class="qr-path"><span class="path-dim">sections[].elements[].</span>linkedBlocks<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-array">[GridBlockId]</span></td>
+          <td>Linked blocks that must always be rendered consecutively (min. 2)</td>
+        </tr>
+        <tr>
+          <td><span class="qr-path"><span class="path-dim">sections[].elements[].</span>tags<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-array">[string]</span></td>
+          <td>Block tags</td>
+        </tr>
+        <tr>
+          <td><span class="qr-path"><span class="path-dim">sections[].</span>attributes<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-array">[ValuedAttribute]</span></td>
+          <td>Section configuration attributes</td>
+        </tr>
+        <tr>
+          <td><span class="qr-path">promotionalBanners<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-array">[PromotionalBanner]</span></td>
+          <td>Promotional banners sorted by priority</td>
+        </tr>
+        <tr>
+          <td><span class="qr-path"><span class="path-dim">promotionalBanners[].</span>id<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-integer">integer</span></td>
+          <td>Numeric banner identifier</td>
+        </tr>
+        <tr>
+          <td><span class="qr-path"><span class="path-dim">promotionalBanners[].</span>title<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-string">string</span></td>
+          <td>Banner heading text to display in UI</td>
+        </tr>
+        <tr>
+          <td><span class="qr-path"><span class="path-dim">promotionalBanners[].</span>description<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-string">string</span></td>
+          <td>Banner body text</td>
+        </tr>
+        <tr>
+          <td><span class="qr-path">context<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-object">GridContext</span></td>
+          <td>Additional context needed to render the grid and its products</td>
+        </tr>
+        <tr>
+          <td><span class="qr-path"><span class="path-dim">context.</span>isPlainImageSelectorEnabled<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-object">—</span></td>
+          <td>Plain image selector configuration</td>
+        </tr>
+        <tr>
+          <td><span class="qr-path"><span class="path-dim">context.</span>autoTemplatePattern<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-object">—</span></td>
+          <td>Auto-template distribution pattern for the grid</td>
+        </tr>
+        <tr>
+          <td><span class="qr-path"><span class="path-dim">context.</span>attributes<span class="req-star" style="color:var(--required-color);">*</span></span></td>
+          <td><span class="badge badge-array">[ValuedAttribute]</span></td>
+          <td>Context attributes for rendering behaviour</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SEARCHGRID ROOT -->
+  <div id="searchgrid" class="section">
+    <div class="section-head">
+      <div class="section-dot" style="background:#0071e3;"></div>
+      <div>
+        <div class="section-title">SearchGrid</div>
+        <div class="section-subtitle">Root response object — all fields</div>
+      </div>
+      <div class="section-mono">root object</div>
+    </div>
+    <div class="section-intro">
+      Top-level object returned by the search grid endpoint. Contains <strong>3 required fields</strong> (<code style="font-family:var(--mono);font-size:12px;">sections</code>, <code style="font-family:var(--mono);font-size:12px;">promotionalBanners</code>, <code style="font-family:var(--mono);font-size:12px;">context</code>) plus several optional fields that enrich the browsing experience.
+    </div>
+    <table class="fields-table">
+      <thead>
+        <tr><th>Field</th><th>Type</th><th>Req.</th><th>Constraints</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-field">id</td>
+          <td><span class="badge badge-string">string</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-constraint">UUID v4</td>
+          <td class="td-desc">Unique identifier of the grid definition. <strong>Only present on IOP grids.</strong><br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. f7eda7de-9352-490f-978d-c41c0b188c87</span></td>
+        </tr>
+        <tr>
+          <td class="td-field">milestoneCode</td>
+          <td><span class="badge badge-string">string</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-constraint">1–256 chars</td>
+          <td class="td-desc">Code of the milestone associated to this grid.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. night-propagation-20-09-2023</span></td>
+        </tr>
+        <tr class="row-req">
+          <td class="td-field">sections<span class="req-star">*</span></td>
+          <td><span class="badge badge-array">[GridSection]</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Array of sections that compose the grid. Each section groups content blocks under a semantic type. See <a href="#gridsection" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,113,227,0.3);">GridSection</a>.</td>
+        </tr>
+        <tr class="row-req">
+          <td class="td-field">promotionalBanners<span class="req-star">*</span></td>
+          <td><span class="badge badge-array">[PromotionalBanner]</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-constraint">sorted by priority</td>
+          <td class="td-desc">Promotional banners configured for this grid/store combination, sorted by descending priority. See <a href="#banner" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,113,227,0.3);">PromotionalBanner</a>.</td>
+        </tr>
+        <tr>
+          <td class="td-field">topbar</td>
+          <td><span class="badge badge-object">MenuItemTopBar</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-constraint">maxLength: 100000</td>
+          <td class="td-desc">Top navigation bar with browsable categories within the grid. Contains <code style="font-family:var(--mono);font-size:11px;">header</code> and <code style="font-family:var(--mono);font-size:11px;">items*</code>.</td>
+        </tr>
+        <tr class="row-req">
+          <td class="td-field">context<span class="req-star">*</span></td>
+          <td><span class="badge badge-object">GridContext</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Additional context required to render the grid correctly. See <a href="#context" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,113,227,0.3);">GridContext</a>.</td>
+        </tr>
+        <tr>
+          <td class="td-field">style</td>
+          <td><span class="badge badge-object">GridStyle</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Unified styling configuration: <code style="font-family:var(--mono);font-size:11px;">backgroundColor</code>, <code style="font-family:var(--mono);font-size:11px;">tintColor</code>, <code style="font-family:var(--mono);font-size:11px;">font</code>, <code style="font-family:var(--mono);font-size:11px;">layout</code>, <code style="font-family:var(--mono);font-size:11px;">margin</code>, <code style="font-family:var(--mono);font-size:11px;">behaviour</code>.</td>
+        </tr>
+        <tr>
+          <td class="td-field">filters</td>
+          <td><span class="badge badge-array">[SearchFilter]</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-constraint">maxItems: 30 · default: []</td>
+          <td class="td-desc">Available filters to refine the search results.</td>
+        </tr>
+        <tr>
+          <td class="td-field">sortings</td>
+          <td><span class="badge badge-object">SearchGridSortings</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Available sorting options for the grid.</td>
+        </tr>
+        <tr>
+          <td class="td-field">section</td>
+          <td><span class="badge badge-string">string</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-constraint">maxLength: 20</td>
+          <td class="td-desc">Section of the response.
+            <div class="enum-list">
+              <span class="enum-val">WOMAN</span><span class="enum-val">MAN</span><span class="enum-val">KID</span><span class="enum-val">Z3D</span><span class="enum-val">HOME</span><span class="enum-val">MASSIMODUTTI-WOMAN</span><span class="enum-val">MASSIMODUTTI-MAN</span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="td-field">metadata</td>
+          <td><span class="badge badge-object">SearchGridMetadata</span></td>
+          <td><span class="badge badge-opt">opcional</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Analytics metadata: <code style="font-family:var(--mono);font-size:11px;">provider</code>, <code style="font-family:var(--mono);font-size:11px;">searchpass</code>, <code style="font-family:var(--mono);font-size:11px;">spellchecked</code>, <code style="font-family:var(--mono);font-size:11px;">queryAnalysis</code>.</td>
+        </tr>
+        <tr>
+          <td class="td-field">additionalEntities</td>
+          <td><span class="badge badge-array">[SearchAdditionalEntity]</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-constraint">maxItems: 200 · default: []</td>
+          <td class="td-desc">Additional (non-product) entities returned alongside the grid. May include editorial content, banners, etc.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- GRIDSECTION -->
+  <div id="gridsection" class="section">
+    <div class="section-head">
+      <div class="section-dot" style="background:#0a7b7b;"></div>
+      <div>
+        <div class="section-title">GridSection</div>
+        <div class="section-subtitle">Item of <code style="font-family:var(--mono);font-size:12px;">sections[]</code> — groups blocks with a shared semantic type</div>
+      </div>
+      <div class="section-mono">sections[]</div>
+    </div>
+    <div class="section-intro">
+      A section is the main structural unit inside a grid. The <strong>type</strong> field drives visual and functional treatment. The <strong>elements</strong> field holds the renderable blocks. All attribute arrays must be present even if empty.
+    </div>
+    <table class="fields-table">
+      <thead>
+        <tr><th>Field</th><th>Type</th><th>Req.</th><th>Constraints</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-field">id</td>
+          <td><span class="badge badge-string">string</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-constraint">UUID</td>
+          <td class="td-desc">Section identifier.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. 77f97b3c-7da5-4d82-8485-d6ea216234fe</span></td>
+        </tr>
+        <tr class="row-req">
+          <td class="td-field">type<span class="req-star">*</span></td>
+          <td><span class="badge badge-string">string</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Differentiates sections with specific features. <code style="font-family:var(--mono);font-size:11px;">main</code> is the default value.
+            <div class="enum-list">
+              <span class="enum-val">main</span>
+              <span class="enum-val">stock-clearance</span>
+              <span class="enum-val">product-recommendations</span>
+              <span class="enum-val">novelty</span>
+              <span class="enum-val">default-search</span>
+            </div>
+            <div style="margin-top:8px;font-size:12px;color:var(--text-tertiary);">The list is non-exhaustive; additional values may exist for specific use cases.</div>
+          </td>
+        </tr>
+        <tr>
+          <td class="td-field">title</td>
+          <td><span class="badge badge-string">string</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Section display title. <strong>If both this field and <code style="font-family:var(--mono);font-size:11px;">header</code> are present, display the <code style="font-family:var(--mono);font-size:11px;">header</code> content instead.</strong><br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. Ultimas Tallas</span></td>
+        </tr>
+        <tr class="row-req">
+          <td class="td-field">elements<span class="req-star">*</span></td>
+          <td><span class="badge badge-array">[GridBlock]</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Content blocks within the section. Each block is independently renderable. See <a href="#gridblock" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,113,227,0.3);">GridBlock</a>.</td>
+        </tr>
+        <tr class="row-req">
+          <td class="td-field">attributes<span class="req-star">*</span></td>
+          <td><span class="badge badge-array">[ValuedAttribute]</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Section configuration attributes. See <a href="#valuedattr" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,113,227,0.3);">ValuedAttribute</a>. Common key: <code style="font-family:var(--mono);font-size:11px;">EDITORIAL_SECTION: true</code>.</td>
+        </tr>
+        <tr>
+          <td class="td-field">autoTemplates</td>
+          <td><span class="badge badge-array">[AutoTemplate]</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Auto-template info for the section. Only present when the corresponding setter is active. Contains <code style="font-family:var(--mono);font-size:11px;">name*</code>, <code style="font-family:var(--mono);font-size:11px;">numberOfElements</code>, <code style="font-family:var(--mono);font-size:11px;">minElements</code>, <code style="font-family:var(--mono);font-size:11px;">maxElements</code>, <code style="font-family:var(--mono);font-size:11px;">autoBlocks</code>, <code style="font-family:var(--mono);font-size:11px;">fallbacks</code>.</td>
+        </tr>
+        <tr>
+          <td class="td-field">header</td>
+          <td><span class="badge badge-object">Header</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Rich section header. <strong>Takes visual precedence over <code style="font-family:var(--mono);font-size:11px;">title</code> when both are present.</strong></td>
+        </tr>
+        <tr>
+          <td class="td-field">blocksBeforePersonalization</td>
+          <td><span class="badge badge-array">array</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Blocks that must be rendered before the personalization block within the section.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- GRIDBLOCK -->
+  <div id="gridblock" class="section">
+    <div class="section-head">
+      <div class="section-dot" style="background:#6b3fa0;"></div>
+      <div>
+        <div class="section-title">GridBlock</div>
+        <div class="section-subtitle">Item of <code style="font-family:var(--mono);font-size:12px;">sections[].elements[]</code> — atomic renderable unit of the grid</div>
+      </div>
+      <div class="section-mono">elements[]</div>
+    </div>
+    <div class="section-intro">
+      The block is the fundamental rendering unit. The <strong>kind</strong> field determines which subtype populates <strong>metadata</strong>. The <strong>linkedBlocks</strong> and <strong>tags</strong> fields are always required regardless of the block type.
+    </div>
+    <table class="fields-table">
+      <thead>
+        <tr><th>Field</th><th>Type</th><th>Req.</th><th>Constraints</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr class="row-req">
+          <td class="td-field">id<span class="req-star">*</span></td>
+          <td><span class="badge badge-string">string</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-constraint">GridBlockId</td>
+          <td class="td-desc">Unique block identifier (UUID). Referenced in <code style="font-family:var(--mono);font-size:11px;">linkedBlocks</code> of other blocks.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. 9e0eafe2-2ba5-468a-a49a-28fc3dd39254</span></td>
+        </tr>
+        <tr>
+          <td class="td-field">name</td>
+          <td><span class="badge badge-string">string</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Descriptive block name for debugging and traceability.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. WOMAN-SHIRTS-V2022</span></td>
+        </tr>
+        <tr class="row-req">
+          <td class="td-field">kind<span class="req-star">*</span></td>
+          <td><span class="badge badge-string">string</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-constraint">enum</td>
+          <td class="td-desc">Block type. Determines the shape of <code style="font-family:var(--mono);font-size:11px;">metadata</code>.
+            <div class="enum-list">
+              <span class="enum-val">EDITORIAL</span>
+              <span class="enum-val">AUTOTEMPLATE</span>
+              <span class="enum-val">SDUI</span>
+              <span class="enum-val">CAROUSEL</span>
+              <span class="enum-val">PERSONALIZATION</span>
+            </div>
+          </td>
+        </tr>
+        <tr class="row-req">
+          <td class="td-field">isSectionIndex<span class="req-star">*</span></td>
+          <td><span class="badge badge-boolean">boolean</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Whether this block acts as a section index. When <code style="font-family:var(--mono);font-size:11px;">true</code>, the frontend should treat it as a navigation anchor within the grid.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. false</span></td>
+        </tr>
+        <tr class="row-req">
+          <td class="td-field">metadata<span class="req-star">*</span></td>
+          <td><span class="badge badge-object">object (anyOf)</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-constraint">anyOf by kind</td>
+          <td class="td-desc">Block-specific configuration and content. Internal shape varies by <code style="font-family:var(--mono);font-size:11px;">kind</code>:
+            <div style="margin-top:8px;display:flex;flex-direction:column;gap:4px;">
+              <div style="font-size:12px;"><span class="enum-val">EDITORIAL</span> → <code style="font-family:var(--mono);font-size:11px;">EditorialGridBlock</code></div>
+              <div style="font-size:12px;"><span class="enum-val">AUTOTEMPLATE</span> → <code style="font-family:var(--mono);font-size:11px;">AutotemplateGridBlock</code> · contains <code style="font-family:var(--mono);font-size:11px;">commercialComponents*</code></div>
+              <div style="font-size:12px;"><span class="enum-val">SDUI</span> → <code style="font-family:var(--mono);font-size:11px;">SDUIGridBlock</code></div>
+              <div style="font-size:12px;"><span class="enum-val">CAROUSEL</span> → <code style="font-family:var(--mono);font-size:11px;">CarouselGridBlock</code></div>
+              <div style="font-size:12px;"><span class="enum-val">PERSONALIZATION</span> → <code style="font-family:var(--mono);font-size:11px;">PersonalizationGridBlock</code></div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="td-field">style</td>
+          <td><span class="badge badge-object">GridStyle</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Block styles: <code style="font-family:var(--mono);font-size:11px;">backgroundColor</code>, <code style="font-family:var(--mono);font-size:11px;">layout</code> (e.g. <code style="font-family:var(--mono);font-size:11px;">4C</code>), <code style="font-family:var(--mono);font-size:11px;">template</code> (SDUI only, e.g. <code style="font-family:var(--mono);font-size:11px;">1A</code>), <code style="font-family:var(--mono);font-size:11px;">margin</code>, <code style="font-family:var(--mono);font-size:11px;">behaviour</code>.</td>
+        </tr>
+        <tr class="row-req">
+          <td class="td-field">linkedBlocks<span class="req-star">*</span></td>
+          <td><span class="badge badge-array">[GridBlockId]</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-constraint">minItems: 2</td>
+          <td class="td-desc"><strong>List of linked blocks (including this one) that must always be rendered consecutively.</strong> The frontend must not place other elements between blocks belonging to the same linked group. Minimum 2 items (block includes itself).</td>
+        </tr>
+        <tr class="row-req">
+          <td class="td-field">tags<span class="req-star">*</span></td>
+          <td><span class="badge badge-array">[string]</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Block tags for classification and behaviour. Can be used for conditional rendering logic.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. ["HOME"]</span></td>
+        </tr>
+        <tr>
+          <td class="td-field">attributes</td>
+          <td><span class="badge badge-array">array</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Additional block attributes in key-value format.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout-wrap">
+      <div class="callout callout-warn">
+        <strong>Note on linkedBlocks:</strong> The frontend must ensure all blocks whose IDs appear in <code style="font-family:var(--mono);font-size:12px;">linkedBlocks</code> are rendered in adjacent positions. Breaking this consecutiveness produces incorrect layouts.
+      </div>
+    </div>
+  </div>
+
+  <!-- COMMERCIAL COMPONENT -->
+  <div id="commercial" class="section">
+    <div class="section-head">
+      <div class="section-dot" style="background:#b35c00;"></div>
+      <div>
+        <div class="section-title">AutotemplateGridBlock — commercialComponents</div>
+        <div class="section-subtitle">Shape of <code style="font-family:var(--mono);font-size:12px;">SimplifiedCommercialComponentGrid</code> — the product object</div>
+      </div>
+      <div class="section-mono">metadata.commercialComponents[]</div>
+    </div>
+    <div class="section-intro">
+      When <code style="font-family:var(--mono);font-size:12px;">kind = AUTOTEMPLATE</code>, the field <code style="font-family:var(--mono);font-size:12px;">metadata.commercialComponents*</code> is <strong>required</strong> and holds the block's products. The key fields of each commercial component for frontend rendering are documented below.
+    </div>
+
+    <table class="fields-table">
+      <thead>
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="td-field">identifier</td>
+          <td><span class="badge badge-object">object</span></td>
+          <td class="td-desc"><strong>Uniquely identifies the commercial component.</strong>
+            <div style="margin-top:8px;display:flex;flex-direction:column;gap:3px;font-size:12px;">
+              <div><code style="font-family:var(--mono);">id</code> — Internal numeric ID <span style="font-family:var(--mono);color:var(--text-tertiary);">e.g. 16546465</span></div>
+              <div><code style="font-family:var(--mono);">productParentId</code> — Parent product ID <span style="font-family:var(--mono);color:var(--text-tertiary);">e.g. 223703785</span></div>
+              <div><code style="font-family:var(--mono);">reference</code> — Full reference <span style="font-family:var(--mono);color:var(--text-tertiary);">e.g. C07380704800000-V2023</span></div>
+              <div><code style="font-family:var(--mono);">productParentReference</code> — Parent reference <span style="font-family:var(--mono);color:var(--text-tertiary);">e.g. 07380704-V2023</span></div>
+              <div><code style="font-family:var(--mono);">displayReference</code> — Display reference <span style="font-family:var(--mono);color:var(--text-tertiary);">e.g. 7380/704</span></div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="td-field">name</td>
+          <td><span class="badge badge-string">string</span></td>
+          <td class="td-desc">Product display name for UI.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. COMFORT PERFORMANCE TECHNICAL BLAZER</span></td>
+        </tr>
+        <tr>
+          <td class="td-field">type</td>
+          <td><span class="badge badge-string">string</span></td>
+          <td class="td-desc">Commercial component type. <span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. Product</span></td>
+        </tr>
+        <tr>
+          <td class="td-field">state</td>
+          <td><span class="badge badge-object">object</span></td>
+          <td class="td-desc">Product state. Key field: <code style="font-family:var(--mono);font-size:11px;">visibility</code> — controls whether the product is visible in UI.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. { "visibility": "visible" }</span></td>
+        </tr>
+        <tr>
+          <td class="td-field">classification</td>
+          <td><span class="badge badge-object">object</span></td>
+          <td class="td-desc">Catalogue classification: <code style="font-family:var(--mono);font-size:11px;">brand</code> (id, groupId, groupCode), <code style="font-family:var(--mono);font-size:11px;">section</code>, <code style="font-family:var(--mono);font-size:11px;">family</code>, <code style="font-family:var(--mono);font-size:11px;">subfamily</code>, <code style="font-family:var(--mono);font-size:11px;">sizeSystem</code>.</td>
+        </tr>
+        <tr>
+          <td class="td-field">color</td>
+          <td><span class="badge badge-object">object</span></td>
+          <td class="td-desc">Primary color and alternative colors of the component.
+            <div style="margin-top:8px;display:flex;flex-direction:column;gap:3px;font-size:12px;">
+              <div><code style="font-family:var(--mono);">id</code> — Color ID</div>
+              <div><code style="font-family:var(--mono);">name</code> — Color name <span style="font-family:var(--mono);color:var(--text-tertiary);">e.g. Black</span></div>
+              <div><code style="font-family:var(--mono);">hexCode</code> — Color hex <span style="font-family:var(--mono);color:var(--text-tertiary);">e.g. #000000</span></div>
+              <div><code style="font-family:var(--mono);">otherColors[]</code> — Available color variants (id, reference, name, hexCode, colorcutUrl)</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="td-field">pricing</td>
+          <td><span class="badge badge-object">object</span></td>
+          <td class="td-desc">Product pricing structure. Monetary values are expressed in <strong>smallest currency unit</strong> (divide by 10^|exponent|).
+            <div style="margin-top:8px;display:flex;flex-direction:column;gap:3px;font-size:12px;">
+              <div><code style="font-family:var(--mono);">price.current</code> — Current price: <code style="font-family:var(--mono);">value</code>, <code style="font-family:var(--mono);">minValue</code>, <code style="font-family:var(--mono);">currency</code> (code, exponent)</div>
+              <div><code style="font-family:var(--mono);">originalPrice</code> — Pre-discount price + <code style="font-family:var(--mono);">discount.label</code></div>
+              <div><code style="font-family:var(--mono);">futurePrice</code> — Upcoming price with promotion info (<code style="font-family:var(--mono);">promotion.name</code>, <code style="font-family:var(--mono);">startDate</code>, <code style="font-family:var(--mono);">endDate</code>)</div>
+              <div><code style="font-family:var(--mono);">unitPrice</code> — Price per unit of measure (<code style="font-family:var(--mono);">unit</code>, <code style="font-family:var(--mono);">type</code>)</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="td-field">media</td>
+          <td><span class="badge badge-array">array</span></td>
+          <td class="td-desc">Product media assets (images, videos). Each item contains:
+            <div style="margin-top:8px;display:flex;flex-direction:column;gap:3px;font-size:12px;">
+              <div><code style="font-family:var(--mono);">asset.type</code> — Type: <code style="font-family:var(--mono);">image</code> / <code style="font-family:var(--mono);">video</code></div>
+              <div><code style="font-family:var(--mono);">asset.url</code> — Base asset URL</div>
+              <div><code style="font-family:var(--mono);">asset.dimensions</code> — Dimensions: <code style="font-family:var(--mono);">height</code>, <code style="font-family:var(--mono);">width</code></div>
+              <div><code style="font-family:var(--mono);">asset.styles</code> — Asset presentation styles</div>
+              <div><code style="font-family:var(--mono);">asset.editorialName</code> — Editorial name <span style="color:var(--text-tertiary);">e.g. a1</span></div>
+              <div><code style="font-family:var(--mono);">asset.locations</code> — Where to use the asset: <code style="font-family:var(--mono);">CATEGORY_PAGE</code>, <code style="font-family:var(--mono);">PRODUCT_PAGE</code></div>
+              <div><code style="font-family:var(--mono);">layers[]</code> — Additional layers on top of the main asset</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="td-field">sizes</td>
+          <td><span class="badge badge-array">array</span></td>
+          <td class="td-desc">Available sizes. Each size includes:
+            <div style="margin-top:8px;display:flex;flex-direction:column;gap:3px;font-size:12px;">
+              <div><code style="font-family:var(--mono);">identifier</code> — id, reference, sku, equivalentSizeId</div>
+              <div><code style="font-family:var(--mono);">nomenclature</code> — name, shortName, description</div>
+              <div><code style="font-family:var(--mono);">availability</code> — <code style="font-family:var(--mono);">in_stock</code> / <code style="font-family:var(--mono);">out_of_stock</code></div>
+              <div><code style="font-family:var(--mono);">sizeType</code> — <code style="font-family:var(--mono);">regular</code> / others</div>
+              <div><code style="font-family:var(--mono);">pricing</code> — Size-specific price (may differ from product price)</div>
+              <div><code style="font-family:var(--mono);">skuDimensions[]</code> — Physical dimensions (HEIGHT, WIDTH, DEPTH)</div>
+              <div><code style="font-family:var(--mono);">twinnedSkus[]</code> — Linked twinned SKUs</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="td-field">tags</td>
+          <td><span class="badge badge-array">array</span></td>
+          <td class="td-desc">Product tags for UI badges. Each tag contains <code style="font-family:var(--mono);font-size:11px;">displayName</code> and <code style="font-family:var(--mono);font-size:11px;">type</code>.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. { "displayName": "NEW", "type": "NEW" }</span></td>
+        </tr>
+        <tr>
+          <td class="td-field">features</td>
+          <td><span class="badge badge-object">object</span></td>
+          <td class="td-desc">Product feature flags. Relevant keys for frontends:
+            <div style="margin-top:8px;display:flex;flex-direction:column;gap:3px;font-size:12px;">
+              <div><code style="font-family:var(--mono);">shouldUseColorcutInColorLabel</code> — Use colorcut in the color selector</div>
+              <div><code style="font-family:var(--mono);">isSizeLabelExplanationRequired</code> — Show size tooltip</div>
+              <div><code style="font-family:var(--mono);">highlightPrice</code> — Visually highlight the price</div>
+              <div><code style="font-family:var(--mono);">isVirtualTryOnSupported</code> — Enable Virtual Try-On</div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="td-field">seo</td>
+          <td><span class="badge badge-object">object</span></td>
+          <td class="td-desc">Product SEO metadata: <code style="font-family:var(--mono);font-size:11px;">keyword</code>, <code style="font-family:var(--mono);font-size:11px;">seoProductId</code>, <code style="font-family:var(--mono);font-size:11px;">discernProductId</code>, <code style="font-family:var(--mono);font-size:11px;">irrelevant</code> (if <code style="font-family:var(--mono);font-size:11px;">true</code> do not index).</td>
+        </tr>
+        <tr>
+          <td class="td-field">firstAvailabilityDate</td>
+          <td><span class="badge badge-string">string</span></td>
+          <td class="td-desc">First product availability date in ISO 8601 format.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. 2024-10-03T23:00:00Z</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout-wrap">
+      <div class="callout callout-info">
+        <strong>Price calculation:</strong> Monetary values use <code style="font-family:var(--mono);font-size:12px;">currency.exponent</code> to determine the scale. With <code style="font-family:var(--mono);font-size:12px;">exponent: -2</code> and <code style="font-family:var(--mono);font-size:12px;">value: 2999</code> the price is <strong>29.99 EUR</strong>. Compute as: <code style="font-family:var(--mono);font-size:12px;">value * 10^exponent</code>.
+      </div>
+      <div class="callout callout-warn">
+        <strong>Size-level pricing:</strong> Each size may carry its own <code style="font-family:var(--mono);font-size:12px;">pricing</code> object that differs from the product-level price. Always use the size price when available.
+      </div>
+    </div>
+    <div class="code-wrap">
+      <div class="code-label">Minimal value example — commercialComponent</div>
+      <div class="code-block"><span class="cm">// AutotemplateGridBlock.metadata.commercialComponents[0]</span>
+{
+  <span class="ck">"identifier"</span>: {
+    <span class="ck">"id"</span>: <span class="cs">"16546465"</span>,
+    <span class="ck">"reference"</span>: <span class="cs">"C07380704800000-V2023"</span>,
+    <span class="ck">"displayReference"</span>: <span class="cs">"7380/704"</span>
+  },
+  <span class="ck">"name"</span>: <span class="cs">"COMFORT PERFORMANCE TECHNICAL BLAZER"</span>,
+  <span class="ck">"type"</span>: <span class="cs">"Product"</span>,
+  <span class="ck">"state"</span>: { <span class="ck">"visibility"</span>: <span class="cs">"visible"</span> },
+  <span class="ck">"color"</span>: {
+    <span class="ck">"id"</span>: <span class="cs">"250"</span>,
+    <span class="ck">"name"</span>: <span class="cs">"Black"</span>,
+    <span class="ck">"hexCode"</span>: <span class="cs">"#000000"</span>,
+    <span class="ck">"otherColors"</span>: [ <span class="cm">/* color variants */</span> ]
+  },
+  <span class="ck">"pricing"</span>: {
+    <span class="ck">"price"</span>: {
+      <span class="ck">"current"</span>: {
+        <span class="ck">"value"</span>: <span class="cn">2999</span>,           <span class="cm">// → 29.99 EUR</span>
+        <span class="ck">"currency"</span>: { <span class="ck">"code"</span>: <span class="cs">"EUR"</span>, <span class="ck">"exponent"</span>: <span class="cn">-2</span> }
+      }
+    }
+  },
+  <span class="ck">"tags"</span>: [{ <span class="ck">"displayName"</span>: <span class="cs">"NEW"</span>, <span class="ck">"type"</span>: <span class="cs">"NEW"</span> }],
+  <span class="ck">"features"</span>: {
+    <span class="ck">"highlightPrice"</span>: <span class="cs">"true"</span>,
+    <span class="ck">"isVirtualTryOnSupported"</span>: <span class="cs">"false"</span>
+  }
+}</div>
+    </div>
+  </div>
+
+  <!-- PROMOTIONAL BANNER -->
+  <div id="banner" class="section">
+    <div class="section-head">
+      <div class="section-dot" style="background:#0071e3;"></div>
+      <div>
+        <div class="section-title">PromotionalBanner</div>
+        <div class="section-subtitle">Item of <code style="font-family:var(--mono);font-size:12px;">promotionalBanners[]</code> — grid promotional banners</div>
+      </div>
+      <div class="section-mono">promotionalBanners[]</div>
+    </div>
+    <div class="section-intro">
+      Banners sorted by descending priority. The first three fields are required. The frontend must render banners respecting the array order.
+    </div>
+    <table class="fields-table">
+      <thead>
+        <tr><th>Field</th><th>Type</th><th>Req.</th><th>Constraints</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr class="row-req">
+          <td class="td-field">id<span class="req-star">*</span></td>
+          <td><span class="badge badge-integer">integer</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Unique numeric banner identifier. Use for deduplication and as list key.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. 1</span></td>
+        </tr>
+        <tr class="row-req">
+          <td class="td-field">title<span class="req-star">*</span></td>
+          <td><span class="badge badge-string">string</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Main banner text, internationalised. Display in the component heading.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. NEW IN</span></td>
+        </tr>
+        <tr class="row-req">
+          <td class="td-field">description<span class="req-star">*</span></td>
+          <td><span class="badge badge-string">string</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Descriptive banner text to display below the title.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. Descubre la nueva coleccion</span></td>
+        </tr>
+        <tr>
+          <td class="td-field">disableClose</td>
+          <td><span class="badge badge-boolean">boolean</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">When <code style="font-family:var(--mono);font-size:11px;">true</code>, the frontend <strong>must remove the close button</strong> from the banner. The user will not be able to dismiss it.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. true</span></td>
+        </tr>
+        <tr>
+          <td class="td-field">link</td>
+          <td><span class="badge badge-object">PromotionalBannerLink</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Navigation target on banner click. When present, the whole component must be clickable.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- GRID CONTEXT -->
+  <div id="context" class="section">
+    <div class="section-head">
+      <div class="section-dot" style="background:#0a7b7b;"></div>
+      <div>
+        <div class="section-title">GridContext</div>
+        <div class="section-subtitle">Field <code style="font-family:var(--mono);font-size:12px;">context*</code> of SearchGrid — rendering configuration</div>
+      </div>
+      <div class="section-mono">context</div>
+    </div>
+    <div class="section-intro">
+      Required object holding additional information needed for correct grid and product rendering. The three required fields must be processed by the frontend before rendering any block.
+    </div>
+    <table class="fields-table">
+      <thead>
+        <tr><th>Field</th><th>Type</th><th>Req.</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr class="row-req">
+          <td class="td-field">isPlainImageSelectorEnabled<span class="req-star">*</span></td>
+          <td><span class="badge badge-object">—</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-desc">Controls whether the plain image selector is enabled for this grid. Affects the color selection experience in product components.</td>
+        </tr>
+        <tr>
+          <td class="td-field">isOverlayEnabled</td>
+          <td><span class="badge badge-object">—</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-desc">Whether the overlay is enabled for the grid (e.g. quick-add, image zoom).</td>
+        </tr>
+        <tr>
+          <td class="td-field">gridPaginationInfo</td>
+          <td><span class="badge badge-object">GridPaginationInfo</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-desc">Pagination info: total elements, current page, page size. Required to implement infinite scroll or pagination.</td>
+        </tr>
+        <tr class="row-req">
+          <td class="td-field">autoTemplatePattern<span class="req-star">*</span></td>
+          <td><span class="badge badge-object">—</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-desc">Auto-template distribution pattern applied to the grid. Defines how product blocks are laid out visually in the grid.</td>
+        </tr>
+        <tr class="row-req">
+          <td class="td-field">attributes<span class="req-star">*</span></td>
+          <td><span class="badge badge-array">[ValuedAttribute]</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-desc">Context attributes in key-value format that configure the global rendering behaviour. See <a href="#valuedattr" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,113,227,0.3);">ValuedAttribute</a>.</td>
+        </tr>
+        <tr>
+          <td class="td-field">categoryTitle</td>
+          <td><span class="badge badge-object">—</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-desc">Category title to display in the grid page heading.</td>
+        </tr>
+        <tr>
+          <td class="td-field">autoTemplates</td>
+          <td><span class="badge badge-array">array</span></td>
+          <td><span class="badge badge-opt">optional</span></td>
+          <td class="td-desc">Definition of the available auto-templates for the grid.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- VALUED ATTRIBUTE -->
+  <div id="valuedattr" class="section">
+    <div class="section-head">
+      <div class="section-dot" style="background:#6b3fa0;"></div>
+      <div>
+        <div class="section-title">ValuedAttribute</div>
+        <div class="section-subtitle">Dynamic key-value attribute — used in <code style="font-family:var(--mono);font-size:12px;">sections[].attributes</code> and <code style="font-family:var(--mono);font-size:12px;">context.attributes</code></div>
+      </div>
+      <div class="section-mono">ValuedAttribute</div>
+    </div>
+    <div class="section-intro">
+      Generic key-value attribute structure used at multiple points in the schema. Both fields are required. Values are always <code style="font-family:var(--mono);font-size:12px;">string</code> even when representing booleans or numbers — the frontend must parse them according to the key's semantics.
+    </div>
+    <table class="fields-table">
+      <thead>
+        <tr><th>Field</th><th>Type</th><th>Req.</th><th>Constraints</th><th>Description</th></tr>
+      </thead>
+      <tbody>
+        <tr class="row-req">
+          <td class="td-field">key<span class="req-star">*</span></td>
+          <td><span class="badge badge-string">string</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Attribute key in <code style="font-family:var(--mono);font-size:11px;">SCREAMING_SNAKE_CASE</code> format.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. EDITORIAL_SECTION</span></td>
+        </tr>
+        <tr class="row-req">
+          <td class="td-field">value<span class="req-star">*</span></td>
+          <td><span class="badge badge-string">string</span></td>
+          <td><span class="badge badge-req">required</span></td>
+          <td class="td-constraint">—</td>
+          <td class="td-desc">Attribute value serialised as a string. Parse according to the key's semantics.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. "true"</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout-wrap">
+      <div class="callout callout-note">
+        <strong>Integration tip:</strong> Boolean values arrive as strings <code style="font-family:var(--mono);font-size:12px;">"true"</code> / <code style="font-family:var(--mono);font-size:12px;">"false"</code>. Use strict string comparison or parse with <code style="font-family:var(--mono);font-size:12px;">value === "true"</code> to avoid JavaScript coercion errors.
+      </div>
+    </div>
+    <div class="code-wrap">
+      <div class="code-label">Known attribute examples</div>
+      <div class="code-block"><span class="cm">// sections[].attributes — common examples</span>
+[
+  { <span class="ck">"key"</span>: <span class="cs">"EDITORIAL_SECTION"</span>,   <span class="ck">"value"</span>: <span class="cs">"true"</span>  },
+  { <span class="ck">"key"</span>: <span class="cs">"HAS_HEADER"</span>,          <span class="ck">"value"</span>: <span class="cs">"false"</span> },
+  { <span class="ck">"key"</span>: <span class="cs">"SECTION_POSITION"</span>,    <span class="ck">"value"</span>: <span class="cs">"0"</span>     }
+]
+
+<span class="cm">// context.attributes — common examples</span>
+[
+  { <span class="ck">"key"</span>: <span class="cs">"SHOW_FILTERS"</span>,        <span class="ck">"value"</span>: <span class="cs">"true"</span>    },
+  { <span class="ck">"key"</span>: <span class="cs">"GRID_LAYOUT"</span>,         <span class="ck">"value"</span>: <span class="cs">"default"</span> }
+]</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>IOP Product · SearchGrid — Integration Technical Reference · 2026</p>
+  </div>
+
+</div>
+
+<script>
+  /* ── NAV scroll spy ── */
+  const sections = ['overview','searchgrid','gridsection','gridblock','commercial','banner','context','valuedattr'];
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 70) current = id;
+    });
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
+  });
+
+  /* ── JSON VIEWER ── */
+  const EXAMPLE_JSON = {
+    "sections": [
+    {
+      "id": "default-search",
+      "type": "default-search",
+      "elements": [
+        {
+          "id": "search-results",
+          "kind": "AUTOTEMPLATE",
+          "isSectionIndex": false,
+          "metadata": {
+            "commercialComponents": [
+              {
+                "identifier": {
+                  "id": "469501386",
+                  "productParentId": "462205684",
+                  "reference": "C00264456250000-I2025",
+                  "productParentReference": "06224368-I2025",
+                  "displayReference": "0264/456"
+                },
+                "name": "CAMISETA CUELLO BARCO",
+                "type": "Product",
+                "state": {
+                  "visibility": "visible"
+                },
+                "classification": {
+                  "brand": {
+                    "id": 1,
+                    "groupId": 1,
+                    "groupCode": "zara"
+                  },
+                  "section": {
+                    "id": 1,
+                    "name": "WOMAN"
+                  },
+                  "family": {
+                    "id": 83,
+                    "name": "CAMISETA"
+                  },
+                  "subfamily": {
+                    "id": 12479,
+                    "name": "CTAS.BASICAS"
+                  },
+                  "sizeSystem": "5"
+                },
+                "color": {
+                  "id": "733",
+                  "commercialComponentId": "462224475",
+                  "name": "Cream",
+                  "hexCode": "#FCF6E3",
+                  "otherColors": []
+                },
+                "pricing": {
+                  "price": {
+                    "current": {
+                      "value": 2299,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    },
+                    "previous": {
+                      "value": 3995,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    },
+                    "promotion": {
+                      "name": "ECOMLOAD_SEASON_PROMO_PROMOCION_GLOBAL_+_DNWR+_CIRCULAR_82521_ZARA_ES",
+                      "startDate": "2025-09-30T23:00:00Z",
+                      "endDate": "2026-01-15T01:30:00Z"
+                    }
+                  }
+                },
+                "originalPrice": {
+                  "price": {
+                    "value": "1795",
+                    "currency": {
+                      "code": "EUR",
+                      "exponent": "-2"
+                    }
+                  },
+                  "discount": {
+                    "label": "string",
+                    "showDisclaimer": "boolean"
+                  }
+                },
+                "futurePrice": {
+                  "price": {
+                    "current": {
+                      "value": 2299,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    }
+                  },
+                  "promotion": {
+                    "name": "ECOMLOAD_SEASON_PROMO_PROMOCION_GLOBAL_+_DNWR+_CIRCULAR_82521_ZARA_ES",
+                    "startDate": "2025-09-30T23:00:00Z",
+                    "endDate": "2026-01-15T01:30:00Z"
+                  },
+                  "discount": {
+                    "label": "string",
+                    "showDisclaimer": "boolean"
+                  }
+                },
+                "media": [
+                  {
+                    "asset": {
+                      "type": "image",
+                      "assetId": "27a6f2a21d954d938837f63b11125fe8",
+                      "timestamp": "1754474056103",
+                      "url": "https://static.zara.net/assets/public/27a6/f2a2/1d954d938837/f63b11125fe8/06224368733-p/06224368733-p.jpg?ts=1754474056103&w={width}",
+                      "formats": [],
+                      "allowedScreens": [
+                        "small",
+                        "large"
+                      ],
+                      "metaUrl": "https://static.zara.net/assets/public/27a6/f2a2/1d954d938837/f63b11125fe8/meta.json?ts=1754474056108",
+                      "styles": {
+                        "kind": "full"
+                      },
+                      "dimensions": {
+                        "width": 2048,
+                        "height": 3072
+                      },
+                      "editorialName": "p",
+                      "locations": []
+                    }
+                  }
+                ],
+                "sizes": [
+                  {
+                    "identifier": {
+                      "id": 2,
+                      "reference": "0622436873302-I2025",
+                      "sku": 462205686,
+                      "equivalentSizeId": 102
+                    },
+                    "nomenclature": {
+                      "name": "S"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 1995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "VALUED",
+                        "identifier": "GTINCODE",
+                        "values": [
+                          "8447485151643"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "VALUED",
+                        "identifier": "DYEING-PRINTING",
+                        "values": [
+                          "PT"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "MARK",
+                        "identifier": "XECOMLOAD_SIZE_GROUP_261",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "VALUED",
+                        "identifier": "SIZE_GROUP_FILTER",
+                        "values": [
+                          "XECOMLOAD_SIZE_GROUP_261"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "VALUED",
+                        "identifier": "IKPU",
+                        "values": [
+                          "06109001001000000#1124331"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "VALUED",
+                        "identifier": "WEAVING",
+                        "values": [
+                          "PT"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "MARK",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "VALUED",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "MA"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "VALUED",
+                        "identifier": "SYNTHETIC_FIBER_PERCENTAGE",
+                        "values": [
+                          "0"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  }
+                ],
+                "tags": [
+                  {
+                    "displayName": "NEW",
+                    "type": "NEW"
+                  }
+                ],
+                "components": [
+                  {
+                    "id": 2,
+                    "nomenclature": {
+                      "name": "S"
+                    },
+                    "classification": {
+                      "brand": {
+                        "id": 1,
+                        "groupId": 1,
+                        "groupCode": "zara"
+                      },
+                      "section": {
+                        "id": 1,
+                        "name": "WOMAN"
+                      },
+                      "family": {
+                        "id": 83,
+                        "name": "CAMISETA"
+                      },
+                      "subfamily": {
+                        "id": 12479,
+                        "name": "CTAS.BASICAS"
+                      },
+                      "sizeSystem": "5"
+                    },
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 1995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "features": {
+                      "isMainComponent": "true"
+                    }
+                  }
+                ],
+                "relations": [
+                  {
+                    "ids": [
+                      410580484,
+                      465180349,
+                      453962449
+                    ],
+                    "type": "PACMAN-LOOK"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "type": "VALUED",
+                    "identifier": "KNITT",
+                    "values": [
+                      "Circular"
+                    ],
+                    "properties": {}
+                  }
+                ],
+                "features": {
+                  "extraDetailTitle": "Composition, care & origin",
+                  "highlightPrice": "false",
+                  "hasSpecialReturnConditions": "false",
+                  "isSizeGuideEnabled": "true",
+                  "isVirtualTryOnSupported": "false",
+                  "isRecommendedCarouselEnabled": "true",
+                  "isNotReturnable": "false",
+                  "isSizeRecommender": "true",
+                  "hasInteractiveSizeGuide": "true"
+                },
+                "seo": {
+                  "keyword": "embroidered-slogan-t-shirt",
+                  "seoProductId": "06224368",
+                  "discernProductId": 462224475
+                },
+                "messages": {
+                  "netPriceMessage": {
+                    "text": "This product has a smaller fit than usual",
+                    "colorHexCode": "#23f444"
+                  }
+                },
+                "modelInfo": {
+                  "height": 178,
+                  "heightUnit": "cm",
+                  "size": "S",
+                  "description": "The model is 178 cm tall and wears size S"
+                }
+              }
+            ]
+          },
+          "linkedBlocks": [
+            "searchResults",
+            ""
+          ],
+          "tags": []
+        }
+      ]
+    },
+    {
+      "id": "alternatives-search",
+      "type": "alternatives-search",
+      "elements": [
+        {
+          "id": "other-colors-results",
+          "kind": "AUTOTEMPLATE",
+          "isSectionIndex": false,
+          "metadata": {
+            "simplifiedCommercialComponents": []
+          },
+          "linkedBlocks": [
+            "other-colors-results",
+            "similars-results",
+            "preowned-results"
+          ],
+          "tags": []
+        },
+        {
+          "id": "similars-results",
+          "kind": "AUTOTEMPLATE",
+          "isSectionIndex": false,
+          "metadata": {
+            "simplifiedCommercialComponents": []
+          },
+          "linkedBlocks": [
+            "other-colors-results",
+            "similars-results",
+            "preowned-results"
+          ],
+          "tags": []
+        },
+        {
+          "id": "preowned-results",
+          "kind": "AUTOTEMPLATE",
+          "isSectionIndex": false,
+          "metadata": {
+            "simplifiedCommercialComponents": []
+          },
+          "linkedBlocks": [
+            "other-colors-results",
+            "similars-results",
+            "preowned-results"
+          ],
+          "tags": []
+        }
+      ]
+    }
+  ],
+  "promotionalBanners": [
+    {
+      "id": 1,
+      "title": "NEW IN",
+      "description": "Descubre la nueva colección",
+      "disableClose": false,
+      "link": {
+        "datatype": "categoryLink",
+        "id": 2111785,
+        "seoKeyword": "mujer-nuevo",
+        "seoId": "1180"
+      }
+    }
+  ],
+  "context": {
+    "isPlainImageSelectorEnabled": true,
+    "gridPaginationInfo": {
+      "total": 100,
+      "token": "MTA3MDE6OjE3ZDAzZjU3LTU5YjktNGY4MS1iYzk1LWViNjU3N2FlMmM1OTo6c2FsZXMyMDI0OjoxMDozMA=="
+    },
+    "autoTemplatePattern": [
+      "1A"
+    ],
+    "attributes": [],
+    "categoryTitle": "Search Grid"
+  },
+  "filters": [
+    {
+      "kind": "RANGE",
+      "key": "price_facet",
+      "minValue": 495,
+      "maxValue": 29900,
+      "step": 294,
+      "filter": "price_facet:495.0-29900.0"
+    },
+    {
+      "kind": "MULTIVALUED",
+      "key": "color_facet",
+      "values": [
+        {
+          "id": "beige",
+          "count": 1,
+          "value": "Beige",
+          "filter": "color_facet:beige",
+          "extraInfo": {
+            "color": {
+              "hexCode": "#E6D4AB"
+            }
+          }
+        },
+        {
+          "id": "black",
+          "count": 1,
+          "value": "Black",
+          "filter": "color_facet:black",
+          "extraInfo": {
+            "color": {
+              "hexCode": "#251F1F",
+              "cutUrl": null
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "sortings": [
+    {
+      "property": "PRICE",
+      "availableOrders": [
+        "ASC",
+        "DESC"
+      ]
+    }
+  ],
+  "section": "WOMAN",
+  "metadata": {
+    "provider": "Attraqt",
+    "searchpass": "SPELL_CHECK_LONG",
+    "spellchecked": "camiseta"
+  },
+  "additionalEntities": []
+  };
+
+  let jvNodeId = 0;
+
+  function jvEsc(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function jvRender(val, key, comma) {
+    const c = comma ? '<span class="jp">,</span>' : '';
+    const keyHtml = key !== null
+      ? `<span class="jkey">"${jvEsc(key)}"</span><span class="jp">: </span>`
+      : '';
+
+    // Primitives
+    if (val === null)
+      return `<div class="jrow">${keyHtml}<span class="jnull">null</span>${c}</div>`;
+    if (typeof val === 'boolean')
+      return `<div class="jrow">${keyHtml}<span class="jbool">${val}</span>${c}</div>`;
+    if (typeof val === 'number')
+      return `<div class="jrow">${keyHtml}<span class="jnum">${val}</span>${c}</div>`;
+    if (typeof val === 'string')
+      return `<div class="jrow">${keyHtml}<span class="jstr">"${jvEsc(val)}"</span>${c}</div>`;
+
+    const id = `jvn${++jvNodeId}`;
+    const isArr = Array.isArray(val);
+    const children = isArr ? val : Object.keys(val);
+    const count = children.length;
+
+    if (count === 0) {
+      const empty = isArr ? '[]' : '{}';
+      return `<div class="jrow">${keyHtml}<span class="jp">${empty}</span>${c}</div>`;
+    }
+
+    const openBr  = isArr ? '[' : '{';
+    const closeBr = isArr ? ']' : '}';
+    const noun    = isArr ? (count === 1 ? 'item' : 'items') : (count === 1 ? 'key' : 'keys');
+    const summary = `${openBr} … ${count} ${noun} ${closeBr}`;
+
+    let bodyRows = '';
+    if (isArr) {
+      val.forEach((v, i) => { bodyRows += jvRender(v, null, i < val.length - 1); });
+    } else {
+      const keys = Object.keys(val);
+      keys.forEach((k, i) => { bodyRows += jvRender(val[k], k, i < keys.length - 1); });
+    }
+
+    return `<div class="jrc jvo" id="${id}">` +
+      `<div class="jrh">${keyHtml}` +
+        `<button class="jtog" onclick="jvTog('${id}')">▾</button>` +
+        `<span class="jbop"><span class="jp">${openBr}</span></span>` +
+        `<span class="jbcs"><span class="jp">${summary}</span></span>` +
+      `</div>` +
+      `<div class="jrb">${bodyRows}</div>` +
+      `<div class="jrcl"><span class="jp">${closeBr}</span>${c}</div>` +
+    `</div>`;
+  }
+
+  function jvTog(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const open = el.classList.toggle('jvo');
+    const btn  = el.querySelector(':scope > .jrh > .jtog');
+    if (btn) btn.textContent = open ? '▾' : '▸';
+  }
+
+  function jvExpandAll() {
+    document.querySelectorAll('#jsonViewer .jrc').forEach(el => {
+      el.classList.add('jvo');
+      const btn = el.querySelector(':scope > .jrh > .jtog');
+      if (btn) btn.textContent = '▾';
+    });
+  }
+
+  function jvCollapseAll() {
+    document.querySelectorAll('#jsonViewer .jrc').forEach(el => {
+      el.classList.remove('jvo');
+      const btn = el.querySelector(':scope > .jrh > .jtog');
+      if (btn) btn.textContent = '▸';
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('jsonViewer');
+    if (container) container.innerHTML = jvRender(EXAMPLE_JSON, null, false);
+
+    // Search input keyboard shortcuts
+    const si = document.getElementById('jvSearchInput');
+    if (si) {
+      si.addEventListener('keydown', e => {
+        if (e.key === 'Enter')   { e.preventDefault(); jvNavMatch(e.shiftKey ? -1 : 1); }
+        if (e.key === 'Escape')  { si.value = ''; jvSearch(''); si.blur(); }
+      });
+    }
+  });
+
+  // Ctrl+F / Cmd+F → focus JSON search input
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+      const si = document.getElementById('jvSearchInput');
+      if (si) { e.preventDefault(); si.focus(); si.select(); }
+    }
+  });
+
+  let jvMatches = [], jvMatchIdx = -1;
+
+  function jvSearch(query) {
+    const viewer = document.getElementById('jsonViewer');
+
+    // Remove previous highlights
+    viewer.querySelectorAll('mark.jvm').forEach(m => {
+      m.parentNode.replaceChild(document.createTextNode(m.textContent), m);
+    });
+    viewer.normalize();
+    jvMatches = []; jvMatchIdx = -1;
+
+    const countEl = document.getElementById('jvMatchCount');
+    if (!query.trim()) { countEl.textContent = ''; return; }
+
+    const lq = query.toLowerCase();
+
+    // Collect matching text nodes up-front (TreeWalker is safe against DOM mutation)
+    const tw = document.createTreeWalker(viewer, NodeFilter.SHOW_TEXT);
+    const hits = [];
+    let n;
+    while ((n = tw.nextNode())) {
+      if (n.textContent.toLowerCase().includes(lq)) hits.push(n);
+    }
+
+    hits.forEach(textNode => {
+      const text = textNode.textContent;
+      const lower = text.toLowerCase();
+
+      // Auto-expand collapsed ancestors so the match is visible
+      let p = textNode.parentElement;
+      while (p && p !== viewer) {
+        if (p.classList.contains('jrc') && !p.classList.contains('jvo')) {
+          p.classList.add('jvo');
+          const btn = p.querySelector(':scope > .jrh > .jtog');
+          if (btn) btn.textContent = '▾';
+        }
+        p = p.parentElement;
+      }
+
+      // Build replacement fragment with <mark> spans
+      const frag = document.createDocumentFragment();
+      let rem = text, lrem = lower, idx;
+      while ((idx = lrem.indexOf(lq)) !== -1) {
+        if (idx > 0) frag.appendChild(document.createTextNode(rem.slice(0, idx)));
+        const mark = document.createElement('mark');
+        mark.className = 'jvm';
+        mark.textContent = rem.slice(idx, idx + query.length);
+        frag.appendChild(mark);
+        jvMatches.push(mark);
+        rem   = rem.slice(idx + query.length);
+        lrem  = lrem.slice(idx + query.length);
+      }
+      if (rem) frag.appendChild(document.createTextNode(rem));
+      textNode.parentNode.replaceChild(frag, textNode);
+    });
+
+    const total = jvMatches.length;
+    if (total) {
+      jvMatchIdx = 0;
+      jvMatches[0].classList.add('jvm-active');
+      jvMatches[0].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      countEl.textContent = `1 / ${total}`;
+    } else {
+      countEl.textContent = 'No matches';
+    }
+  }
+
+  function jvNavMatch(dir) {
+    if (!jvMatches.length) return;
+    jvMatches[jvMatchIdx].classList.remove('jvm-active');
+    jvMatchIdx = (jvMatchIdx + dir + jvMatches.length) % jvMatches.length;
+    jvMatches[jvMatchIdx].classList.add('jvm-active');
+    jvMatches[jvMatchIdx].scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    document.getElementById('jvMatchCount').textContent = `${jvMatchIdx + 1} / ${jvMatches.length}`;
+  }
+</script>
+</body>
+</html>
