@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fashion Taxonomy Explorer</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f5f5f7; --surface: #ffffff; --surface2: #fafafa;
+    --border: rgba(0,0,0,0.1); --border2: rgba(0,0,0,0.18);
+    --text: #1d1d1f; --text2: #6e6e73; --text3: #aeaeb2;
+    --info-bg: #e8f1fb; --info-txt: #185fa5;
+    --radius-md: 8px; --radius-lg: 12px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1c1e; --surface: #2c2c2e; --surface2: #3a3a3c;
+      --border: rgba(255,255,255,0.1); --border2: rgba(255,255,255,0.18);
+      --text: #f5f5f7; --text2: #aeaeb2; --text3: #6e6e73;
+      --info-bg: #0c2d4a; --info-txt: #78b9f8;
+    }
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg); color: var(--text);
+    min-height: 100vh; padding: 24px 20px 48px;
+    font-size: 14px; line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: var(--text2); margin-bottom: 20px; }
+  .top-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+  .search-wrap { flex: 1; min-width: 180px; max-width: 360px; position: relative; }
+  .search-wrap svg { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); pointer-events: none; }
+  #search {
+    width: 100%; padding: 8px 10px 8px 32px;
+    border: 0.5px solid var(--border2);
+    border-radius: var(--radius-md);
+    background: var(--surface); color: var(--text);
+    font-size: 13px; outline: none;
+    transition: border-color .15s;
+  }
+  #search:focus { border-color: #378add; }
+  .cat-pills { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pill {
+    padding: 5px 12px; border-radius: 20px; font-size: 12px;
+    cursor: pointer; border: 0.5px solid var(--border);
+    background: var(--surface2); color: var(--text2);
+    transition: background .15s, color .15s; white-space: nowrap;
+  }
+  .pill.active { background: var(--info-bg); color: var(--info-txt); border-color: transparent; }
+  .pill:hover:not(.active) { background: var(--surface); color: var(--text); }
+  .stats-row { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .stat-chip {
+    padding: 4px 10px; border-radius: var(--radius-md); font-size: 12px;
+    background: var(--surface2); color: var(--text2); border: 0.5px solid var(--border);
+  }
+  .stat-chip strong { color: var(--text); font-weight: 500; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+  .cat-card {
+    background: var(--surface); border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg); overflow: hidden;
+    transition: border-color .15s;
+  }
+  .cat-card:hover { border-color: var(--border2); }
+  .cat-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px 8px; cursor: pointer; user-select: none;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .cat-head:hover { background: var(--surface2); }
+  .cat-label { display: flex; align-items: center; gap: 8px; }
+  .cat-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .cat-name { font-weight: 500; font-size: 13px; color: var(--text); }
+  .cat-count {
+    font-size: 11px; color: var(--text3); background: var(--surface2);
+    padding: 2px 7px; border-radius: 10px; border: 0.5px solid var(--border);
+  }
+  .chevron { font-size: 11px; color: var(--text3); transition: transform .2s; display: inline-block; }
+  .chevron.open { transform: rotate(90deg); }
+  .values-list { padding: 8px 14px 10px; max-height: 220px; overflow-y: auto; }
+  .values-list::-webkit-scrollbar { width: 3px; }
+  .values-list::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+  .val-item {
+    display: flex; align-items: flex-start; gap: 6px;
+    padding: 4px 0; border-bottom: 0.5px solid var(--border);
+    font-size: 12px; color: var(--text2); line-height: 1.4;
+  }
+  .val-item:last-child { border-bottom: none; }
+  .val-dot { width: 4px; height: 4px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  mark.hl { background: #ffe066; color: #5a3a00; border-radius: 2px; padding: 0 1px; }
+  .empty-state { grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text3); font-size: 13px; }
+</style>
+</head>
+<body>
+
+<h1>Fashion Taxonomy Explorer</h1>
+<p class="subtitle">Browse and search all product attribute values</p>
+
+<div class="top-bar">
+  <div class="search-wrap">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <circle cx="6" cy="6" r="4.5" stroke="#aeaeb2" stroke-width="1.2"/>
+      <line x1="9.5" y1="9.5" x2="13" y2="13" stroke="#aeaeb2" stroke-width="1.2" stroke-linecap="round"/>
+    </svg>
+    <input id="search" type="text" placeholder="Search values…" oninput="render()" autocomplete="off" spellcheck="false">
+  </div>
+  <div class="cat-pills" id="pills"></div>
+</div>
+
+<div class="stats-row" id="stats"></div>
+<div class="grid" id="grid"></div>
+
+<script>
+const DATA = {
+  "Pattern": ["Abstract","Print","Tropical","Graphic","Patchwork","Letter","Paisley","Floral","Striped","Houndstooth","Tie dye","Camouflage","Bandana","Gingham","Lines","Others","Plain","Animal Print","Argyle","Aztec","Block Graphics","Checks","Chevron","Colorblock","Ethnic Print","Geometric Print","Lace","Polka Dots","Sequin","Solid","Stripes","Textured","Beaded","Sequined","Gradient"],
+  "Style & Occasion": ["Active Wear","All Day Wear","Bohemian","Boho","Brunch","Casual","Chic","Classic","Day Wear","Formal","Holiday","Office Wear","Party","Punk","Rain Wear","Retro","Snow Wear","Utility","Cocktail Party"],
+  "Sleeve": ["3-4th Sleeve","Long Sleeve","Others","Short Sleeve","Sleeveless","Cap","Oversize","Puff","Raglan","Bell","Regular","Bishop","Cold Shoulder","Leg Of Mutton","Flared","Balloon","Draped","Flutter","Cuffed","Frilled","Lace Up","Ruched","Ruffled","Fringed","Pleated","Panelled"],
+  "Neckline": ["Collared","Strapless","Off Shoulder","V Neck","Sweetheart Neck","Crewneck","Square Neck","Cowl","Hooded","Split Neck","Boatneck Bateau","Plunge Neck","One Shoulder","Peter pan","Notched","Shawl","Scoop neck","Turtle Neck","Mock Neck","Tie Neck","Round neck","Camp collar","Keyhole","Halter","Quarter Zip","Henley"],
+  "Fit": ["Bootcut","Relaxed","Tailored","Straight","Wide Leg","Slim","Skinny","Jogger","Oversize","Regular","Cropped","A Line","Longline","Fitted"],
+  "Length & Hem": ["Ankle Length","Short","Thigh Length","Tucked In","Calf Length","Full Length","Knee Length","Long","Crop","Midi","Maxi","Mini","Asymmetric","Curved","Slit"],
+  "Design Details": ["Studs","Tassels","Hoop Handle","Metal Chain","Embroidered","Embelished","T-bar","Fringe","Distressed","Quilted","Sling Back","Lace-up Back","Laces","Bow","Espadrilles","Mary Jane Strap","Pom Pom","Dorsay","Tag","Ankle Strap","Ripped","Feathers","Snakeskin","Studded","Rope Sole","Keyhole","Sequins","Shimmering","Topstitching","Stars"],
+  "Collar": ["Shirt","Cape","Shawl Lapel","Peak Lapel","Notch Lapel","Revere","Sailor","Peter Pan","Mandarin/Stand","Cascade/Draped","Camp"],
+  "Footwear": ["Knee High","Thigh High","Over The Knee","Ankle High","Mid Calf","Low Heel","High Heel","Medium Heel","Flat","Chunky","Kitten","Cone","Wedges","Stiletto","Square Toe","Pointed Toe","Round Toe","Open Toe","Peep Toe","Closed Toe"],
+  "Product Family": ["Culottes","Rompers","Trousers","Bodysuits","Dresses","Jewelry","Shirts","Tops","Sweaters","Skirts","Cardigans","Polos","Jackets","Coats","Blazers","Scarves","Vests","Ponchos","Suits","Hoodies","Sweatshirts","Jumpsuits","Bags","Shorts","Joggers","Tracksuits","T-shirts","Leggings","Sets","Corsets","Bombers","Waistcoats","Jeans","Blouses","Shoes","Boots","Sandals","Sneakers","Accessories","Swimwear","Lingerie","Beauty"],
+  "Transparency & Fabric": ["Sheer","Transparent","Opaque","Semi-sheer","High Rise","Mid Rise","Low Rise","Pleated Front","Flat Front","Double Breasted","Single Breasted","Light Wash","Dark Rinse","Acid Wash","Black/Grey Rinse","Colored Denim"],
+  "Jewelry": ["Cuff","Tennis","Beads","Charm","Link & Chain","Bangle","Friendship & Wrap","Adjustable","Statement","Hoop","Drop","Chandelier","Diamond Stud","Stud","Ear Crawler","Long Pendant","Religious","Short Pendant","Collar","Choker","Y Neck","Layered","Chain","Hearts","Statement Ring","Stackable","Band"]
+};
+
+const PALETTE = [
+  {dot:'#7F77DD'},{dot:'#1D9E75'},{dot:'#D85A30'},{dot:'#D4537E'},
+  {dot:'#378ADD'},{dot:'#639922'},{dot:'#BA7517'},{dot:'#E24B4A'},
+  {dot:'#888780'},{dot:'#0F6E56'},{dot:'#993556'},{dot:'#185FA5'},
+];
+
+const cats = Object.keys(DATA);
+let openCats = new Set(cats.slice(0, 4));
+let activeCat = 'all';
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+function highlight(text, q) {
+  if (!q) return esc(text);
+  const idx = text.toLowerCase().indexOf(q.toLowerCase());
+  if (idx < 0) return esc(text);
+  return esc(text.slice(0,idx)) + '<mark class="hl">' + esc(text.slice(idx, idx+q.length)) + '</mark>' + esc(text.slice(idx+q.length));
+}
+
+function render() {
+  const q = document.getElementById('search').value.trim();
+  const pillsEl = document.getElementById('pills');
+  const statsEl = document.getElementById('stats');
+  const gridEl  = document.getElementById('grid');
+
+  pillsEl.innerHTML = ['all', ...cats].map(c => {
+    const label = c === 'all' ? 'All' : c;
+    return `<button class="pill${activeCat===c?' active':''}" onclick="setActive('${c.replace(/'/g,"\\'")}')">${esc(label)}</button>`;
+  }).join('');
+
+  const filteredCats = cats.filter(c => {
+    if (activeCat !== 'all' && activeCat !== c) return false;
+    if (!q) return true;
+    return DATA[c].some(v => v.toLowerCase().includes(q.toLowerCase())) || c.toLowerCase().includes(q.toLowerCase());
+  });
+
+  const totalValues = filteredCats.reduce((s,c) => {
+    return s + (q ? DATA[c].filter(v => v.toLowerCase().includes(q.toLowerCase())).length : DATA[c].length);
+  }, 0);
+
+  statsEl.innerHTML = `
+    <div class="stat-chip"><strong>${filteredCats.length}</strong> categories</div>
+    <div class="stat-chip"><strong>${totalValues}</strong> values${q ? ' matching <em>'+esc(q)+'</em>' : ''}</div>
+  `;
+
+  if (!filteredCats.length) {
+    gridEl.innerHTML = `<div class="empty-state">No results for "${esc(q)}"</div>`;
+    return;
+  }
+
+  gridEl.innerHTML = filteredCats.map((cat, i) => {
+    const pal = PALETTE[i % PALETTE.length];
+    const isOpen = openCats.has(cat) || !!q;
+    const vals = q ? DATA[cat].filter(v => v.toLowerCase().includes(q.toLowerCase())) : DATA[cat];
+    const valHtml = vals.map(v => `
+      <div class="val-item">
+        <div class="val-dot" style="background:${pal.dot};opacity:.7"></div>
+        <span>${highlight(v, q)}</span>
+      </div>`).join('');
+    return `
+      <div class="cat-card">
+        <div class="cat-head" onclick="toggleCat('${cat.replace(/'/g,"\\'")}')">
+          <div class="cat-label">
+            <div class="cat-dot" style="background:${pal.dot}"></div>
+            <span class="cat-name">${highlight(cat, q)}</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="cat-count">${vals.length}</span>
+            <span class="chevron${isOpen?' open':''}">›</span>
+          </div>
+        </div>
+        ${isOpen ? `<div class="values-list">${valHtml}</div>` : ''}
+      </div>`;
+  }).join('');
+}
+
+function setActive(cat) { activeCat = cat; render(); }
+function toggleCat(cat) {
+  if (openCats.has(cat)) openCats.delete(cat);
+  else openCats.add(cat);
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
