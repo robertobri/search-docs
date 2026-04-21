@@ -1,0 +1,6002 @@
+window.EXAMPLES = window.EXAMPLES || {};
+window.EXAMPLES['search-ref'] = {
+  "sections": [
+    {
+      "id": "default-search",
+      "type": "default-search",
+      "elements": [
+        {
+          "id": "search-results",
+          "kind": "AUTOTEMPLATE",
+          "isSectionIndex": false,
+          "metadata": {
+            "commercialComponents": [
+              {
+                "identifier": {
+                  "id": "515193546",
+                  "productParentId": "515191857",
+                  "reference": "C03067730709000-V2026",
+                  "productParentReference": "03067730-V2026",
+                  "displayReference": "3067/730"
+                },
+                "name": "BLAZER RAYAS CIERRE CRUZADO",
+                "description": "Blazer de cuello redondo y manga larga. Falsos bolsillos de vivo en delantero. Cierre frontal cruzado con botón.",
+                "type": "Wear",
+                "state": {
+                  "visibility": "visible",
+                  "availability": "in_stock"
+                },
+                "classification": {
+                  "brand": {
+                    "id": 1,
+                    "groupId": 1,
+                    "groupCode": "zara"
+                  },
+                  "section": {
+                    "id": 1,
+                    "name": "WOMAN"
+                  },
+                  "family": {
+                    "id": 77,
+                    "name": "BLAZER"
+                  },
+                  "subfamily": {
+                    "id": 382,
+                    "name": "T.BLASIER"
+                  },
+                  "sizeSystem": "2"
+                },
+                "color": {
+                  "id": "709",
+                  "commercialComponentId": "515193546",
+                  "name": "Tostado oscuro",
+                  "hexCode": "#D3C3A2",
+                  "otherColors": []
+                },
+                "pricing": {
+                  "price": {
+                    "current": {
+                      "value": 3995,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    }
+                  }
+                },
+                "media": [
+                  {
+                    "asset": {
+                      "type": "image",
+                      "assetId": "28c6b65b69954d34901b77e312fc599e",
+                      "timestamp": "1774548606510",
+                      "url": "https://static.zara.net/assets/public/28c6/b65b/69954d34901b/77e312fc599e/03067730709-p/03067730709-p.jpg?ts=1774548606510&w={width}",
+                      "formats": [],
+                      "allowedScreens": [
+                        "large",
+                        "small"
+                      ],
+                      "metaUrl": "https://static.zara.net/assets/public/28c6/b65b/69954d34901b/77e312fc599e/meta.json?ts=1774548606521",
+                      "styles": {
+                        "kind": "full"
+                      },
+                      "dimensions": {
+                        "width": 2048,
+                        "height": 3072
+                      },
+                      "editorialName": "p",
+                      "locations": [
+                        "CATEGORY_PAGE",
+                        "PRODUCT_PAGE",
+                        "DEFAULT_ASSISTANT"
+                      ]
+                    },
+                    "behavior": {},
+                    "regions": []
+                  }
+                ],
+                "customMedias": {},
+                "sizes": [
+                  {
+                    "identifier": {
+                      "id": 1,
+                      "reference": "0306773070901-V2026",
+                      "sku": 515191858,
+                      "equivalentSizeId": 101
+                    },
+                    "nomenclature": {
+                      "name": "XS"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "TR"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 2,
+                      "reference": "0306773070902-V2026",
+                      "sku": 515191859,
+                      "equivalentSizeId": 102
+                    },
+                    "nomenclature": {
+                      "name": "S"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "TR"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 3,
+                      "reference": "0306773070903-V2026",
+                      "sku": 515191860,
+                      "equivalentSizeId": 103
+                    },
+                    "nomenclature": {
+                      "name": "M"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "TR"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 4,
+                      "reference": "0306773070904-V2026",
+                      "sku": 515191861,
+                      "equivalentSizeId": 104
+                    },
+                    "nomenclature": {
+                      "name": "L"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "TR"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 5,
+                      "reference": "0306773070905-V2026",
+                      "sku": 515191862,
+                      "equivalentSizeId": 105
+                    },
+                    "nomenclature": {
+                      "name": "XL"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "TR"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 6,
+                      "reference": "0306773070906-V2026",
+                      "sku": 515191863,
+                      "equivalentSizeId": 106
+                    },
+                    "nomenclature": {
+                      "name": "XXL"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "TR"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  }
+                ],
+                "relations": [
+                  {
+                    "ids": [
+                      498699020,
+                      512042598,
+                      494181617,
+                      498841386
+                    ],
+                    "type": "PACMAN-LOOK"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "type": "Smart_tag",
+                    "identifier": "TAG_OUTER_LAYERS_3_LAYERS",
+                    "name": "OUTER_LAYERS",
+                    "values": [],
+                    "properties": {
+                      "probability": "1.0",
+                      "source": "GROUP",
+                      "type": "LAYERS",
+                      "typeProbability": "1.0"
+                    }
+                  }
+                ],
+                "features": {
+                  "extraDetailTitle": "Composición, cuidados & origen",
+                  "highlightPrice": "false",
+                  "isBracketingRestricted": "true",
+                  "hasSpecialReturnConditions": "false",
+                  "isSizeGuideEnabled": "true",
+                  "isVirtualTryOnSupported": "true",
+                  "isRecommendedCarouselEnabled": "true",
+                  "isNotReturnable": "false",
+                  "isSizeRecommender": "true",
+                  "hasInteractiveSizeGuide": "true"
+                },
+                "seo": {
+                  "keyword": "blazer-rayas-cierre-cruzado",
+                  "seoProductId": "03067730",
+                  "discernProductId": 515193546
+                },
+                "firstAvailabilityDate": "2026-03-29T01:00:00Z",
+                "behaviour": {}
+              }
+            ]
+          },
+          "linkedBlocks": [
+            "search-results",
+            ""
+          ],
+          "tags": [],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "autoTemplates": []
+    },
+    {
+      "id": "alternatives-search",
+      "type": "alternatives-search",
+      "elements": [
+        {
+          "id": "personalization-results",
+          "kind": "AUTOTEMPLATE",
+          "isSectionIndex": false,
+          "metadata": {
+            "commercialComponents": [
+              {
+                "identifier": {
+                  "id": "496676841",
+                  "productParentId": "495673217",
+                  "reference": "C03641303800000-V2026",
+                  "productParentReference": "03641303-V2026",
+                  "displayReference": "3641/303"
+                },
+                "name": "TOP BANDEAU ESCOTE CORAZÓN",
+                "description": "Top entallado de escote corazón y hombros descubiertos.",
+                "type": "Wear",
+                "state": {
+                  "visibility": "visible",
+                  "availability": "in_stock"
+                },
+                "classification": {
+                  "brand": {
+                    "id": 1,
+                    "groupId": 1,
+                    "groupCode": "zara"
+                  },
+                  "section": {
+                    "id": 1,
+                    "name": "WOMAN"
+                  },
+                  "family": {
+                    "id": 122,
+                    "name": "TOPS Y OTRAS P."
+                  },
+                  "subfamily": {
+                    "id": 11451,
+                    "name": "C.CTAS BASICAS"
+                  },
+                  "sizeSystem": "2"
+                },
+                "color": {
+                  "id": "800",
+                  "commercialComponentId": "496676841",
+                  "name": "Negro",
+                  "hexCode": "#020C0E",
+                  "otherColors": [
+                    {
+                      "id": "250",
+                      "commercialComponentId": "522638393",
+                      "name": "Blanco",
+                      "hexCode": "#F4F6FA"
+                    },
+                    {
+                      "id": "700",
+                      "commercialComponentId": "496676839",
+                      "name": "Marrón",
+                      "hexCode": "#331F21"
+                    },
+                    {
+                      "id": "712",
+                      "commercialComponentId": "496676840",
+                      "name": "Crudo",
+                      "hexCode": "#FCF5E8"
+                    }
+                  ]
+                },
+                "pricing": {
+                  "price": {
+                    "current": {
+                      "value": 1295,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    }
+                  }
+                },
+                "media": [
+                  {
+                    "asset": {
+                      "type": "image",
+                      "assetId": "2dd5c2a939374f9a8ee20ade00ab6563",
+                      "timestamp": "1770643928113",
+                      "url": "https://static.zara.net/assets/public/2dd5/c2a9/39374f9a8ee2/0ade00ab6563/03641303800-p/03641303800-p.jpg?ts=1770643928113&w={width}",
+                      "formats": [],
+                      "allowedScreens": [
+                        "large",
+                        "small"
+                      ],
+                      "metaUrl": "https://static.zara.net/assets/public/2dd5/c2a9/39374f9a8ee2/0ade00ab6563/meta.json?ts=1770643928122",
+                      "styles": {
+                        "kind": "full"
+                      },
+                      "dimensions": {
+                        "width": 2048,
+                        "height": 3072
+                      },
+                      "editorialName": "p",
+                      "locations": [
+                        "CATEGORY_PAGE",
+                        "PRODUCT_PAGE",
+                        "DEFAULT_ASSISTANT"
+                      ]
+                    },
+                    "behavior": {},
+                    "regions": []
+                  }
+                ],
+                "customMedias": {},
+                "sizes": [
+                  {
+                    "identifier": {
+                      "id": 2,
+                      "reference": "0364130380002-V2026",
+                      "sku": 496660229,
+                      "equivalentSizeId": 102
+                    },
+                    "nomenclature": {
+                      "name": "S"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 1295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "BD"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 3,
+                      "reference": "0364130380003-V2026",
+                      "sku": 496660231,
+                      "equivalentSizeId": 103
+                    },
+                    "nomenclature": {
+                      "name": "M"
+                    },
+                    "availability": "out_of_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 1295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "BD"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 4,
+                      "reference": "0364130380004-V2026",
+                      "sku": 496660233,
+                      "equivalentSizeId": 104
+                    },
+                    "nomenclature": {
+                      "name": "L"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 1295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "BD"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  }
+                ],
+                "relations": [
+                  {
+                    "ids": [
+                      520471801
+                    ],
+                    "type": "PACMAN-LOOK"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "type": "Smart_tag",
+                    "identifier": "TAG_UPPERBODY_LAYERS_3_LAYERS",
+                    "name": "UPPERBODY_LAYERS",
+                    "values": [],
+                    "properties": {
+                      "probability": "1.0",
+                      "source": "GROUP",
+                      "type": "LAYERS",
+                      "typeProbability": "1.0"
+                    }
+                  }
+                ],
+                "features": {
+                  "extraDetailTitle": "Composición, cuidados & origen",
+                  "highlightPrice": "false",
+                  "isBracketingRestricted": "true",
+                  "hasSpecialReturnConditions": "false",
+                  "isSizeGuideEnabled": "true",
+                  "isVirtualTryOnSupported": "true",
+                  "isRecommendedCarouselEnabled": "true",
+                  "isNotReturnable": "false",
+                  "isSizeRecommender": "true",
+                  "hasInteractiveSizeGuide": "true"
+                },
+                "seo": {
+                  "keyword": "top-bandeau-escote-corazon",
+                  "seoProductId": "03641303",
+                  "discernProductId": 496676841
+                },
+                "firstAvailabilityDate": "2026-02-09T02:00:00Z",
+                "behaviour": {}
+              },
+              {
+                "identifier": {
+                  "id": "535973479",
+                  "productParentId": "535965212",
+                  "reference": "C01936334800000-V2026",
+                  "productParentReference": "01936334-V2026",
+                  "displayReference": "1936/334"
+                },
+                "name": "PANTALÓN LINO ABERTURAS ZW COLLECTION",
+                "description": "ZARA WOMAN COLLECTION<br/><br/>Pantalón con tejido principal confeccionado en hilatura de lino 100%. Tiro medio y cintura elástica ajustable con cordones. Bajo redondeado con aberturas laterales.",
+                "type": "Wear",
+                "state": {
+                  "visibility": "visible",
+                  "availability": "in_stock"
+                },
+                "classification": {
+                  "brand": {
+                    "id": 1,
+                    "groupId": 1,
+                    "groupCode": "zara"
+                  },
+                  "section": {
+                    "id": 1,
+                    "name": "WOMAN"
+                  },
+                  "family": {
+                    "id": 73,
+                    "name": "PANTALON"
+                  },
+                  "subfamily": {
+                    "id": 334,
+                    "name": "W.PANTALON"
+                  },
+                  "sizeSystem": "2"
+                },
+                "color": {
+                  "id": "800",
+                  "commercialComponentId": "535973479",
+                  "name": "Negro",
+                  "hexCode": "#0A0A0A",
+                  "otherColors": [
+                    {
+                      "id": "250",
+                      "commercialComponentId": "537507739",
+                      "name": "Blanco",
+                      "hexCode": "#e2e0e1"
+                    }
+                  ]
+                },
+                "pricing": {
+                  "price": {
+                    "current": {
+                      "value": 3595,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    }
+                  }
+                },
+                "media": [
+                  {
+                    "asset": {
+                      "type": "image",
+                      "assetId": "2ef41274c8294451b101655f67826f62",
+                      "timestamp": "1774949052429",
+                      "url": "https://static.zara.net/assets/public/2ef4/1274/c8294451b101/655f67826f62/04344041800-p/04344041800-p.jpg?ts=1774949052429&w={width}",
+                      "formats": [],
+                      "allowedScreens": [
+                        "small",
+                        "large"
+                      ],
+                      "metaUrl": "https://static.zara.net/assets/public/2ef4/1274/c8294451b101/655f67826f62/meta.json?ts=1774949052436",
+                      "styles": {
+                        "kind": "full"
+                      },
+                      "dimensions": {
+                        "width": 2048,
+                        "height": 3072
+                      },
+                      "editorialName": "p",
+                      "locations": [
+                        "CATEGORY_PAGE",
+                        "PRODUCT_PAGE",
+                        "DEFAULT_ASSISTANT",
+                        "GRID_SECONDARY"
+                      ]
+                    },
+                    "behavior": {},
+                    "regions": []
+                  }
+                ],
+                "customMedias": {},
+                "sizes": [
+                  {
+                    "identifier": {
+                      "id": 1,
+                      "reference": "0434404180001-V2026",
+                      "sku": 506406983,
+                      "equivalentSizeId": 101
+                    },
+                    "nomenclature": {
+                      "name": "XS"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3595,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 2,
+                      "reference": "0434404180002-V2026",
+                      "sku": 506406984,
+                      "equivalentSizeId": 102
+                    },
+                    "nomenclature": {
+                      "name": "S"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3595,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 3,
+                      "reference": "0434404180003-V2026",
+                      "sku": 506406985,
+                      "equivalentSizeId": 103
+                    },
+                    "nomenclature": {
+                      "name": "M"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3595,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 4,
+                      "reference": "0434404180004-V2026",
+                      "sku": 506406986,
+                      "equivalentSizeId": 104
+                    },
+                    "nomenclature": {
+                      "name": "L"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3595,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 5,
+                      "reference": "0434404180005-V2026",
+                      "sku": 506406987,
+                      "equivalentSizeId": 105
+                    },
+                    "nomenclature": {
+                      "name": "XL"
+                    },
+                    "availability": "out_of_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3595,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  }
+                ],
+                "relations": [
+                  {
+                    "ids": [
+                      515080298,
+                      522432384,
+                      528429738
+                    ],
+                    "type": "PACMAN-LOOK"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "type": "Smart_tag",
+                    "identifier": "TAG_LOWERBODY_LAYERS_3_LAYERS",
+                    "name": "LOWERBODY_LAYERS",
+                    "values": [],
+                    "properties": {
+                      "probability": "1.0",
+                      "source": "GROUP",
+                      "type": "LAYERS",
+                      "typeProbability": "1.0"
+                    }
+                  }
+                ],
+                "features": {
+                  "extraDetailTitle": "Composición, cuidados & origen",
+                  "highlightPrice": "false",
+                  "isBracketingRestricted": "true",
+                  "hasSpecialReturnConditions": "false",
+                  "isSizeGuideEnabled": "true",
+                  "isVirtualTryOnSupported": "true",
+                  "isRecommendedCarouselEnabled": "true",
+                  "isNotReturnable": "false",
+                  "isSizeRecommender": "true",
+                  "hasInteractiveSizeGuide": "true"
+                },
+                "seo": {
+                  "keyword": "pantalon-lino-aberturas-zw-collection",
+                  "seoProductId": "01936334",
+                  "discernProductId": 535973479
+                },
+                "firstAvailabilityDate": "2026-04-01T00:00:00Z",
+                "behaviour": {}
+              },
+              {
+                "identifier": {
+                  "id": "515080298",
+                  "productParentId": "515058311",
+                  "reference": "C05344016800000-V2026",
+                  "productParentReference": "05344016-V2026",
+                  "displayReference": "5344/016"
+                },
+                "name": "TOP LINO CORDONES ZW COLLECTION",
+                "description": "ZARA WOMAN COLLECTION<br/><br/>Top con tejido principal confeccionado en hilatura de lino. Cuello redondo y manga corta. Bajo recto ajustable con cordones. Cierre en espalda con abertura y botón.",
+                "type": "Wear",
+                "state": {
+                  "visibility": "visible",
+                  "availability": "in_stock"
+                },
+                "classification": {
+                  "brand": {
+                    "id": 1,
+                    "groupId": 1,
+                    "groupCode": "zara"
+                  },
+                  "section": {
+                    "id": 1,
+                    "name": "WOMAN"
+                  },
+                  "family": {
+                    "id": 76,
+                    "name": "CAMISA"
+                  },
+                  "subfamily": {
+                    "id": 337,
+                    "name": "W.CAMISA"
+                  },
+                  "sizeSystem": "2"
+                },
+                "color": {
+                  "id": "800",
+                  "commercialComponentId": "515080298",
+                  "name": "Negro",
+                  "hexCode": "#0A0A0A",
+                  "otherColors": []
+                },
+                "pricing": {
+                  "price": {
+                    "current": {
+                      "value": 2995,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    }
+                  }
+                },
+                "media": [
+                  {
+                    "asset": {
+                      "type": "image",
+                      "assetId": "ddf5d8da31704f9bbb2d255778d16206",
+                      "timestamp": "1774949070415",
+                      "url": "https://static.zara.net/assets/public/ddf5/d8da/31704f9bbb2d/255778d16206/05344016800-p/05344016800-p.jpg?ts=1774949070415&w={width}",
+                      "formats": [],
+                      "allowedScreens": [
+                        "small",
+                        "large"
+                      ],
+                      "metaUrl": "https://static.zara.net/assets/public/ddf5/d8da/31704f9bbb2d/255778d16206/meta.json?ts=1774949070421",
+                      "styles": {
+                        "kind": "full"
+                      },
+                      "dimensions": {
+                        "width": 2048,
+                        "height": 3072
+                      },
+                      "editorialName": "p",
+                      "locations": [
+                        "CATEGORY_PAGE",
+                        "PRODUCT_PAGE",
+                        "DEFAULT_ASSISTANT"
+                      ]
+                    },
+                    "behavior": {},
+                    "regions": []
+                  }
+                ],
+                "customMedias": {},
+                "sizes": [
+                  {
+                    "identifier": {
+                      "id": 1,
+                      "reference": "0534401680001-V2026",
+                      "sku": 515058316,
+                      "equivalentSizeId": 101
+                    },
+                    "nomenclature": {
+                      "name": "XS"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 2,
+                      "reference": "0534401680002-V2026",
+                      "sku": 515058319,
+                      "equivalentSizeId": 102
+                    },
+                    "nomenclature": {
+                      "name": "S"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 3,
+                      "reference": "0534401680003-V2026",
+                      "sku": 515058321,
+                      "equivalentSizeId": 103
+                    },
+                    "nomenclature": {
+                      "name": "M"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 4,
+                      "reference": "0534401680004-V2026",
+                      "sku": 515058323,
+                      "equivalentSizeId": 104
+                    },
+                    "nomenclature": {
+                      "name": "L"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 5,
+                      "reference": "0534401680005-V2026",
+                      "sku": 515058325,
+                      "equivalentSizeId": 105
+                    },
+                    "nomenclature": {
+                      "name": "XL"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  }
+                ],
+                "relations": [
+                  {
+                    "ids": [
+                      535973479,
+                      522432384,
+                      528429738
+                    ],
+                    "type": "PACMAN-LOOK"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "type": "Smart_tag",
+                    "identifier": "TAG_UPPERBODY_LAYERS_3_LAYERS",
+                    "name": "UPPERBODY_LAYERS",
+                    "values": [],
+                    "properties": {
+                      "probability": "1.0",
+                      "source": "GROUP",
+                      "type": "LAYERS",
+                      "typeProbability": "1.0"
+                    }
+                  }
+                ],
+                "features": {
+                  "extraDetailTitle": "Composición, cuidados & origen",
+                  "highlightPrice": "false",
+                  "isBracketingRestricted": "true",
+                  "hasSpecialReturnConditions": "false",
+                  "isSizeGuideEnabled": "true",
+                  "isVirtualTryOnSupported": "true",
+                  "isRecommendedCarouselEnabled": "true",
+                  "isNotReturnable": "false",
+                  "isSizeRecommender": "true",
+                  "hasInteractiveSizeGuide": "true"
+                },
+                "seo": {
+                  "keyword": "top-lino-cordones-zw-collection",
+                  "seoProductId": "05344016",
+                  "discernProductId": 515080298
+                },
+                "firstAvailabilityDate": "2026-04-01T00:00:00Z",
+                "behaviour": {}
+              },
+              {
+                "identifier": {
+                  "id": "503040727",
+                  "productParentId": "503033748",
+                  "reference": "C05029181097000-V2026",
+                  "productParentReference": "05029181-V2026",
+                  "displayReference": "5029/181"
+                },
+                "name": "BLUSA VOLANTES CUADROS LAZO",
+                "description": "Blusa de escote pico con lazo y volantes. Manga larga. Estampado con cuadros.",
+                "type": "Wear",
+                "state": {
+                  "visibility": "visible",
+                  "availability": "in_stock"
+                },
+                "classification": {
+                  "brand": {
+                    "id": 1,
+                    "groupId": 1,
+                    "groupCode": "zara"
+                  },
+                  "section": {
+                    "id": 1,
+                    "name": "WOMAN"
+                  },
+                  "family": {
+                    "id": 76,
+                    "name": "CAMISA"
+                  },
+                  "subfamily": {
+                    "id": 347,
+                    "name": "B.CAMISA"
+                  },
+                  "sizeSystem": "2"
+                },
+                "color": {
+                  "id": "097",
+                  "commercialComponentId": "503420228",
+                  "name": "burdeos/crudo",
+                  "hexCode": "#9E5651",
+                  "otherColors": []
+                },
+                "pricing": {
+                  "price": {
+                    "current": {
+                      "value": 2595,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    }
+                  }
+                },
+                "media": [
+                  {
+                    "asset": {
+                      "type": "image",
+                      "assetId": "bd50cd586d1a496cbfd1497844ee4134",
+                      "timestamp": "1755185588734",
+                      "url": "https://static.zara.net/assets/public/bd50/cd58/6d1a496cbfd1/497844ee4134/05029181097-p/05029181097-p.jpg?ts=1755185588734&w={width}",
+                      "formats": [],
+                      "allowedScreens": [
+                        "large",
+                        "small"
+                      ],
+                      "metaUrl": "https://static.zara.net/assets/public/bd50/cd58/6d1a496cbfd1/497844ee4134/meta.json?ts=1755185588740",
+                      "styles": {
+                        "kind": "full"
+                      },
+                      "dimensions": {
+                        "width": 2048,
+                        "height": 3072
+                      },
+                      "editorialName": "p",
+                      "locations": [
+                        "CATEGORY_PAGE",
+                        "PRODUCT_PAGE",
+                        "DEFAULT_ASSISTANT"
+                      ]
+                    },
+                    "behavior": {},
+                    "regions": []
+                  }
+                ],
+                "customMedias": {},
+                "sizes": [
+                  {
+                    "identifier": {
+                      "id": 1,
+                      "reference": "0502911109701-V2026",
+                      "sku": 498823352,
+                      "equivalentSizeId": 101
+                    },
+                    "nomenclature": {
+                      "name": "XS"
+                    },
+                    "availability": "out_of_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2595,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "TR"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 503033750,
+                        "reference": "0502918109701-V2026"
+                      }
+                    ]
+                  },
+                  {
+                    "identifier": {
+                      "id": 2,
+                      "reference": "0502911109702-V2026",
+                      "sku": 498823353,
+                      "equivalentSizeId": 102
+                    },
+                    "nomenclature": {
+                      "name": "S"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2595,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "TR"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 503033751,
+                        "reference": "0502918109702-V2026"
+                      }
+                    ]
+                  },
+                  {
+                    "identifier": {
+                      "id": 3,
+                      "reference": "0502911109703-V2026",
+                      "sku": 498823354,
+                      "equivalentSizeId": 103
+                    },
+                    "nomenclature": {
+                      "name": "M"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2595,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "TR"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 503033752,
+                        "reference": "0502918109703-V2026"
+                      }
+                    ]
+                  },
+                  {
+                    "identifier": {
+                      "id": 4,
+                      "reference": "0502911109704-V2026",
+                      "sku": 498823355,
+                      "equivalentSizeId": 104
+                    },
+                    "nomenclature": {
+                      "name": "L"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2595,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "TR"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 503033753,
+                        "reference": "0502918109704-V2026"
+                      }
+                    ]
+                  },
+                  {
+                    "identifier": {
+                      "id": 5,
+                      "reference": "0502911109705-V2026",
+                      "sku": 498823351,
+                      "equivalentSizeId": 105
+                    },
+                    "nomenclature": {
+                      "name": "XL"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2595,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "TR"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 503033749,
+                        "reference": "0502918109705-V2026"
+                      }
+                    ]
+                  }
+                ],
+                "relations": [
+                  {
+                    "ids": [
+                      467689089
+                    ],
+                    "type": "OTHER_COLOR"
+                  },
+                  {
+                    "ids": [
+                      456829665,
+                      418826467,
+                      463550248
+                    ],
+                    "type": "PACMAN-LOOK"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "type": "Smart_tag",
+                    "identifier": "TAG_UPPERBODY_LAYERS_3_LAYERS",
+                    "name": "UPPERBODY_LAYERS",
+                    "values": [],
+                    "properties": {
+                      "probability": "1.0",
+                      "source": "GROUP",
+                      "type": "LAYERS",
+                      "typeProbability": "1.0"
+                    }
+                  }
+                ],
+                "features": {
+                  "extraDetailTitle": "Composición, cuidados & origen",
+                  "highlightPrice": "false",
+                  "isBracketingRestricted": "true",
+                  "hasSpecialReturnConditions": "false",
+                  "isSizeGuideEnabled": "true",
+                  "isVirtualTryOnSupported": "true",
+                  "isRecommendedCarouselEnabled": "true",
+                  "isNotReturnable": "false",
+                  "isSizeRecommender": "true",
+                  "hasInteractiveSizeGuide": "true"
+                },
+                "seo": {
+                  "keyword": "blusa-volantes-cuadros-lazo",
+                  "seoProductId": "05029181",
+                  "discernProductId": 503040727
+                },
+                "firstAvailabilityDate": "2025-10-25T00:00:00Z",
+                "behaviour": {}
+              },
+              {
+                "identifier": {
+                  "id": "504020892",
+                  "productParentId": "503990026",
+                  "reference": "C06147120406000-V2026",
+                  "productParentReference": "06147120-V2026",
+                  "displayReference": "6147/120"
+                },
+                "name": "JEANS Z1975 CULOTTE TIRO ALTO COMFORT",
+                "description": "TIRO ALTO - WIDE LEG - CROPPED - COMFORT<br/><br/>Jeans de tiro alto con cinco bolsillos. Pernera ancha y corta. Cierre frontal con cremallera y botón.",
+                "type": "Wear",
+                "state": {
+                  "visibility": "visible",
+                  "availability": "in_stock"
+                },
+                "classification": {
+                  "brand": {
+                    "id": 1,
+                    "groupId": 1,
+                    "groupCode": "zara"
+                  },
+                  "section": {
+                    "id": 1,
+                    "name": "WOMAN"
+                  },
+                  "family": {
+                    "id": 73,
+                    "name": "PANTALON"
+                  },
+                  "subfamily": {
+                    "id": 692,
+                    "name": "B.PANT.PAQUETER"
+                  },
+                  "sizeSystem": "1"
+                },
+                "color": {
+                  "id": "406",
+                  "commercialComponentId": "537014918",
+                  "name": "Azul claro",
+                  "hexCode": "#c0cfec",
+                  "otherColors": [
+                    {
+                      "id": "250",
+                      "commercialComponentId": "537014903",
+                      "name": "Blanco",
+                      "hexCode": "#e2e0e1"
+                    },
+                    {
+                      "id": "407",
+                      "commercialComponentId": "537014907",
+                      "name": "Azul",
+                      "hexCode": "#192438"
+                    },
+                    {
+                      "id": "700",
+                      "commercialComponentId": "537014960",
+                      "name": "Marrón",
+                      "hexCode": "#281c15"
+                    }
+                  ]
+                },
+                "pricing": {
+                  "price": {
+                    "current": {
+                      "value": 2795,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    }
+                  }
+                },
+                "media": [
+                  {
+                    "asset": {
+                      "type": "image",
+                      "assetId": "f46126bf68c84495a1eb1f9e17ac6a7e",
+                      "timestamp": "1772641899040",
+                      "url": "https://static.zara.net/assets/public/f461/26bf/68c84495a1eb/1f9e17ac6a7e/06147123406-p/06147123406-p.jpg?ts=1772641899040&w={width}",
+                      "formats": [],
+                      "allowedScreens": [
+                        "large",
+                        "small"
+                      ],
+                      "metaUrl": "https://static.zara.net/assets/public/f461/26bf/68c84495a1eb/1f9e17ac6a7e/meta.json?ts=1772641899048",
+                      "styles": {
+                        "kind": "full"
+                      },
+                      "dimensions": {
+                        "width": 2048,
+                        "height": 3072
+                      },
+                      "editorialName": "p",
+                      "locations": [
+                        "CATEGORY_PAGE",
+                        "PRODUCT_PAGE",
+                        "DEFAULT_ASSISTANT"
+                      ]
+                    },
+                    "behavior": {},
+                    "regions": []
+                  }
+                ],
+                "customMedias": {},
+                "sizes": [
+                  {
+                    "identifier": {
+                      "id": 32,
+                      "reference": "0614712340632-V2026",
+                      "sku": 503990051,
+                      "equivalentSizeId": 32
+                    },
+                    "nomenclature": {
+                      "name": "32"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2795,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "EG"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 34,
+                      "reference": "0614712340634-V2026",
+                      "sku": 503990052,
+                      "equivalentSizeId": 34
+                    },
+                    "nomenclature": {
+                      "name": "34"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2795,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "EG"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 36,
+                      "reference": "0614712340636-V2026",
+                      "sku": 503990053,
+                      "equivalentSizeId": 36
+                    },
+                    "nomenclature": {
+                      "name": "36"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2795,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "EG"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 38,
+                      "reference": "0614712340638-V2026",
+                      "sku": 503990055,
+                      "equivalentSizeId": 38
+                    },
+                    "nomenclature": {
+                      "name": "38"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2795,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "EG"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 40,
+                      "reference": "0614712340640-V2026",
+                      "sku": 503990057,
+                      "equivalentSizeId": 40
+                    },
+                    "nomenclature": {
+                      "name": "40"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2795,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "EG"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 42,
+                      "reference": "0614712340642-V2026",
+                      "sku": 503990059,
+                      "equivalentSizeId": 42
+                    },
+                    "nomenclature": {
+                      "name": "42"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2795,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "EG"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 44,
+                      "reference": "0614712340644-V2026",
+                      "sku": 503990061,
+                      "equivalentSizeId": 44
+                    },
+                    "nomenclature": {
+                      "name": "44"
+                    },
+                    "availability": "coming_soon",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2795,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "EG"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  }
+                ],
+                "relations": [
+                  {
+                    "ids": [
+                      500486112,
+                      498699019,
+                      495698463
+                    ],
+                    "type": "PACMAN-LOOK"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "type": "Smart_tag",
+                    "identifier": "TAG_LOWERBODY_LAYERS_3_LAYERS",
+                    "name": "LOWERBODY_LAYERS",
+                    "values": [],
+                    "properties": {
+                      "probability": "1.0",
+                      "source": "GROUP",
+                      "type": "LAYERS",
+                      "typeProbability": "1.0"
+                    }
+                  }
+                ],
+                "features": {
+                  "extraDetailTitle": "Composición, cuidados & origen",
+                  "highlightPrice": "false",
+                  "isBracketingRestricted": "true",
+                  "hasSpecialReturnConditions": "false",
+                  "isSizeGuideEnabled": "true",
+                  "isVirtualTryOnSupported": "true",
+                  "isRecommendedCarouselEnabled": "true",
+                  "isNotReturnable": "false",
+                  "isSizeRecommender": "true",
+                  "hasInteractiveSizeGuide": "true"
+                },
+                "seo": {
+                  "keyword": "jeans-z1975-culotte-tiro-alto-comfort",
+                  "seoProductId": "06147120",
+                  "discernProductId": 504020892
+                },
+                "firstAvailabilityDate": "2026-03-04T02:00:00Z",
+                "behaviour": {}
+              },
+              {
+                "identifier": {
+                  "id": "510442728",
+                  "productParentId": "510439772",
+                  "reference": "C08741074700000-V2026",
+                  "productParentReference": "08741074-V2026",
+                  "displayReference": "8741/074"
+                },
+                "name": "BLUSA ENTREDOSES VOLANTES",
+                "description": "Blusa de cuello redondo y manga sisa con volantes. Detalle de entredoses a tono y jaretas delanteras. Cierre frontal con botones.",
+                "type": "Wear",
+                "state": {
+                  "visibility": "visible",
+                  "availability": "in_stock"
+                },
+                "classification": {
+                  "brand": {
+                    "id": 1,
+                    "groupId": 1,
+                    "groupCode": "zara"
+                  },
+                  "section": {
+                    "id": 1,
+                    "name": "WOMAN"
+                  },
+                  "family": {
+                    "id": 76,
+                    "name": "CAMISA"
+                  },
+                  "subfamily": {
+                    "id": 347,
+                    "name": "B.CAMISA"
+                  },
+                  "sizeSystem": "2"
+                },
+                "color": {
+                  "id": "700",
+                  "commercialComponentId": "510442728",
+                  "name": "Marrón",
+                  "hexCode": "#281c15",
+                  "otherColors": [
+                    {
+                      "id": "250",
+                      "commercialComponentId": "510442729",
+                      "name": "Blanco",
+                      "hexCode": "#e2e0e1"
+                    }
+                  ]
+                },
+                "pricing": {
+                  "price": {
+                    "current": {
+                      "value": 2295,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    }
+                  }
+                },
+                "media": [
+                  {
+                    "asset": {
+                      "type": "image",
+                      "assetId": "846887e367bc4056a3493f4330dac2e9",
+                      "timestamp": "1773411823938",
+                      "url": "https://static.zara.net/assets/public/8468/87e3/67bc4056a349/3f4330dac2e9/08741074700-p/08741074700-p.jpg?ts=1773411823938&w={width}",
+                      "formats": [],
+                      "allowedScreens": [
+                        "large",
+                        "small"
+                      ],
+                      "metaUrl": "https://static.zara.net/assets/public/8468/87e3/67bc4056a349/3f4330dac2e9/meta.json?ts=1773411823944",
+                      "styles": {
+                        "kind": "full"
+                      },
+                      "dimensions": {
+                        "width": 2048,
+                        "height": 3072
+                      },
+                      "editorialName": "p",
+                      "locations": [
+                        "CATEGORY_PAGE",
+                        "PRODUCT_PAGE",
+                        "DEFAULT_ASSISTANT"
+                      ]
+                    },
+                    "behavior": {},
+                    "regions": []
+                  }
+                ],
+                "customMedias": {},
+                "sizes": [
+                  {
+                    "identifier": {
+                      "id": 1,
+                      "reference": "0874107470001-V2026",
+                      "sku": 510439773,
+                      "equivalentSizeId": 101
+                    },
+                    "nomenclature": {
+                      "name": "XS"
+                    },
+                    "availability": "out_of_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 2,
+                      "reference": "0874107470002-V2026",
+                      "sku": 510439774,
+                      "equivalentSizeId": 102
+                    },
+                    "nomenclature": {
+                      "name": "S"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 3,
+                      "reference": "0874107470003-V2026",
+                      "sku": 510439775,
+                      "equivalentSizeId": 103
+                    },
+                    "nomenclature": {
+                      "name": "M"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 4,
+                      "reference": "0874107470004-V2026",
+                      "sku": 510439776,
+                      "equivalentSizeId": 104
+                    },
+                    "nomenclature": {
+                      "name": "L"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 5,
+                      "reference": "0874107470005-V2026",
+                      "sku": 510439777,
+                      "equivalentSizeId": 105
+                    },
+                    "nomenclature": {
+                      "name": "XL"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  }
+                ],
+                "relations": [
+                  {
+                    "ids": [
+                      519160969
+                    ],
+                    "type": "PACMAN-LOOK"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "type": "Smart_tag",
+                    "identifier": "TAG_UPPERBODY_LAYERS_3_LAYERS",
+                    "name": "UPPERBODY_LAYERS",
+                    "values": [],
+                    "properties": {
+                      "probability": "1.0",
+                      "source": "GROUP",
+                      "type": "LAYERS",
+                      "typeProbability": "1.0"
+                    }
+                  }
+                ],
+                "features": {
+                  "extraDetailTitle": "Composición, cuidados & origen",
+                  "highlightPrice": "false",
+                  "isBracketingRestricted": "true",
+                  "hasSpecialReturnConditions": "false",
+                  "isSizeGuideEnabled": "true",
+                  "isVirtualTryOnSupported": "true",
+                  "isRecommendedCarouselEnabled": "true",
+                  "isNotReturnable": "false",
+                  "isSizeRecommender": "true",
+                  "hasInteractiveSizeGuide": "true"
+                },
+                "seo": {
+                  "keyword": "blusa-entredoses-volantes",
+                  "seoProductId": "08741074",
+                  "discernProductId": 510442728
+                },
+                "firstAvailabilityDate": "2026-03-11T02:00:00Z",
+                "behaviour": {}
+              },
+              {
+                "identifier": {
+                  "id": "522638393",
+                  "productParentId": "495673217",
+                  "reference": "C03641303250000-V2026",
+                  "productParentReference": "03641303-V2026",
+                  "displayReference": "3641/303"
+                },
+                "name": "TOP BANDEAU ESCOTE CORAZÓN",
+                "description": "Top entallado de escote corazón y hombros descubiertos.",
+                "type": "Wear",
+                "state": {
+                  "visibility": "visible",
+                  "availability": "in_stock"
+                },
+                "classification": {
+                  "brand": {
+                    "id": 1,
+                    "groupId": 1,
+                    "groupCode": "zara"
+                  },
+                  "section": {
+                    "id": 1,
+                    "name": "WOMAN"
+                  },
+                  "family": {
+                    "id": 122,
+                    "name": "TOPS Y OTRAS P."
+                  },
+                  "subfamily": {
+                    "id": 11451,
+                    "name": "C.CTAS BASICAS"
+                  },
+                  "sizeSystem": "2"
+                },
+                "color": {
+                  "id": "250",
+                  "commercialComponentId": "522638393",
+                  "name": "Blanco",
+                  "hexCode": "#F4F6FA",
+                  "otherColors": [
+                    {
+                      "id": "700",
+                      "commercialComponentId": "496676839",
+                      "name": "Marrón",
+                      "hexCode": "#331F21"
+                    },
+                    {
+                      "id": "712",
+                      "commercialComponentId": "496676840",
+                      "name": "Crudo",
+                      "hexCode": "#FCF5E8"
+                    },
+                    {
+                      "id": "800",
+                      "commercialComponentId": "496676841",
+                      "name": "Negro",
+                      "hexCode": "#020C0E"
+                    }
+                  ]
+                },
+                "pricing": {
+                  "price": {
+                    "current": {
+                      "value": 1295,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    }
+                  }
+                },
+                "media": [
+                  {
+                    "asset": {
+                      "type": "image",
+                      "assetId": "05e26f533fb34d66a3ced30efc8f67e6",
+                      "timestamp": "1773858849126",
+                      "url": "https://static.zara.net/assets/public/05e2/6f53/3fb34d66a3ce/d30efc8f67e6/03641303250-p/03641303250-p.jpg?ts=1773858849126&w={width}",
+                      "formats": [],
+                      "allowedScreens": [
+                        "large",
+                        "small"
+                      ],
+                      "metaUrl": "https://static.zara.net/assets/public/05e2/6f53/3fb34d66a3ce/d30efc8f67e6/meta.json?ts=1773858849133",
+                      "styles": {
+                        "kind": "full"
+                      },
+                      "dimensions": {
+                        "width": 2048,
+                        "height": 3072
+                      },
+                      "editorialName": "p",
+                      "locations": [
+                        "CATEGORY_PAGE",
+                        "PRODUCT_PAGE",
+                        "DEFAULT_ASSISTANT"
+                      ]
+                    },
+                    "behavior": {},
+                    "regions": []
+                  }
+                ],
+                "customMedias": {},
+                "sizes": [
+                  {
+                    "identifier": {
+                      "id": 2,
+                      "reference": "0364130325002-V2026",
+                      "sku": 522637349,
+                      "equivalentSizeId": 102
+                    },
+                    "nomenclature": {
+                      "name": "S"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 1295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "BD"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 3,
+                      "reference": "0364130325003-V2026",
+                      "sku": 522637350,
+                      "equivalentSizeId": 103
+                    },
+                    "nomenclature": {
+                      "name": "M"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 1295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "BD"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 4,
+                      "reference": "0364130325004-V2026",
+                      "sku": 522637351,
+                      "equivalentSizeId": 104
+                    },
+                    "nomenclature": {
+                      "name": "L"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 1295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "BD"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  }
+                ],
+                "relations": [
+                  {
+                    "ids": [
+                      502276245
+                    ],
+                    "type": "PACMAN-LOOK"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "type": "Smart_tag",
+                    "identifier": "TAG_UPPERBODY_LAYERS_3_LAYERS",
+                    "name": "UPPERBODY_LAYERS",
+                    "values": [],
+                    "properties": {
+                      "probability": "1.0",
+                      "source": "GROUP",
+                      "type": "LAYERS",
+                      "typeProbability": "1.0"
+                    }
+                  }
+                ],
+                "features": {
+                  "extraDetailTitle": "Composición, cuidados & origen",
+                  "highlightPrice": "false",
+                  "isBracketingRestricted": "true",
+                  "hasSpecialReturnConditions": "false",
+                  "isSizeGuideEnabled": "true",
+                  "isVirtualTryOnSupported": "true",
+                  "isRecommendedCarouselEnabled": "true",
+                  "isNotReturnable": "false",
+                  "isSizeRecommender": "true",
+                  "hasInteractiveSizeGuide": "true"
+                },
+                "seo": {
+                  "keyword": "top-bandeau-escote-corazon",
+                  "seoProductId": "03641303",
+                  "discernProductId": 522638393
+                },
+                "firstAvailabilityDate": "2026-03-18T02:00:00Z",
+                "behaviour": {}
+              },
+              {
+                "identifier": {
+                  "id": "510442729",
+                  "productParentId": "510439772",
+                  "reference": "C08741074250000-V2026",
+                  "productParentReference": "08741074-V2026",
+                  "displayReference": "8741/074"
+                },
+                "name": "BLUSA ENTREDOSES VOLANTES",
+                "description": "Blusa de cuello redondo y manga sisa con volantes. Detalle de entredoses a tono y jaretas delanteras. Cierre frontal con botones.",
+                "type": "Wear",
+                "state": {
+                  "visibility": "visible",
+                  "availability": "in_stock"
+                },
+                "classification": {
+                  "brand": {
+                    "id": 1,
+                    "groupId": 1,
+                    "groupCode": "zara"
+                  },
+                  "section": {
+                    "id": 1,
+                    "name": "WOMAN"
+                  },
+                  "family": {
+                    "id": 76,
+                    "name": "CAMISA"
+                  },
+                  "subfamily": {
+                    "id": 347,
+                    "name": "B.CAMISA"
+                  },
+                  "sizeSystem": "2"
+                },
+                "color": {
+                  "id": "250",
+                  "commercialComponentId": "510442729",
+                  "name": "Blanco",
+                  "hexCode": "#e2e0e1",
+                  "otherColors": [
+                    {
+                      "id": "700",
+                      "commercialComponentId": "510442728",
+                      "name": "Marrón",
+                      "hexCode": "#281c15"
+                    }
+                  ]
+                },
+                "pricing": {
+                  "price": {
+                    "current": {
+                      "value": 2295,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    }
+                  }
+                },
+                "media": [
+                  {
+                    "asset": {
+                      "type": "image",
+                      "assetId": "7cd85b7d46204be995f5b8b59a96ff5f",
+                      "timestamp": "1773411820975",
+                      "url": "https://static.zara.net/assets/public/7cd8/5b7d/46204be995f5/b8b59a96ff5f/08741064250-p/08741064250-p.jpg?ts=1773411820975&w={width}",
+                      "formats": [],
+                      "allowedScreens": [
+                        "large",
+                        "small"
+                      ],
+                      "metaUrl": "https://static.zara.net/assets/public/7cd8/5b7d/46204be995f5/b8b59a96ff5f/meta.json?ts=1773411820982",
+                      "styles": {
+                        "kind": "full"
+                      },
+                      "dimensions": {
+                        "width": 2731,
+                        "height": 4096
+                      },
+                      "editorialName": "p",
+                      "locations": [
+                        "CATEGORY_PAGE",
+                        "PRODUCT_PAGE",
+                        "DEFAULT_ASSISTANT"
+                      ]
+                    },
+                    "behavior": {},
+                    "regions": []
+                  }
+                ],
+                "customMedias": {},
+                "sizes": [
+                  {
+                    "identifier": {
+                      "id": 1,
+                      "reference": "0874106425001-V2026",
+                      "sku": 510439779,
+                      "equivalentSizeId": 101
+                    },
+                    "nomenclature": {
+                      "name": "XS"
+                    },
+                    "availability": "out_of_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 514950306,
+                        "reference": "0874107425001-V2026"
+                      }
+                    ]
+                  },
+                  {
+                    "identifier": {
+                      "id": 2,
+                      "reference": "0874106425002-V2026",
+                      "sku": 510439780,
+                      "equivalentSizeId": 102
+                    },
+                    "nomenclature": {
+                      "name": "S"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 514950307,
+                        "reference": "0874107425002-V2026"
+                      }
+                    ]
+                  },
+                  {
+                    "identifier": {
+                      "id": 3,
+                      "reference": "0874106425003-V2026",
+                      "sku": 510439781,
+                      "equivalentSizeId": 103
+                    },
+                    "nomenclature": {
+                      "name": "M"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 514950308,
+                        "reference": "0874107425003-V2026"
+                      }
+                    ]
+                  },
+                  {
+                    "identifier": {
+                      "id": 4,
+                      "reference": "0874106425004-V2026",
+                      "sku": 510439782,
+                      "equivalentSizeId": 104
+                    },
+                    "nomenclature": {
+                      "name": "L"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 514950309,
+                        "reference": "0874107425004-V2026"
+                      }
+                    ]
+                  },
+                  {
+                    "identifier": {
+                      "id": 5,
+                      "reference": "0874106425005-V2026",
+                      "sku": 510439783,
+                      "equivalentSizeId": 105
+                    },
+                    "nomenclature": {
+                      "name": "XL"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 514950310,
+                        "reference": "0874107425005-V2026"
+                      }
+                    ]
+                  }
+                ],
+                "relations": [
+                  {
+                    "ids": [
+                      506437399
+                    ],
+                    "type": "PACMAN-LOOK"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "type": "Smart_tag",
+                    "identifier": "TAG_UPPERBODY_LAYERS_3_LAYERS",
+                    "name": "UPPERBODY_LAYERS",
+                    "values": [],
+                    "properties": {
+                      "probability": "1.0",
+                      "source": "GROUP",
+                      "type": "LAYERS",
+                      "typeProbability": "1.0"
+                    }
+                  }
+                ],
+                "features": {
+                  "extraDetailTitle": "Composición, cuidados & origen",
+                  "highlightPrice": "false",
+                  "isBracketingRestricted": "true",
+                  "hasSpecialReturnConditions": "false",
+                  "isSizeGuideEnabled": "true",
+                  "isVirtualTryOnSupported": "true",
+                  "isRecommendedCarouselEnabled": "true",
+                  "isNotReturnable": "false",
+                  "isSizeRecommender": "true",
+                  "hasInteractiveSizeGuide": "true"
+                },
+                "seo": {
+                  "keyword": "blusa-entredoses-volantes",
+                  "seoProductId": "08741074",
+                  "discernProductId": 510442729
+                },
+                "firstAvailabilityDate": "2026-03-11T02:00:00Z",
+                "behaviour": {}
+              },
+              {
+                "identifier": {
+                  "id": "504236252",
+                  "productParentId": "496247613",
+                  "reference": "C04424306250000-V2026",
+                  "productParentReference": "04424306-V2026",
+                  "displayReference": "4424/306"
+                },
+                "name": "CAMISETA RÚSTICA ALGODÓN",
+                "description": "REGULAR FIT - CUELLO REDONDO - LARGO NORMAL - MANGA CORTA<br/><br/>Camiseta con tejido principal confeccionado en hilatura de algodón 100%. Cuello redondo y manga corta. Bajo recto.",
+                "type": "Wear",
+                "state": {
+                  "visibility": "visible",
+                  "availability": "in_stock"
+                },
+                "classification": {
+                  "brand": {
+                    "id": 1,
+                    "groupId": 1,
+                    "groupCode": "zara"
+                  },
+                  "section": {
+                    "id": 1,
+                    "name": "WOMAN"
+                  },
+                  "family": {
+                    "id": 83,
+                    "name": "CAMISETA"
+                  },
+                  "subfamily": {
+                    "id": 11451,
+                    "name": "C.CTAS BASICAS"
+                  },
+                  "sizeSystem": "2"
+                },
+                "color": {
+                  "id": "250",
+                  "commercialComponentId": "529158397",
+                  "name": "Blanco",
+                  "hexCode": "#F2F7FA",
+                  "otherColors": [
+                    {
+                      "id": "119",
+                      "commercialComponentId": "509646496",
+                      "name": "amarillo",
+                      "hexCode": "#EAD47C"
+                    },
+                    {
+                      "id": "620",
+                      "commercialComponentId": "498702910",
+                      "name": "Rosa",
+                      "hexCode": "#F2CADB"
+                    },
+                    {
+                      "id": "717",
+                      "commercialComponentId": "498702913",
+                      "name": "Chocolate",
+                      "hexCode": "#170600"
+                    },
+                    {
+                      "id": "822",
+                      "commercialComponentId": "498702911",
+                      "name": "Carbón",
+                      "hexCode": "#423E3D"
+                    }
+                  ]
+                },
+                "pricing": {
+                  "price": {
+                    "current": {
+                      "value": 795,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    }
+                  }
+                },
+                "media": [
+                  {
+                    "asset": {
+                      "type": "image",
+                      "assetId": "ae29c07cc8ed4a8182bca6baf5d218d6",
+                      "timestamp": "1769080757237",
+                      "url": "https://static.zara.net/assets/public/ae29/c07c/c8ed4a8182bc/a6baf5d218d6/04424306250-p/04424306250-p.jpg?ts=1769080757237&w={width}",
+                      "formats": [],
+                      "allowedScreens": [
+                        "large",
+                        "small"
+                      ],
+                      "metaUrl": "https://static.zara.net/assets/public/ae29/c07c/c8ed4a8182bc/a6baf5d218d6/meta.json?ts=1769080757248",
+                      "styles": {
+                        "kind": "full"
+                      },
+                      "dimensions": {
+                        "width": 2048,
+                        "height": 3072
+                      },
+                      "editorialName": "p",
+                      "locations": [
+                        "CATEGORY_PAGE",
+                        "PRODUCT_PAGE",
+                        "DEFAULT_ASSISTANT"
+                      ]
+                    },
+                    "behavior": {},
+                    "regions": []
+                  }
+                ],
+                "customMedias": {},
+                "sizes": [
+                  {
+                    "identifier": {
+                      "id": 2,
+                      "reference": "0442430625002-V2026",
+                      "sku": 498699570,
+                      "equivalentSizeId": 102
+                    },
+                    "nomenclature": {
+                      "name": "S"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 795,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "BD"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 527903630,
+                        "reference": "0442434625002-V2026"
+                      }
+                    ]
+                  },
+                  {
+                    "identifier": {
+                      "id": 3,
+                      "reference": "0442430625003-V2026",
+                      "sku": 498699571,
+                      "equivalentSizeId": 103
+                    },
+                    "nomenclature": {
+                      "name": "M"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 795,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "BD"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 527903631,
+                        "reference": "0442434625003-V2026"
+                      }
+                    ]
+                  },
+                  {
+                    "identifier": {
+                      "id": 4,
+                      "reference": "0442430625004-V2026",
+                      "sku": 498699573,
+                      "equivalentSizeId": 104
+                    },
+                    "nomenclature": {
+                      "name": "L"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 795,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "BD"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 527903633,
+                        "reference": "0442434625004-V2026"
+                      }
+                    ]
+                  },
+                  {
+                    "identifier": {
+                      "id": 5,
+                      "reference": "0442430625005-V2026",
+                      "sku": 517459109,
+                      "equivalentSizeId": 105
+                    },
+                    "nomenclature": {
+                      "name": "XL"
+                    },
+                    "availability": "coming_soon",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 795,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "BD"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 537063746,
+                        "reference": "0442434625005-V2026"
+                      }
+                    ]
+                  }
+                ],
+                "relations": [
+                  {
+                    "ids": [
+                      516153113,
+                      495669692,
+                      505121626,
+                      503120718,
+                      520370146,
+                      494861080,
+                      503415736
+                    ],
+                    "type": "PACMAN-LOOK"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "type": "Smart_tag",
+                    "identifier": "TAG_UPPERBODY_LAYERS_3_LAYERS",
+                    "name": "UPPERBODY_LAYERS",
+                    "values": [],
+                    "properties": {
+                      "probability": "1.0",
+                      "source": "GROUP",
+                      "type": "LAYERS",
+                      "typeProbability": "1.0"
+                    }
+                  }
+                ],
+                "features": {
+                  "extraDetailTitle": "Composición, cuidados & origen",
+                  "highlightPrice": "false",
+                  "isBracketingRestricted": "true",
+                  "hasSpecialReturnConditions": "false",
+                  "isSizeGuideEnabled": "true",
+                  "isVirtualTryOnSupported": "true",
+                  "isRecommendedCarouselEnabled": "true",
+                  "isNotReturnable": "false",
+                  "isSizeRecommender": "true",
+                  "hasInteractiveSizeGuide": "true"
+                },
+                "seo": {
+                  "keyword": "camiseta-rustica-algodon",
+                  "seoProductId": "04424306",
+                  "discernProductId": 504236252
+                },
+                "firstAvailabilityDate": "2026-01-25T02:00:00Z",
+                "behaviour": {}
+              },
+              {
+                "identifier": {
+                  "id": "512042602",
+                  "productParentId": "512034270",
+                  "reference": "C08727022250000-V2026",
+                  "productParentReference": "08727022-V2026",
+                  "displayReference": "8727/022"
+                },
+                "name": "JEANS TRF WIDE LEG TIRO BAJO",
+                "description": "TIRO BAJO - WIDE LEG - FULL LENGTH<br/><br/>Jeans de tiro bajo y cinco bolsillos. Pierna ancha larga. Cierre frontal con cremallera y botón metálico.",
+                "type": "Wear",
+                "state": {
+                  "visibility": "visible",
+                  "availability": "in_stock"
+                },
+                "classification": {
+                  "brand": {
+                    "id": 1,
+                    "groupId": 1,
+                    "groupCode": "zara"
+                  },
+                  "section": {
+                    "id": 1,
+                    "name": "WOMAN"
+                  },
+                  "family": {
+                    "id": 73,
+                    "name": "PANTALON"
+                  },
+                  "subfamily": {
+                    "id": 394,
+                    "name": "T.PANT.PAQUETER"
+                  },
+                  "sizeSystem": "1"
+                },
+                "color": {
+                  "id": "250",
+                  "commercialComponentId": "536435808",
+                  "name": "Blanco",
+                  "hexCode": "#F6F6F6",
+                  "otherColors": [
+                    {
+                      "id": "400",
+                      "commercialComponentId": "512042595",
+                      "name": "Azul",
+                      "hexCode": "#8096AE"
+                    },
+                    {
+                      "id": "406",
+                      "commercialComponentId": "512285303",
+                      "name": "Azul claro",
+                      "hexCode": "#C2CED0"
+                    },
+                    {
+                      "id": "422",
+                      "commercialComponentId": "512042594",
+                      "name": "Marino oscuro",
+                      "hexCode": "#17191E"
+                    },
+                    {
+                      "id": "427",
+                      "commercialComponentId": "536275018",
+                      "name": "Azul medio",
+                      "hexCode": "#556386"
+                    },
+                    {
+                      "id": "441",
+                      "commercialComponentId": "532796976",
+                      "name": "Azul claro",
+                      "hexCode": "#B6C7CF"
+                    },
+                    {
+                      "id": "445",
+                      "commercialComponentId": "512042597",
+                      "name": "Azul / Verde",
+                      "hexCode": "#576B71"
+                    },
+                    {
+                      "id": "490",
+                      "commercialComponentId": "512087774",
+                      "name": "Azul noche",
+                      "hexCode": "#2D3235"
+                    },
+                    {
+                      "id": "506",
+                      "commercialComponentId": "512042600",
+                      "name": "Khaki claro",
+                      "hexCode": "#4D4C44"
+                    },
+                    {
+                      "id": "730",
+                      "commercialComponentId": "512042596",
+                      "name": "Marrón claro",
+                      "hexCode": "#DFD4BC"
+                    }
+                  ]
+                },
+                "pricing": {
+                  "price": {
+                    "current": {
+                      "value": 2995,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    }
+                  }
+                },
+                "media": [
+                  {
+                    "asset": {
+                      "type": "image",
+                      "assetId": "1869250cc3584dd6987ded0651fb2795",
+                      "timestamp": "1771236207825",
+                      "url": "https://static.zara.net/assets/public/1869/250c/c3584dd6987d/ed0651fb2795/00541020250-p/00541020250-p.jpg?ts=1771236207825&w={width}",
+                      "formats": [],
+                      "allowedScreens": [
+                        "large",
+                        "small"
+                      ],
+                      "metaUrl": "https://static.zara.net/assets/public/1869/250c/c3584dd6987d/ed0651fb2795/meta.json?ts=1771236207836",
+                      "styles": {
+                        "kind": "full"
+                      },
+                      "dimensions": {
+                        "width": 2048,
+                        "height": 3072
+                      },
+                      "editorialName": "p",
+                      "locations": [
+                        "CATEGORY_PAGE",
+                        "PRODUCT_PAGE",
+                        "DEFAULT_ASSISTANT"
+                      ]
+                    },
+                    "behavior": {},
+                    "regions": []
+                  }
+                ],
+                "customMedias": {},
+                "sizes": [
+                  {
+                    "identifier": {
+                      "id": 32,
+                      "reference": "0406002025032-V2026",
+                      "sku": 524604464,
+                      "equivalentSizeId": 32
+                    },
+                    "nomenclature": {
+                      "name": "32"
+                    },
+                    "availability": "coming_soon",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "PK"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 527051082,
+                        "reference": "0459202025032-V2026"
+                      },
+                      {
+                        "sku": 495676396,
+                        "reference": "0054102025032-V2026"
+                      },
+                      {
+                        "sku": 512066503,
+                        "reference": "0557502825032-V2026"
+                      }
+                    ]
+                  },
+                  {
+                    "identifier": {
+                      "id": 34,
+                      "reference": "0406002025034-V2026",
+                      "sku": 524604465,
+                      "equivalentSizeId": 34
+                    },
+                    "nomenclature": {
+                      "name": "34"
+                    },
+                    "availability": "coming_soon",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "PK"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 527051083,
+                        "reference": "0459202025034-V2026"
+                      },
+                      {
+                        "sku": 495676397,
+                        "reference": "0054102025034-V2026"
+                      },
+                      {
+                        "sku": 512066504,
+                        "reference": "0557502825034-V2026"
+                      }
+                    ]
+                  },
+                  {
+                    "identifier": {
+                      "id": 36,
+                      "reference": "0406002025036-V2026",
+                      "sku": 524604466,
+                      "equivalentSizeId": 36
+                    },
+                    "nomenclature": {
+                      "name": "36"
+                    },
+                    "availability": "coming_soon",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "PK"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 495676398,
+                        "reference": "0054102025036-V2026"
+                      },
+                      {
+                        "sku": 527051084,
+                        "reference": "0459202025036-V2026"
+                      },
+                      {
+                        "sku": 512066505,
+                        "reference": "0557502825036-V2026"
+                      }
+                    ]
+                  },
+                  {
+                    "identifier": {
+                      "id": 38,
+                      "reference": "0406002025038-V2026",
+                      "sku": 524604451,
+                      "equivalentSizeId": 38
+                    },
+                    "nomenclature": {
+                      "name": "38"
+                    },
+                    "availability": "coming_soon",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "PK"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 512066498,
+                        "reference": "0557502825038-V2026"
+                      },
+                      {
+                        "sku": 495676391,
+                        "reference": "0054102025038-V2026"
+                      },
+                      {
+                        "sku": 527051077,
+                        "reference": "0459202025038-V2026"
+                      }
+                    ]
+                  },
+                  {
+                    "identifier": {
+                      "id": 40,
+                      "reference": "0557502825040-V2026",
+                      "sku": 512066499,
+                      "equivalentSizeId": 40
+                    },
+                    "nomenclature": {
+                      "name": "40"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "MA"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 524604452,
+                        "reference": "0406002025040-V2026"
+                      },
+                      {
+                        "sku": 495676392,
+                        "reference": "0054102025040-V2026"
+                      },
+                      {
+                        "sku": 527051078,
+                        "reference": "0459202025040-V2026"
+                      }
+                    ]
+                  },
+                  {
+                    "identifier": {
+                      "id": 42,
+                      "reference": "0054102025042-V2026",
+                      "sku": 495676393,
+                      "equivalentSizeId": 42
+                    },
+                    "nomenclature": {
+                      "name": "42"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "PK"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 529092177,
+                        "reference": "0459202025042-V2026"
+                      },
+                      {
+                        "sku": 524604453,
+                        "reference": "0406002025042-V2026"
+                      },
+                      {
+                        "sku": 512066500,
+                        "reference": "0557502825042-V2026"
+                      }
+                    ]
+                  },
+                  {
+                    "identifier": {
+                      "id": 44,
+                      "reference": "0054102025044-V2026",
+                      "sku": 495676394,
+                      "equivalentSizeId": 44
+                    },
+                    "nomenclature": {
+                      "name": "44"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "PK"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 529337024,
+                        "reference": "0459202025044-V2026"
+                      },
+                      {
+                        "sku": 512066501,
+                        "reference": "0557502825044-V2026"
+                      },
+                      {
+                        "sku": 524604454,
+                        "reference": "0406002025044-V2026"
+                      }
+                    ]
+                  },
+                  {
+                    "identifier": {
+                      "id": 46,
+                      "reference": "0054102025046-V2026",
+                      "sku": 495676395,
+                      "equivalentSizeId": 46
+                    },
+                    "nomenclature": {
+                      "name": "46"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "PK"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": [
+                      {
+                        "sku": 524604456,
+                        "reference": "0406002025046-V2026"
+                      },
+                      {
+                        "sku": 512066502,
+                        "reference": "0557502825046-V2026"
+                      }
+                    ]
+                  }
+                ],
+                "relations": [
+                  {
+                    "ids": [
+                      520181829,
+                      499995415,
+                      503422096,
+                      506043061,
+                      502215380
+                    ],
+                    "type": "PACMAN-LOOK"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "type": "Smart_tag",
+                    "identifier": "TAG_LOWERBODY_LAYERS_3_LAYERS",
+                    "name": "LOWERBODY_LAYERS",
+                    "values": [],
+                    "properties": {
+                      "probability": "1.0",
+                      "source": "GROUP",
+                      "type": "LAYERS",
+                      "typeProbability": "1.0"
+                    }
+                  }
+                ],
+                "features": {
+                  "extraDetailTitle": "Composición, cuidados & origen",
+                  "highlightPrice": "false",
+                  "isBracketingRestricted": "true",
+                  "hasSpecialReturnConditions": "false",
+                  "isSizeGuideEnabled": "true",
+                  "isVirtualTryOnSupported": "true",
+                  "isRecommendedCarouselEnabled": "true",
+                  "isNotReturnable": "false",
+                  "isSizeRecommender": "true",
+                  "hasInteractiveSizeGuide": "true"
+                },
+                "seo": {
+                  "keyword": "jeans-trf-wide-leg-tiro-bajo",
+                  "seoProductId": "08727022",
+                  "discernProductId": 512042602
+                },
+                "firstAvailabilityDate": "2026-02-15T02:00:00Z",
+                "behaviour": {}
+              },
+              {
+                "identifier": {
+                  "id": "514989243",
+                  "productParentId": "514978591",
+                  "reference": "C02575709401000-V2026",
+                  "productParentReference": "02575709-V2026",
+                  "displayReference": "2575/709"
+                },
+                "name": "MONO HALTER PESPUNTES CONTRASTE CON LINO",
+                "description": "Mono largo confeccionada con lino. Cuello halter con la espalda descubierta. Acabados con pespuntes combinados a contraste. Tapetas delanteras. Pernera ancha. Cierre en espalda con cremallera oculta en costura y botones ocultos.",
+                "type": "Wear",
+                "state": {
+                  "visibility": "visible",
+                  "availability": "in_stock"
+                },
+                "classification": {
+                  "brand": {
+                    "id": 1,
+                    "groupId": 1,
+                    "groupCode": "zara"
+                  },
+                  "section": {
+                    "id": 1,
+                    "name": "WOMAN"
+                  },
+                  "family": {
+                    "id": 111,
+                    "name": "MONO"
+                  },
+                  "subfamily": {
+                    "id": 344,
+                    "name": "B.PANTALON"
+                  },
+                  "sizeSystem": "2"
+                },
+                "color": {
+                  "id": "401",
+                  "commercialComponentId": "514989243",
+                  "name": "Marino",
+                  "hexCode": "#22272B",
+                  "otherColors": []
+                },
+                "pricing": {
+                  "price": {
+                    "current": {
+                      "value": 3995,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    }
+                  }
+                },
+                "media": [
+                  {
+                    "asset": {
+                      "type": "image",
+                      "assetId": "5ee70fd125fe4e2da7baab4769b6f0e3",
+                      "timestamp": "1774618096920",
+                      "url": "https://static.zara.net/assets/public/5ee7/0fd1/25fe4e2da7ba/ab4769b6f0e3/02575709401-p/02575709401-p.jpg?ts=1774618096920&w={width}",
+                      "formats": [],
+                      "allowedScreens": [
+                        "large",
+                        "small"
+                      ],
+                      "metaUrl": "https://static.zara.net/assets/public/5ee7/0fd1/25fe4e2da7ba/ab4769b6f0e3/meta.json?ts=1774618096927",
+                      "styles": {
+                        "kind": "full"
+                      },
+                      "dimensions": {
+                        "width": 2048,
+                        "height": 3072
+                      },
+                      "editorialName": "p",
+                      "locations": [
+                        "CATEGORY_PAGE",
+                        "PRODUCT_PAGE",
+                        "DEFAULT_ASSISTANT"
+                      ]
+                    },
+                    "behavior": {},
+                    "regions": []
+                  }
+                ],
+                "customMedias": {},
+                "sizes": [
+                  {
+                    "identifier": {
+                      "id": 1,
+                      "reference": "0257570940101-V2026",
+                      "sku": 514978599,
+                      "equivalentSizeId": 101
+                    },
+                    "nomenclature": {
+                      "name": "XS"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "MA"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 2,
+                      "reference": "0257570940102-V2026",
+                      "sku": 514978600,
+                      "equivalentSizeId": 102
+                    },
+                    "nomenclature": {
+                      "name": "S"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "MA"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 3,
+                      "reference": "0257570940103-V2026",
+                      "sku": 514978601,
+                      "equivalentSizeId": 103
+                    },
+                    "nomenclature": {
+                      "name": "M"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "MA"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 4,
+                      "reference": "0257570940104-V2026",
+                      "sku": 514978592,
+                      "equivalentSizeId": 104
+                    },
+                    "nomenclature": {
+                      "name": "L"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "MA"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 5,
+                      "reference": "0257570940105-V2026",
+                      "sku": 514978593,
+                      "equivalentSizeId": 105
+                    },
+                    "nomenclature": {
+                      "name": "XL"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "MA"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  }
+                ],
+                "relations": [
+                  {
+                    "ids": [
+                      497562294
+                    ],
+                    "type": "PACMAN-LOOK"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "type": "Smart_tag",
+                    "identifier": "TAG_FULLBODY_LAYERS_3_LAYERS",
+                    "name": "FULLBODY_LAYERS",
+                    "values": [],
+                    "properties": {
+                      "probability": "1.0",
+                      "source": "GROUP",
+                      "type": "LAYERS",
+                      "typeProbability": "1.0"
+                    }
+                  },
+                  {
+                    "type": "Smart_tag",
+                    "identifier": "TAG_UPPERBODY_LAYERS_3_LAYERS",
+                    "name": "UPPERBODY_LAYERS",
+                    "values": [],
+                    "properties": {
+                      "probability": "1.0",
+                      "source": "GROUP",
+                      "type": "LAYERS",
+                      "typeProbability": "1.0"
+                    }
+                  }
+                ],
+                "features": {
+                  "extraDetailTitle": "Composición, cuidados & origen",
+                  "highlightPrice": "false",
+                  "isBracketingRestricted": "true",
+                  "hasSpecialReturnConditions": "false",
+                  "isSizeGuideEnabled": "true",
+                  "isVirtualTryOnSupported": "true",
+                  "isRecommendedCarouselEnabled": "true",
+                  "isNotReturnable": "false",
+                  "isSizeRecommender": "true",
+                  "hasInteractiveSizeGuide": "true"
+                },
+                "seo": {
+                  "keyword": "mono-halter-pespuntes-contraste-con-lino",
+                  "seoProductId": "02575709",
+                  "discernProductId": 514989243
+                },
+                "firstAvailabilityDate": "2026-03-29T01:00:00Z",
+                "behaviour": {}
+              },
+              {
+                "identifier": {
+                  "id": "519110732",
+                  "productParentId": "519108555",
+                  "reference": "C08741110080000-V2026",
+                  "productParentReference": "08741110-V2026",
+                  "displayReference": "8741/110"
+                },
+                "name": "TOP NIDO DE ABEJA CUADRO VICHY",
+                "description": "Top de cuello redondo y manga sisa. Acabados con volantes y elásticos. Cierre en espalda con abertura y botón.",
+                "type": "Wear",
+                "state": {
+                  "visibility": "visible",
+                  "availability": "in_stock"
+                },
+                "classification": {
+                  "brand": {
+                    "id": 1,
+                    "groupId": 1,
+                    "groupCode": "zara"
+                  },
+                  "section": {
+                    "id": 1,
+                    "name": "WOMAN"
+                  },
+                  "family": {
+                    "id": 76,
+                    "name": "CAMISA"
+                  },
+                  "subfamily": {
+                    "id": 347,
+                    "name": "B.CAMISA"
+                  },
+                  "sizeSystem": "2"
+                },
+                "color": {
+                  "id": "080",
+                  "commercialComponentId": "519110732",
+                  "name": "Crudo / Azul",
+                  "hexCode": "#A1B7C8",
+                  "otherColors": [
+                    {
+                      "id": "068",
+                      "commercialComponentId": "519110731",
+                      "name": "Crudo / Granate",
+                      "hexCode": "#D5B2B8"
+                    }
+                  ]
+                },
+                "pricing": {
+                  "price": {
+                    "current": {
+                      "value": 2295,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    }
+                  }
+                },
+                "media": [
+                  {
+                    "asset": {
+                      "type": "image",
+                      "assetId": "5a97c903f4e94b858943e55081b570d0",
+                      "timestamp": "1774529324390",
+                      "url": "https://static.zara.net/assets/public/5a97/c903/f4e94b858943/e55081b570d0/08741110080-p/08741110080-p.jpg?ts=1774529324390&w={width}",
+                      "formats": [],
+                      "allowedScreens": [
+                        "large",
+                        "small"
+                      ],
+                      "metaUrl": "https://static.zara.net/assets/public/5a97/c903/f4e94b858943/e55081b570d0/meta.json?ts=1774529324397",
+                      "styles": {
+                        "kind": "full"
+                      },
+                      "dimensions": {
+                        "width": 2048,
+                        "height": 3072
+                      },
+                      "editorialName": "p",
+                      "locations": [
+                        "CATEGORY_PAGE",
+                        "PRODUCT_PAGE",
+                        "DEFAULT_ASSISTANT"
+                      ]
+                    },
+                    "behavior": {},
+                    "regions": []
+                  }
+                ],
+                "customMedias": {},
+                "sizes": [
+                  {
+                    "identifier": {
+                      "id": 1,
+                      "reference": "0874111008001-V2026",
+                      "sku": 519108556,
+                      "equivalentSizeId": 101
+                    },
+                    "nomenclature": {
+                      "name": "XS"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 2,
+                      "reference": "0874111008002-V2026",
+                      "sku": 519108557,
+                      "equivalentSizeId": 102
+                    },
+                    "nomenclature": {
+                      "name": "S"
+                    },
+                    "availability": "coming_soon",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 3,
+                      "reference": "0874111008003-V2026",
+                      "sku": 519108558,
+                      "equivalentSizeId": 103
+                    },
+                    "nomenclature": {
+                      "name": "M"
+                    },
+                    "availability": "coming_soon",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 4,
+                      "reference": "0874111008004-V2026",
+                      "sku": 519108559,
+                      "equivalentSizeId": 104
+                    },
+                    "nomenclature": {
+                      "name": "L"
+                    },
+                    "availability": "coming_soon",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 5,
+                      "reference": "0874111008005-V2026",
+                      "sku": 519108561,
+                      "equivalentSizeId": 105
+                    },
+                    "nomenclature": {
+                      "name": "XL"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  }
+                ],
+                "relations": [
+                  {
+                    "ids": [
+                      504020894,
+                      501435634,
+                      499989497,
+                      506411750
+                    ],
+                    "type": "PACMAN-LOOK"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "type": "Smart_tag",
+                    "identifier": "TAG_UPPERBODY_LAYERS_3_LAYERS",
+                    "name": "UPPERBODY_LAYERS",
+                    "values": [],
+                    "properties": {
+                      "probability": "1.0",
+                      "source": "GROUP",
+                      "type": "LAYERS",
+                      "typeProbability": "1.0"
+                    }
+                  }
+                ],
+                "features": {
+                  "extraDetailTitle": "Composición, cuidados & origen",
+                  "highlightPrice": "false",
+                  "isBracketingRestricted": "true",
+                  "hasSpecialReturnConditions": "false",
+                  "isSizeGuideEnabled": "true",
+                  "isVirtualTryOnSupported": "true",
+                  "isRecommendedCarouselEnabled": "true",
+                  "isNotReturnable": "false",
+                  "isSizeRecommender": "true",
+                  "hasInteractiveSizeGuide": "true"
+                },
+                "seo": {
+                  "keyword": "top-nido-de-abeja-cuadro-vichy",
+                  "seoProductId": "08741110",
+                  "discernProductId": 519110732
+                },
+                "firstAvailabilityDate": "2026-03-29T01:00:00Z",
+                "behaviour": {}
+              },
+              {
+                "identifier": {
+                  "id": "509007587",
+                  "productParentId": "509005751",
+                  "reference": "C08741103423000-V2026",
+                  "productParentReference": "08741103-V2026",
+                  "displayReference": "8741/103"
+                },
+                "name": "TOP LENCERO ENCAJE",
+                "description": "Top corto de escote recto y tirantes finos con encaje. Forro interior.",
+                "type": "Wear",
+                "state": {
+                  "visibility": "visible",
+                  "availability": "in_stock"
+                },
+                "classification": {
+                  "brand": {
+                    "id": 1,
+                    "groupId": 1,
+                    "groupCode": "zara"
+                  },
+                  "section": {
+                    "id": 1,
+                    "name": "WOMAN"
+                  },
+                  "family": {
+                    "id": 76,
+                    "name": "CAMISA"
+                  },
+                  "subfamily": {
+                    "id": 347,
+                    "name": "B.CAMISA"
+                  },
+                  "sizeSystem": "2"
+                },
+                "color": {
+                  "id": "423",
+                  "commercialComponentId": "509007587",
+                  "name": "Azul pastel",
+                  "hexCode": "#CBD7DC",
+                  "otherColors": []
+                },
+                "pricing": {
+                  "price": {
+                    "current": {
+                      "value": 2295,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    }
+                  }
+                },
+                "media": [
+                  {
+                    "asset": {
+                      "type": "image",
+                      "assetId": "f506abf1d4764e35ae33f86d9311c8cd",
+                      "timestamp": "1774884884575",
+                      "url": "https://static.zara.net/assets/public/f506/abf1/d4764e35ae33/f86d9311c8cd/08741103423-p/08741103423-p.jpg?ts=1774884884575&w={width}",
+                      "formats": [],
+                      "allowedScreens": [
+                        "large",
+                        "small"
+                      ],
+                      "metaUrl": "https://static.zara.net/assets/public/f506/abf1/d4764e35ae33/f86d9311c8cd/meta.json?ts=1774884884581",
+                      "styles": {
+                        "kind": "full"
+                      },
+                      "dimensions": {
+                        "width": 2048,
+                        "height": 3072
+                      },
+                      "editorialName": "p",
+                      "locations": [
+                        "CATEGORY_PAGE",
+                        "PRODUCT_PAGE",
+                        "DEFAULT_ASSISTANT"
+                      ]
+                    },
+                    "behavior": {},
+                    "regions": []
+                  }
+                ],
+                "customMedias": {},
+                "sizes": [
+                  {
+                    "identifier": {
+                      "id": 1,
+                      "reference": "0874110342301-V2026",
+                      "sku": 509005752,
+                      "equivalentSizeId": 101
+                    },
+                    "nomenclature": {
+                      "name": "XS"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 2,
+                      "reference": "0874110342302-V2026",
+                      "sku": 509005753,
+                      "equivalentSizeId": 102
+                    },
+                    "nomenclature": {
+                      "name": "S"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 3,
+                      "reference": "0874110342303-V2026",
+                      "sku": 509005754,
+                      "equivalentSizeId": 103
+                    },
+                    "nomenclature": {
+                      "name": "M"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 4,
+                      "reference": "0874110342304-V2026",
+                      "sku": 509005755,
+                      "equivalentSizeId": 104
+                    },
+                    "nomenclature": {
+                      "name": "L"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 5,
+                      "reference": "0874110342305-V2026",
+                      "sku": 509005756,
+                      "equivalentSizeId": 105
+                    },
+                    "nomenclature": {
+                      "name": "XL"
+                    },
+                    "availability": "out_of_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 2295,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "KH"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  }
+                ],
+                "relations": [
+                  {
+                    "ids": [
+                      509057522,
+                      529584431
+                    ],
+                    "type": "PACMAN-LOOK"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "type": "Smart_tag",
+                    "identifier": "TAG_UPPERBODY_LAYERS_3_LAYERS",
+                    "name": "UPPERBODY_LAYERS",
+                    "values": [],
+                    "properties": {
+                      "probability": "1.0",
+                      "source": "GROUP",
+                      "type": "LAYERS",
+                      "typeProbability": "1.0"
+                    }
+                  }
+                ],
+                "features": {
+                  "extraDetailTitle": "Composición, cuidados & origen",
+                  "highlightPrice": "false",
+                  "isBracketingRestricted": "true",
+                  "hasSpecialReturnConditions": "false",
+                  "isSizeGuideEnabled": "true",
+                  "isVirtualTryOnSupported": "true",
+                  "isRecommendedCarouselEnabled": "true",
+                  "isNotReturnable": "false",
+                  "isSizeRecommender": "true",
+                  "hasInteractiveSizeGuide": "true"
+                },
+                "seo": {
+                  "keyword": "top-lencero-encaje",
+                  "seoProductId": "08741103",
+                  "discernProductId": 509007587
+                },
+                "firstAvailabilityDate": "2026-04-01T00:00:00Z",
+                "behaviour": {}
+              },
+              {
+                "identifier": {
+                  "id": "519188941",
+                  "productParentId": "495685941",
+                  "reference": "C05575025251000-V2026",
+                  "productParentReference": "05575025-V2026",
+                  "displayReference": "5575/025"
+                },
+                "name": "JEANS TRF EXTRA WIDE LEG TIRO ALTO",
+                "description": "TIRO ALTO - EXTRA WIDE LEG<br/><br/>Jeans de tiro alto y cinco bolsillos. Pierna ancha extra larga. Cierre frontal con cremallera y botón metálico",
+                "type": "Wear",
+                "state": {
+                  "visibility": "visible",
+                  "availability": "in_stock"
+                },
+                "classification": {
+                  "brand": {
+                    "id": 1,
+                    "groupId": 1,
+                    "groupCode": "zara"
+                  },
+                  "section": {
+                    "id": 1,
+                    "name": "WOMAN"
+                  },
+                  "family": {
+                    "id": 73,
+                    "name": "PANTALON"
+                  },
+                  "subfamily": {
+                    "id": 394,
+                    "name": "T.PANT.PAQUETER"
+                  },
+                  "sizeSystem": "1"
+                },
+                "color": {
+                  "id": "251",
+                  "commercialComponentId": "536275015",
+                  "name": "Blanco roto",
+                  "hexCode": "#F7F6F0",
+                  "otherColors": [
+                    {
+                      "id": "407",
+                      "commercialComponentId": "495689072",
+                      "name": "Azul",
+                      "hexCode": "#21262E"
+                    },
+                    {
+                      "id": "800",
+                      "commercialComponentId": "536275016",
+                      "name": "Negro",
+                      "hexCode": "#121315"
+                    },
+                    {
+                      "id": "811",
+                      "commercialComponentId": "513117917",
+                      "name": "Gris claro",
+                      "hexCode": "#767778"
+                    }
+                  ]
+                },
+                "pricing": {
+                  "price": {
+                    "current": {
+                      "value": 3595,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    }
+                  }
+                },
+                "media": [
+                  {
+                    "asset": {
+                      "type": "image",
+                      "assetId": "d3df80a1ab244ed1ac8326895e0a662c",
+                      "timestamp": "1772020356613",
+                      "url": "https://static.zara.net/assets/public/d3df/80a1/ab244ed1ac83/26895e0a662c/06929026251-p/06929026251-p.jpg?ts=1772020356613&w={width}",
+                      "formats": [],
+                      "allowedScreens": [
+                        "large",
+                        "small"
+                      ],
+                      "metaUrl": "https://static.zara.net/assets/public/d3df/80a1/ab244ed1ac83/26895e0a662c/meta.json?ts=1772020356621",
+                      "styles": {
+                        "kind": "full"
+                      },
+                      "dimensions": {
+                        "width": 2048,
+                        "height": 3072
+                      },
+                      "editorialName": "p",
+                      "locations": [
+                        "CATEGORY_PAGE",
+                        "PRODUCT_PAGE",
+                        "DEFAULT_ASSISTANT"
+                      ]
+                    },
+                    "behavior": {},
+                    "regions": []
+                  }
+                ],
+                "customMedias": {},
+                "sizes": [
+                  {
+                    "identifier": {
+                      "id": 32,
+                      "reference": "0692902625132-V2026",
+                      "sku": 519184553,
+                      "equivalentSizeId": 32
+                    },
+                    "nomenclature": {
+                      "name": "32"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3595,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "MA"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 34,
+                      "reference": "0692902625134-V2026",
+                      "sku": 519184554,
+                      "equivalentSizeId": 34
+                    },
+                    "nomenclature": {
+                      "name": "34"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3595,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "MA"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 36,
+                      "reference": "0692902625136-V2026",
+                      "sku": 519184555,
+                      "equivalentSizeId": 36
+                    },
+                    "nomenclature": {
+                      "name": "36"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3595,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "MA"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 38,
+                      "reference": "0692902625138-V2026",
+                      "sku": 519184556,
+                      "equivalentSizeId": 38
+                    },
+                    "nomenclature": {
+                      "name": "38"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3595,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "MA"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 40,
+                      "reference": "0692902625140-V2026",
+                      "sku": 519184557,
+                      "equivalentSizeId": 40
+                    },
+                    "nomenclature": {
+                      "name": "40"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3595,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "MA"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 42,
+                      "reference": "0692902625142-V2026",
+                      "sku": 519184558,
+                      "equivalentSizeId": 42
+                    },
+                    "nomenclature": {
+                      "name": "42"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3595,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "MA"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 44,
+                      "reference": "0692902625144-V2026",
+                      "sku": 519184559,
+                      "equivalentSizeId": 44
+                    },
+                    "nomenclature": {
+                      "name": "44"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3595,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "MA"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 46,
+                      "reference": "0692902625146-V2026",
+                      "sku": 519184560,
+                      "equivalentSizeId": 46
+                    },
+                    "nomenclature": {
+                      "name": "46"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3595,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "MA"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "PACKAGING",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  }
+                ],
+                "relations": [
+                  {
+                    "ids": [
+                      516397584
+                    ],
+                    "type": "PACMAN-LOOK"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "type": "Smart_tag",
+                    "identifier": "TAG_LOWERBODY_LAYERS_3_LAYERS",
+                    "name": "LOWERBODY_LAYERS",
+                    "values": [],
+                    "properties": {
+                      "probability": "1.0",
+                      "source": "GROUP",
+                      "type": "LAYERS",
+                      "typeProbability": "1.0"
+                    }
+                  }
+                ],
+                "features": {
+                  "extraDetailTitle": "Composición, cuidados & origen",
+                  "highlightPrice": "false",
+                  "isBracketingRestricted": "true",
+                  "hasSpecialReturnConditions": "false",
+                  "isSizeGuideEnabled": "true",
+                  "isVirtualTryOnSupported": "true",
+                  "isRecommendedCarouselEnabled": "true",
+                  "isNotReturnable": "false",
+                  "isSizeRecommender": "true",
+                  "hasInteractiveSizeGuide": "true"
+                },
+                "seo": {
+                  "keyword": "jeans-trf-extra-wide-leg-tiro-alto",
+                  "seoProductId": "05575025",
+                  "discernProductId": 519188941
+                },
+                "firstAvailabilityDate": "2026-02-25T02:00:00Z",
+                "behaviour": {}
+              },
+              {
+                "identifier": {
+                  "id": "515193546",
+                  "productParentId": "515191857",
+                  "reference": "C03067730709000-V2026",
+                  "productParentReference": "03067730-V2026",
+                  "displayReference": "3067/730"
+                },
+                "name": "BLAZER RAYAS CIERRE CRUZADO",
+                "description": "Blazer de cuello redondo y manga larga. Falsos bolsillos de vivo en delantero. Cierre frontal cruzado con botón.",
+                "type": "Wear",
+                "state": {
+                  "visibility": "visible",
+                  "availability": "in_stock"
+                },
+                "classification": {
+                  "brand": {
+                    "id": 1,
+                    "groupId": 1,
+                    "groupCode": "zara"
+                  },
+                  "section": {
+                    "id": 1,
+                    "name": "WOMAN"
+                  },
+                  "family": {
+                    "id": 77,
+                    "name": "BLAZER"
+                  },
+                  "subfamily": {
+                    "id": 382,
+                    "name": "T.BLASIER"
+                  },
+                  "sizeSystem": "2"
+                },
+                "color": {
+                  "id": "709",
+                  "commercialComponentId": "515193546",
+                  "name": "Tostado oscuro",
+                  "hexCode": "#D3C3A2",
+                  "otherColors": []
+                },
+                "pricing": {
+                  "price": {
+                    "current": {
+                      "value": 3995,
+                      "currency": {
+                        "code": "EUR",
+                        "exponent": -2
+                      }
+                    }
+                  }
+                },
+                "media": [
+                  {
+                    "asset": {
+                      "type": "image",
+                      "assetId": "28c6b65b69954d34901b77e312fc599e",
+                      "timestamp": "1774548606510",
+                      "url": "https://static.zara.net/assets/public/28c6/b65b/69954d34901b/77e312fc599e/03067730709-p/03067730709-p.jpg?ts=1774548606510&w={width}",
+                      "formats": [],
+                      "allowedScreens": [
+                        "large",
+                        "small"
+                      ],
+                      "metaUrl": "https://static.zara.net/assets/public/28c6/b65b/69954d34901b/77e312fc599e/meta.json?ts=1774548606521",
+                      "styles": {
+                        "kind": "full"
+                      },
+                      "dimensions": {
+                        "width": 2048,
+                        "height": 3072
+                      },
+                      "editorialName": "p",
+                      "locations": [
+                        "CATEGORY_PAGE",
+                        "PRODUCT_PAGE",
+                        "DEFAULT_ASSISTANT"
+                      ]
+                    },
+                    "behavior": {},
+                    "regions": []
+                  }
+                ],
+                "customMedias": {},
+                "sizes": [
+                  {
+                    "identifier": {
+                      "id": 1,
+                      "reference": "0306773070901-V2026",
+                      "sku": 515191858,
+                      "equivalentSizeId": 101
+                    },
+                    "nomenclature": {
+                      "name": "XS"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "TR"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 2,
+                      "reference": "0306773070902-V2026",
+                      "sku": 515191859,
+                      "equivalentSizeId": 102
+                    },
+                    "nomenclature": {
+                      "name": "S"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "TR"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 3,
+                      "reference": "0306773070903-V2026",
+                      "sku": 515191860,
+                      "equivalentSizeId": 103
+                    },
+                    "nomenclature": {
+                      "name": "M"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "TR"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 4,
+                      "reference": "0306773070904-V2026",
+                      "sku": 515191861,
+                      "equivalentSizeId": 104
+                    },
+                    "nomenclature": {
+                      "name": "L"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "TR"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 5,
+                      "reference": "0306773070905-V2026",
+                      "sku": 515191862,
+                      "equivalentSizeId": 105
+                    },
+                    "nomenclature": {
+                      "name": "XL"
+                    },
+                    "availability": "in_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "TR"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  },
+                  {
+                    "identifier": {
+                      "id": 6,
+                      "reference": "0306773070906-V2026",
+                      "sku": 515191863,
+                      "equivalentSizeId": 106
+                    },
+                    "nomenclature": {
+                      "name": "XXL"
+                    },
+                    "availability": "low_on_stock",
+                    "sizeType": "regular",
+                    "pricing": {
+                      "price": {
+                        "current": {
+                          "value": 3995,
+                          "currency": {
+                            "code": "EUR",
+                            "exponent": -2
+                          }
+                        }
+                      }
+                    },
+                    "attributes": [
+                      {
+                        "type": "Valued",
+                        "identifier": "CONFECTION",
+                        "values": [
+                          "TR"
+                        ],
+                        "properties": {}
+                      },
+                      {
+                        "type": "Mark",
+                        "identifier": "CONFECTION",
+                        "values": [],
+                        "properties": {}
+                      }
+                    ],
+                    "twinnedSkus": []
+                  }
+                ],
+                "relations": [
+                  {
+                    "ids": [
+                      498699020,
+                      512042598,
+                      494181617,
+                      498841386
+                    ],
+                    "type": "PACMAN-LOOK"
+                  }
+                ],
+                "attributes": [
+                  {
+                    "type": "Smart_tag",
+                    "identifier": "TAG_OUTER_LAYERS_3_LAYERS",
+                    "name": "OUTER_LAYERS",
+                    "values": [],
+                    "properties": {
+                      "probability": "1.0",
+                      "source": "GROUP",
+                      "type": "LAYERS",
+                      "typeProbability": "1.0"
+                    }
+                  }
+                ],
+                "features": {
+                  "extraDetailTitle": "Composición, cuidados & origen",
+                  "highlightPrice": "false",
+                  "isBracketingRestricted": "true",
+                  "hasSpecialReturnConditions": "false",
+                  "isSizeGuideEnabled": "true",
+                  "isVirtualTryOnSupported": "true",
+                  "isRecommendedCarouselEnabled": "true",
+                  "isNotReturnable": "false",
+                  "isSizeRecommender": "true",
+                  "hasInteractiveSizeGuide": "true"
+                },
+                "seo": {
+                  "keyword": "blazer-rayas-cierre-cruzado",
+                  "seoProductId": "03067730",
+                  "discernProductId": 515193546
+                },
+                "firstAvailabilityDate": "2026-03-29T01:00:00Z",
+                "behaviour": {}
+              }
+            ]
+          },
+          "linkedBlocks": [
+            "personalization-results"
+          ],
+          "tags": [],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "autoTemplates": []
+    }
+  ],
+  "filters": [],
+  "additionalEntities": []
+};
