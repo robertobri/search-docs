@@ -7,6 +7,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="examples/search-text.js"></script>
+<script src="examples/search-ref.js"></script>
+<script src="examples/search-redirect.js"></script>
 <style>
   :root {
     --bg: #f5f5f7;
@@ -34,7 +37,10 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 72px;
+  }
 
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
@@ -45,27 +51,140 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* NAV */
+  /* NAV — índice fijo (sticky) bajo el borde superior de la ventana */
   .nav {
     position: sticky; top: 0; z-index: 100;
-    background: rgba(245,245,247,0.88);
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    border-bottom: 1px solid var(--border-light);
+    background: rgba(252,252,253,0.92);
+    backdrop-filter: saturate(180%) blur(24px);
+    -webkit-backdrop-filter: saturate(180%) blur(24px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.8) inset, 0 4px 24px rgba(0,0,0,0.06);
+    transition: box-shadow 0.35s ease, border-color 0.35s ease;
+  }
+  .nav--at-top {
+    border-bottom-color: rgba(0, 113, 227, 0.22);
+    animation: navBarAttract 3.6s ease-in-out infinite;
+  }
+  @keyframes navBarAttract {
+    0%, 100% {
+      box-shadow: 0 1px 0 rgba(255,255,255,0.8) inset, 0 4px 20px rgba(0,0,0,0.05), 0 0 0 0 rgba(0, 113, 227, 0);
+    }
+    50% {
+      box-shadow: 0 1px 0 rgba(255,255,255,0.8) inset, 0 6px 26px rgba(0, 113, 227, 0.1), 0 0 0 1px rgba(0, 113, 227, 0.12);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .nav--at-top { animation: none; }
+    .nav-spacer,
+    .nav-cluster,
+    .nav-links {
+      transition: none;
+    }
+    .nav--at-top .nav-index-mark { animation: none; }
   }
   .nav-inner {
     max-width: 1700px; margin: 0 auto; padding: 0 40px;
-    display: flex; align-items: center; gap: 2px; height: 48px;
+    display: flex; align-items: center;
+    height: 52px;
     overflow-x: auto;
   }
   .nav-inner::-webkit-scrollbar { display: none; }
+  .nav-spacer {
+    min-width: 0;
+    align-self: stretch;
+    pointer-events: none;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 0;
+    overflow: hidden;
+    transition:
+      flex-grow 1.1s cubic-bezier(0.19, 1, 0.22, 1),
+      flex-shrink 1.1s cubic-bezier(0.19, 1, 0.22, 1),
+      flex-basis 1.1s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  .nav--at-top .nav-spacer--before,
+  .nav--at-top .nav-spacer--after {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+  }
+  .nav-cluster {
+    display: flex; align-items: center; gap: 14px;
+    min-width: 0;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    transition:
+      flex-grow 1.1s cubic-bezier(0.19, 1, 0.22, 1),
+      flex-shrink 1.1s cubic-bezier(0.19, 1, 0.22, 1),
+      flex-basis 1.1s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  .nav--at-top .nav-cluster {
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+    max-width: 100%;
+  }
+  .nav-index-mark {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 6px 11px;
+    border-radius: 8px;
+    background: linear-gradient(145deg, rgba(0,113,227,0.1), rgba(0,113,227,0.04));
+    border: 1px solid rgba(0, 113, 227, 0.22);
+    box-shadow: 0 1px 2px rgba(0,113,227,0.08);
+    user-select: none;
+  }
+  .nav-index-mark::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0,113,227,0.2);
+  }
+  .nav--at-top .nav-index-mark {
+    animation: navIndexPulse 3.6s ease-in-out infinite;
+  }
+  @keyframes navIndexPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.94; transform: scale(1.008); }
+  }
+  .nav-divider {
+    flex-shrink: 0;
+    width: 1px; height: 22px; background: var(--border-light);
+    align-self: center;
+  }
+  .nav-links {
+    display: flex; align-items: center; gap: 2px;
+    min-width: 0;
+    overflow-x: auto;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    transition:
+      flex-grow 1.1s cubic-bezier(0.19, 1, 0.22, 1),
+      flex-shrink 1.1s cubic-bezier(0.19, 1, 0.22, 1),
+      flex-basis 1.1s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+  .nav--at-top .nav-links {
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: auto;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
   .nav-link {
     font-size: 12px; font-weight: 500; color: var(--text-secondary);
-    padding: 5px 12px; border-radius: 6px; text-decoration: none;
-    white-space: nowrap; transition: color 0.15s, background 0.15s; flex-shrink: 0;
+    padding: 6px 12px; border-radius: 6px; text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.35s cubic-bezier(0.19, 1, 0.22, 1), background 0.35s cubic-bezier(0.19, 1, 0.22, 1);
+    flex-shrink: 0;
   }
   .nav-link:hover { color: var(--text-primary); background: rgba(0,0,0,0.04); }
-  .nav-link.active { color: var(--text-primary); background: rgba(0,0,0,0.06); }
+  .nav-link.active { color: #fff; background: var(--accent); font-weight: 600; }
 
   /* PAGE */
   .page { max-width: 1700px; margin: 0 auto; padding: 56px 40px 80px; }
@@ -335,6 +454,53 @@
   .footer { text-align: center; padding-top: 40px; border-top: 1px solid var(--border-light); margin-top: 8px; }
   .footer p { font-size: 12px; color: var(--text-tertiary); }
 
+  /* ── FULLSCREEN PANEL ── */
+  .fs-backdrop {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6); z-index: 998;
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  }
+  .fs-backdrop.fs-on { display: block; }
+  .schema-panel.panel-fs {
+    position: fixed !important; inset: 0 !important;
+    width: 100vw !important; height: 100vh !important;
+    max-height: 100vh !important; border-radius: 0 !important;
+    z-index: 999;
+  }
+  .panel-fs-btn {
+    background: none; border: 1px solid #3a3a3c; cursor: pointer;
+    color: #5e5e63; font-size: 13px; padding: 2px 7px; border-radius: 4px;
+    line-height: 1; transition: color 0.15s, border-color 0.15s;
+    font-family: var(--mono);
+  }
+  .panel-fs-btn:hover { color: #aeaeb2; border-color: #6e6e73; }
+
+  /* EXAMPLE TABS */
+  .ex-tabs-row {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 10px;
+  }
+  .ex-tabs-label {
+    font-size: 10px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--text-tertiary);
+  }
+  .ex-tabs { display: flex; gap: 4px; align-items: center; flex-shrink: 0; }
+  .ex-tab {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.03em;
+    font-family: var(--mono); white-space: nowrap;
+    background: none; border: 1px solid #3a3a3c; color: #5e5e63;
+    padding: 3px 10px; border-radius: 20px; cursor: pointer;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+  }
+  .ex-tab:hover { color: #aeaeb2; border-color: #6e6e73; }
+  .ex-tab.active { background: #3a3a3c; color: #e8e8ed; border-color: #3a3a3c; }
+  .jv-loading {
+    font-family: var(--mono); font-size: 12px; color: #4a4a4f;
+    padding: 20px 0; text-align: center;
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:.4} 50%{opacity:1} }
+
   /* ANIMATE */
   @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
   .hero    { animation: fadeUp 0.5s ease both; }
@@ -351,16 +517,23 @@
 </head>
 <body>
 
-<nav class="nav">
+<nav class="nav nav--at-top" id="docNav" aria-label="Índice del documento — fijado arriba al hacer scroll">
   <div class="nav-inner">
-    <a class="nav-link active" href="#overview">Overview</a>
-    <a class="nav-link" href="#searchgrid">SearchGrid</a>
-    <a class="nav-link" href="#gridsection">GridSection</a>
-    <a class="nav-link" href="#gridblock">GridBlock</a>
-    <a class="nav-link" href="#commercial">CommercialComponent</a>
-    <a class="nav-link" href="#banner">PromotionalBanner</a>
-    <a class="nav-link" href="#context">GridContext</a>
-    <a class="nav-link" href="#valuedattr">ValuedAttribute</a>
+    <div class="nav-spacer nav-spacer--before" aria-hidden="true"></div>
+    <div class="nav-cluster">
+      <span class="nav-index-mark">Índice</span>
+      <span class="nav-divider" aria-hidden="true"></span>
+      <div class="nav-links">
+        <a class="nav-link" href="#overview">Overview</a>
+        <a class="nav-link" href="#searchgrid">SearchGrid</a>
+        <a class="nav-link" href="#gridsection">GridSection</a>
+        <a class="nav-link" href="#gridblock">GridBlock</a>
+        <a class="nav-link" href="#commercial">CommercialComponent</a>
+        <a class="nav-link" href="#banner">PromotionalBanner</a>
+        <a class="nav-link" href="#context">GridContext</a>
+      </div>
+    </div>
+    <div class="nav-spacer nav-spacer--after" aria-hidden="true"></div>
   </div>
 </nav>
 
@@ -391,64 +564,58 @@
     </div>
   </div>
 
+  <!-- EXAMPLE TABS — above the split panels -->
+  <div class="ex-tabs-row">
+    <span class="ex-tabs-label">Ejemplo</span>
+    <div class="ex-tabs" id="exTabs">
+      <button class="ex-tab active" data-key="search-text" onclick="loadExample(this)">Attraqt textual example</button>
+      <button class="ex-tab"        data-key="search-ref"  onclick="loadExample(this)">Por referencia</button>
+      <button class="ex-tab"        data-key="search-redirect"  onclick="loadExample(this)">Redirección</button>
+    </div>
+  </div>
+
   <!-- SCHEMA SPLIT: TREE + JSON VIEWER -->
   <div class="schema-split">
 
     <!-- LEFT: Schema tree -->
-    <div class="schema-panel">
+    <div class="schema-panel" id="panelTree">
       <div class="panel-header">
         <span class="panel-label">Schema structure — * = required</span>
+        <div class="panel-actions" style="margin-left:auto;">
+          <button class="panel-fs-btn" id="fsBtnTree" title="Fullscreen" onclick="togglePanelFs('panelTree','fsBtnTree')">⤢</button>
+        </div>
       </div>
       <div class="tree">
 <span class="tr">SearchGrid</span>
-├── <span class="tf">id</span>                          <span class="tc">// string · UUID · optional</span>
-├── <span class="tf">milestoneCode</span>               <span class="tc">// string · optional</span>
 ├── <span class="tf req">sections</span><span class="ts req-star">*</span>                    <span class="tc">// [GridSection]</span>
-│   ├── <span class="tf">id</span>                      <span class="tc">// string · optional</span>
-│   ├── <span class="tf req">type</span><span class="ts req-star">*</span>                    <span class="tc">// string: 'main' | ...</span>
+│   ├── <span class="tf">id</span>                      <span class="tc">// optional · same string as type when present</span>
+│   ├── <span class="tf req">type</span><span class="ts req-star">*</span>                    <span class="tc">// 'default-search' | 'alternatives-search'</span>
 │   ├── <span class="tf">title</span>                   <span class="tc">// string · optional</span>
 │   ├── <span class="tf req">elements</span><span class="ts req-star">*</span>               <span class="tc">// [GridBlock]</span>
-│   │   ├── <span class="tf req">id</span><span class="ts req-star">*</span>               <span class="tc">// string · GridBlockId</span>
+│   │   ├── <span class="tf req">id</span><span class="ts req-star">*</span>               <span class="tc">// GridBlockId · UUID or stable slug (search-results, …)</span>
 │   │   ├── <span class="tf">name</span>             <span class="tc">// string · optional</span>
-│   │   ├── <span class="tf req">kind</span><span class="ts req-star">*</span>             <span class="tc">// EDITORIAL|AUTOTEMPLATE|...</span>
-│   │   ├── <span class="tf req">isSectionIndex</span><span class="ts req-star">*</span>  <span class="tc">// boolean</span>
+│   │   ├── <span class="tf req">kind</span><span class="ts req-star">*</span>             <span class="tc">// no relevant for search at the moment</span>
+│   │   ├── <span class="tf req">isSectionIndex</span><span class="ts req-star">*</span>  <span class="tc">// no relevant for search at the moment</span>
 │   │   ├── <span class="tf req">metadata</span><span class="ts req-star">*</span>         <span class="tc">// object (anyOf)</span>
 │   │   │   └── <span class="tf req">commercialComponents</span><span class="ts req-star">*</span>  <span class="tc">// AUTOTEMPLATE only</span>
-│   │   ├── <span class="tf">style</span>            <span class="tc">// GridStyle · optional</span>
-│   │   ├── <span class="tf req">linkedBlocks</span><span class="ts req-star">*</span>     <span class="tc">// [GridBlockId] · min: 2</span>
-│   │   └── <span class="tf req">tags</span><span class="ts req-star">*</span>             <span class="tc">// [string]</span>
-│   ├── <span class="tf req">attributes</span><span class="ts req-star">*</span>             <span class="tc">// [ValuedAttribute]</span>
-│   │   ├── <span class="tf req">key</span><span class="ts req-star">*</span>              <span class="tc">// string</span>
-│   │   └── <span class="tf req">value</span><span class="ts req-star">*</span>            <span class="tc">// string</span>
-│   ├── <span class="tf">autoTemplates</span>           <span class="tc">// [AutoTemplate] · optional</span>
-│   ├── <span class="tf">header</span>                  <span class="tc">// Header · optional</span>
-│   └── <span class="tf">blocksBeforePersonalization</span>  <span class="tc">// optional</span>
-├── <span class="tf req">promotionalBanners</span><span class="ts req-star">*</span>         <span class="tc">// [PromotionalBanner]</span>
-│   ├── <span class="tf req">id</span><span class="ts req-star">*</span>                   <span class="tc">// integer</span>
-│   ├── <span class="tf req">title</span><span class="ts req-star">*</span>                <span class="tc">// string</span>
-│   ├── <span class="tf req">description</span><span class="ts req-star">*</span>          <span class="tc">// string</span>
-│   ├── <span class="tf">disableClose</span>         <span class="tc">// boolean · optional</span>
-│   └── <span class="tf">link</span>                 <span class="tc">// PromotionalBannerLink · optional</span>
-├── <span class="tf">topbar</span>                      <span class="tc">// MenuItemTopBar · optional</span>
+│   │   ├── <span class="tf req">linkedBlocks</span><span class="ts req-star">*</span>     <span class="tc">// no relevant for search at the moment</span>
+│   │   └── <span class="tf req">tags</span><span class="ts req-star">*</span>             <span class="tc">// no relevant for search at the moment</span>
+│   └── <span class="tf req">attributes</span><span class="ts req-star">*</span>             <span class="tc">// no relevant for search at the moment</span>
 ├── <span class="tf req">context</span><span class="ts req-star">*</span>                     <span class="tc">// GridContext</span>
-│   ├── <span class="tf req">isPlainImageSelectorEnabled</span><span class="ts req-star">*</span>
-│   ├── <span class="tf req">autoTemplatePattern</span><span class="ts req-star">*</span>
+│   ├── <span class="tf req">autoTemplatePattern</span><span class="ts req-star">*</span>          <span class="tc">// no relevant for search at the moment</span>
 │   ├── <span class="tf req">attributes</span><span class="ts req-star">*</span>          <span class="tc">// [ValuedAttribute]</span>
-│   ├── <span class="tf">isOverlayEnabled</span>     <span class="tc">// optional</span>
-│   ├── <span class="tf">gridPaginationInfo</span>   <span class="tc">// optional</span>
-│   ├── <span class="tf">categoryTitle</span>        <span class="tc">// optional</span>
-│   └── <span class="tf">autoTemplates</span>        <span class="tc">// optional</span>
-├── <span class="tf">style</span>                       <span class="tc">// GridStyle · optional</span>
+│   ├── <span class="tf">gridPaginationInfo</span>   <span class="tc">// hasNextPage · token · total</span>
+│   └── <span class="tf">categoryTitle</span>        <span class="tc">// optional</span>
 ├── <span class="tf">filters</span>                     <span class="tc">// [SearchFilter] · max: 30</span>
 ├── <span class="tf">sortings</span>                    <span class="tc">// SearchGridSortings · optional</span>
-├── <span class="tf">section</span>                     <span class="tc">// WOMAN|MAN|KID|Z3D|HOME|...</span>
+├── <span class="tf">section</span>                     <span class="tc">// WOMAN|MAN|KID|HOME|...</span>
 ├── <span class="tf">metadata</span>                    <span class="tc">// SearchGridMetadata · optional</span>
 └── <span class="tf">additionalEntities</span>          <span class="tc">// max: 200 · optional</span>
       </div>
     </div>
 
     <!-- RIGHT: JSON viewer -->
-    <div class="schema-panel">
+    <div class="schema-panel" id="panelJson">
       <div class="panel-header">
         <span class="panel-label">Response example</span>
         <div class="jv-search-wrap">
@@ -462,6 +629,7 @@
         <div class="panel-actions">
           <button class="panel-btn" onclick="jvExpandAll()">Expand all</button>
           <button class="panel-btn" onclick="jvCollapseAll()">Collapse all</button>
+          <button class="panel-fs-btn" id="fsBtnJson" title="Fullscreen" onclick="togglePanelFs('panelJson','fsBtnJson')">⤢</button>
         </div>
       </div>
       <div class="jv" id="jsonViewer"></div>
@@ -502,9 +670,14 @@
           <td>Sections that compose the grid</td>
         </tr>
         <tr>
+          <td><span class="qr-path"><span class="path-dim">sections[].</span>id</span></td>
+          <td><span class="badge badge-string">string</span></td>
+          <td>When present, must be <strong>the same string</strong> as <code style="font-family:var(--mono);font-size:11px;">type</code>: <code style="font-family:var(--mono);font-size:11px;">default-search</code> or <code style="font-family:var(--mono);font-size:11px;">alternatives-search</code> — no other section ids in this API.</td>
+        </tr>
+        <tr>
           <td><span class="qr-path"><span class="path-dim">sections[].</span>type<span class="req-star" style="color:var(--required-color);">*</span></span></td>
           <td><span class="badge badge-string">string</span></td>
-          <td>Section type: <code style="font-family:var(--mono);font-size:11px;">main</code>, <code style="font-family:var(--mono);font-size:11px;">stock-clearance</code>, etc.</td>
+          <td>Each section uses either <code style="font-family:var(--mono);font-size:11px;">default-search</code> (results grid, any search provider) or <code style="font-family:var(--mono);font-size:11px;">alternatives-search</code> (alternatives rail); a response may include both. Must match <code style="font-family:var(--mono);font-size:11px;">sections[].id</code> when that field is sent.</td>
         </tr>
         <tr>
           <td><span class="qr-path"><span class="path-dim">sections[].</span>elements<span class="req-star" style="color:var(--required-color);">*</span></span></td>
@@ -514,17 +687,17 @@
         <tr>
           <td><span class="qr-path"><span class="path-dim">sections[].elements[].</span>id<span class="req-star" style="color:var(--required-color);">*</span></span></td>
           <td><span class="badge badge-string">string</span></td>
-          <td>Unique block identifier (UUID)</td>
+          <td>Block id: UUID or stable slug. Under <code style="font-family:var(--mono);font-size:11px;">default-search</code> expect blocks with id <code style="font-family:var(--mono);font-size:11px;">search-results</code> (render all alike). Under <code style="font-family:var(--mono);font-size:11px;">alternatives-search</code> see <a href="#gridsection" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,113,227,0.3);">GridSection</a> / <a href="#gridblock" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,113,227,0.3);">GridBlock</a>.</td>
         </tr>
         <tr>
           <td><span class="qr-path"><span class="path-dim">sections[].elements[].</span>kind<span class="req-star" style="color:var(--required-color);">*</span></span></td>
           <td><span class="badge badge-string">string</span></td>
-          <td>Block type: EDITORIAL, AUTOTEMPLATE, SDUI, CAROUSEL, PERSONALIZATION</td>
+          <td>no relevant for search at the moment</td>
         </tr>
         <tr>
           <td><span class="qr-path"><span class="path-dim">sections[].elements[].</span>isSectionIndex<span class="req-star" style="color:var(--required-color);">*</span></span></td>
           <td><span class="badge badge-boolean">boolean</span></td>
-          <td>Whether this block acts as a section index anchor</td>
+          <td>no relevant for search at the moment</td>
         </tr>
         <tr>
           <td><span class="qr-path"><span class="path-dim">sections[].elements[].</span>metadata<span class="req-star" style="color:var(--required-color);">*</span></span></td>
@@ -539,52 +712,27 @@
         <tr>
           <td><span class="qr-path"><span class="path-dim">sections[].elements[].</span>linkedBlocks<span class="req-star" style="color:var(--required-color);">*</span></span></td>
           <td><span class="badge badge-array">[GridBlockId]</span></td>
-          <td>Linked blocks that must always be rendered consecutively (min. 2)</td>
+          <td>no relevant for search at the moment</td>
         </tr>
         <tr>
           <td><span class="qr-path"><span class="path-dim">sections[].elements[].</span>tags<span class="req-star" style="color:var(--required-color);">*</span></span></td>
           <td><span class="badge badge-array">[string]</span></td>
-          <td>Block tags</td>
+          <td>no relevant for search at the moment</td>
         </tr>
         <tr>
           <td><span class="qr-path"><span class="path-dim">sections[].</span>attributes<span class="req-star" style="color:var(--required-color);">*</span></span></td>
           <td><span class="badge badge-array">[ValuedAttribute]</span></td>
-          <td>Section configuration attributes</td>
-        </tr>
-        <tr>
-          <td><span class="qr-path">promotionalBanners<span class="req-star" style="color:var(--required-color);">*</span></span></td>
-          <td><span class="badge badge-array">[PromotionalBanner]</span></td>
-          <td>Promotional banners sorted by priority</td>
-        </tr>
-        <tr>
-          <td><span class="qr-path"><span class="path-dim">promotionalBanners[].</span>id<span class="req-star" style="color:var(--required-color);">*</span></span></td>
-          <td><span class="badge badge-integer">integer</span></td>
-          <td>Numeric banner identifier</td>
-        </tr>
-        <tr>
-          <td><span class="qr-path"><span class="path-dim">promotionalBanners[].</span>title<span class="req-star" style="color:var(--required-color);">*</span></span></td>
-          <td><span class="badge badge-string">string</span></td>
-          <td>Banner heading text to display in UI</td>
-        </tr>
-        <tr>
-          <td><span class="qr-path"><span class="path-dim">promotionalBanners[].</span>description<span class="req-star" style="color:var(--required-color);">*</span></span></td>
-          <td><span class="badge badge-string">string</span></td>
-          <td>Banner body text</td>
+          <td>no relevant for search at the moment</td>
         </tr>
         <tr>
           <td><span class="qr-path">context<span class="req-star" style="color:var(--required-color);">*</span></span></td>
           <td><span class="badge badge-object">GridContext</span></td>
-          <td>Additional context needed to render the grid and its products</td>
-        </tr>
-        <tr>
-          <td><span class="qr-path"><span class="path-dim">context.</span>isPlainImageSelectorEnabled<span class="req-star" style="color:var(--required-color);">*</span></span></td>
-          <td><span class="badge badge-object">—</span></td>
-          <td>Plain image selector configuration</td>
+          <td>Pagination, layout pattern and rendering configuration</td>
         </tr>
         <tr>
           <td><span class="qr-path"><span class="path-dim">context.</span>autoTemplatePattern<span class="req-star" style="color:var(--required-color);">*</span></span></td>
           <td><span class="badge badge-object">—</span></td>
-          <td>Auto-template distribution pattern for the grid</td>
+          <td>no relevant for search at the moment</td>
         </tr>
         <tr>
           <td><span class="qr-path"><span class="path-dim">context.</span>attributes<span class="req-star" style="color:var(--required-color);">*</span></span></td>
@@ -606,47 +754,19 @@
       <div class="section-mono">root object</div>
     </div>
     <div class="section-intro">
-      Top-level object returned by the search grid endpoint. Contains <strong>3 required fields</strong> (<code style="font-family:var(--mono);font-size:12px;">sections</code>, <code style="font-family:var(--mono);font-size:12px;">promotionalBanners</code>, <code style="font-family:var(--mono);font-size:12px;">context</code>) plus several optional fields that enrich the browsing experience.
+      Top-level object returned by the search grid endpoint. Contains <strong>sections</strong> (the product grid), <strong>context</strong> (pagination and rendering config), plus filters, sortings and metadata.
     </div>
     <table class="fields-table">
       <thead>
         <tr><th>Field</th><th>Type</th><th>Req.</th><th>Constraints</th><th>Description</th></tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="td-field">id</td>
-          <td><span class="badge badge-string">string</span></td>
-          <td><span class="badge badge-opt">optional</span></td>
-          <td class="td-constraint">UUID v4</td>
-          <td class="td-desc">Unique identifier of the grid definition. <strong>Only present on IOP grids.</strong><br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. f7eda7de-9352-490f-978d-c41c0b188c87</span></td>
-        </tr>
-        <tr>
-          <td class="td-field">milestoneCode</td>
-          <td><span class="badge badge-string">string</span></td>
-          <td><span class="badge badge-opt">optional</span></td>
-          <td class="td-constraint">1–256 chars</td>
-          <td class="td-desc">Code of the milestone associated to this grid.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. night-propagation-20-09-2023</span></td>
-        </tr>
         <tr class="row-req">
           <td class="td-field">sections<span class="req-star">*</span></td>
           <td><span class="badge badge-array">[GridSection]</span></td>
           <td><span class="badge badge-req">required</span></td>
           <td class="td-constraint">—</td>
-          <td class="td-desc">Array of sections that compose the grid. Each section groups content blocks under a semantic type. See <a href="#gridsection" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,113,227,0.3);">GridSection</a>.</td>
-        </tr>
-        <tr class="row-req">
-          <td class="td-field">promotionalBanners<span class="req-star">*</span></td>
-          <td><span class="badge badge-array">[PromotionalBanner]</span></td>
-          <td><span class="badge badge-req">required</span></td>
-          <td class="td-constraint">sorted by priority</td>
-          <td class="td-desc">Promotional banners configured for this grid/store combination, sorted by descending priority. See <a href="#banner" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,113,227,0.3);">PromotionalBanner</a>.</td>
-        </tr>
-        <tr>
-          <td class="td-field">topbar</td>
-          <td><span class="badge badge-object">MenuItemTopBar</span></td>
-          <td><span class="badge badge-opt">optional</span></td>
-          <td class="td-constraint">maxLength: 100000</td>
-          <td class="td-desc">Top navigation bar with browsable categories within the grid. Contains <code style="font-family:var(--mono);font-size:11px;">header</code> and <code style="font-family:var(--mono);font-size:11px;">items*</code>.</td>
+          <td class="td-desc">Array of sections that compose the grid. In this API each section has <code style="font-family:var(--mono);font-size:11px;">type</code> (and matching <code style="font-family:var(--mono);font-size:11px;">id</code> when sent) of <code style="font-family:var(--mono);font-size:11px;">default-search</code> or <code style="font-family:var(--mono);font-size:11px;">alternatives-search</code>. See <a href="#gridsection" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,113,227,0.3);">GridSection</a>.</td>
         </tr>
         <tr class="row-req">
           <td class="td-field">context<span class="req-star">*</span></td>
@@ -654,13 +774,6 @@
           <td><span class="badge badge-req">required</span></td>
           <td class="td-constraint">—</td>
           <td class="td-desc">Additional context required to render the grid correctly. See <a href="#context" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,113,227,0.3);">GridContext</a>.</td>
-        </tr>
-        <tr>
-          <td class="td-field">style</td>
-          <td><span class="badge badge-object">GridStyle</span></td>
-          <td><span class="badge badge-opt">optional</span></td>
-          <td class="td-constraint">—</td>
-          <td class="td-desc">Unified styling configuration: <code style="font-family:var(--mono);font-size:11px;">backgroundColor</code>, <code style="font-family:var(--mono);font-size:11px;">tintColor</code>, <code style="font-family:var(--mono);font-size:11px;">font</code>, <code style="font-family:var(--mono);font-size:11px;">layout</code>, <code style="font-family:var(--mono);font-size:11px;">margin</code>, <code style="font-family:var(--mono);font-size:11px;">behaviour</code>.</td>
         </tr>
         <tr>
           <td class="td-field">filters</td>
@@ -699,7 +812,7 @@
           <td><span class="badge badge-array">[SearchAdditionalEntity]</span></td>
           <td><span class="badge badge-opt">optional</span></td>
           <td class="td-constraint">maxItems: 200 · default: []</td>
-          <td class="td-desc">Additional (non-product) entities returned alongside the grid. May include editorial content, banners, etc.</td>
+          <td class="td-desc">Additional (non-product) entities returned alongside the grid. May include redirects, banners, etc.</td>
         </tr>
       </tbody>
     </table>
@@ -717,6 +830,7 @@
     </div>
     <div class="section-intro">
       A section is the main structural unit inside a grid. The <strong>type</strong> field drives visual and functional treatment. The <strong>elements</strong> field holds the renderable blocks. All attribute arrays must be present even if empty.
+      <div style="margin-top:12px;font-size:13px;line-height:1.55;color:var(--text-secondary);"><strong>Search API:</strong> section <code style="font-family:var(--mono);font-size:11px;">id</code> and <code style="font-family:var(--mono);font-size:11px;">type</code> always carry the <strong>same</strong> value, and only two exist: <code style="font-family:var(--mono);font-size:11px;">default-search</code> and <code style="font-family:var(--mono);font-size:11px;">alternatives-search</code>. For <code style="font-family:var(--mono);font-size:11px;">alternatives-search</code>, when building a single “similars” experience, consume <code style="font-family:var(--mono);font-size:11px;">similars-results</code> first, then <code style="font-family:var(--mono);font-size:11px;">personalization-results</code> if present; the service controls counts and may omit personalization (e.g. initial production: similars with a cap and other colours, without personalization blocks).</div>
     </div>
     <table class="fields-table">
       <thead>
@@ -727,23 +841,20 @@
           <td class="td-field">id</td>
           <td><span class="badge badge-string">string</span></td>
           <td><span class="badge badge-opt">optional</span></td>
-          <td class="td-constraint">UUID</td>
-          <td class="td-desc">Section identifier.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. 77f97b3c-7da5-4d82-8485-d6ea216234fe</span></td>
+          <td class="td-constraint">default-search | alternatives-search</td>
+          <td class="td-desc">When present, must equal <code style="font-family:var(--mono);font-size:11px;">type</code> (same two values as the section discriminator).<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. default-search · alternatives-search</span></td>
         </tr>
         <tr class="row-req">
           <td class="td-field">type<span class="req-star">*</span></td>
           <td><span class="badge badge-string">string</span></td>
           <td><span class="badge badge-req">required</span></td>
-          <td class="td-constraint">—</td>
-          <td class="td-desc">Differentiates sections with specific features. <code style="font-family:var(--mono);font-size:11px;">main</code> is the default value.
-            <div class="enum-list">
-              <span class="enum-val">main</span>
-              <span class="enum-val">stock-clearance</span>
-              <span class="enum-val">product-recommendations</span>
-              <span class="enum-val">novelty</span>
+          <td class="td-constraint">default-search | alternatives-search</td>
+          <td class="td-desc">Only these two section types exist in this API (and <code style="font-family:var(--mono);font-size:11px;">id</code> equals <code style="font-family:var(--mono);font-size:11px;">type</code> when sent):
+            <div class="enum-list" style="margin-top:6px;">
               <span class="enum-val">default-search</span>
+              <span class="enum-val">alternatives-search</span>
             </div>
-            <div style="margin-top:8px;font-size:12px;color:var(--text-tertiary);">The list is non-exhaustive; additional values may exist for specific use cases.</div>
+            <div style="margin-top:8px;font-size:12px;line-height:1.5;"><code style="font-family:var(--mono);font-size:11px;">default-search</code> — main search results grid, same treatment regardless of which search provider produced the response.<br><code style="font-family:var(--mono);font-size:11px;">alternatives-search</code> — alternative results (other colours, similars, optional personalization from search cross-sell).</div>
           </td>
         </tr>
         <tr>
@@ -758,14 +869,16 @@
           <td><span class="badge badge-array">[GridBlock]</span></td>
           <td><span class="badge badge-req">required</span></td>
           <td class="td-constraint">—</td>
-          <td class="td-desc">Content blocks within the section. Each block is independently renderable. See <a href="#gridblock" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,113,227,0.3);">GridBlock</a>.</td>
+          <td class="td-desc">Content blocks within the section. Each block is independently renderable. See <a href="#gridblock" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,113,227,0.3);">GridBlock</a>.
+            <div style="margin-top:8px;font-size:12px;line-height:1.5;color:var(--text-secondary);">When <code style="font-family:var(--mono);font-size:11px;">type</code> is <code style="font-family:var(--mono);font-size:11px;">default-search</code>, you may receive multiple blocks whose <code style="font-family:var(--mono);font-size:11px;">id</code> is <code style="font-family:var(--mono);font-size:11px;">search-results</code> — render them without distinguishing by provider. When <code style="font-family:var(--mono);font-size:11px;">type</code> is <code style="font-family:var(--mono);font-size:11px;">alternatives-search</code>, block <code style="font-family:var(--mono);font-size:11px;">id</code> values identify alternative rails (see GridBlock <code style="font-family:var(--mono);font-size:11px;">id</code>).</div>
+          </td>
         </tr>
         <tr class="row-req">
           <td class="td-field">attributes<span class="req-star">*</span></td>
           <td><span class="badge badge-array">[ValuedAttribute]</span></td>
           <td><span class="badge badge-req">required</span></td>
           <td class="td-constraint">—</td>
-          <td class="td-desc">Section configuration attributes. See <a href="#valuedattr" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,113,227,0.3);">ValuedAttribute</a>. Common key: <code style="font-family:var(--mono);font-size:11px;">EDITORIAL_SECTION: true</code>.</td>
+          <td class="td-desc">no relevant for search at the moment</td>
         </tr>
         <tr>
           <td class="td-field">autoTemplates</td>
@@ -815,7 +928,9 @@
           <td><span class="badge badge-string">string</span></td>
           <td><span class="badge badge-req">required</span></td>
           <td class="td-constraint">GridBlockId</td>
-          <td class="td-desc">Unique block identifier (UUID). Referenced in <code style="font-family:var(--mono);font-size:11px;">linkedBlocks</code> of other blocks.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. 9e0eafe2-2ba5-468a-a49a-28fc3dd39254</span></td>
+          <td class="td-desc">Unique block identifier within the response. May be a UUID (referenced in <code style="font-family:var(--mono);font-size:11px;">linkedBlocks</code>) or a <strong>stable string slug</strong> in Search API payloads.
+            <div style="margin-top:8px;font-size:12px;line-height:1.55;"><strong>Search — under <code style="font-family:var(--mono);font-size:11px;">default-search</code>:</strong> blocks with id <code style="font-family:var(--mono);font-size:11px;">search-results</code> (render all the same).<br><strong>Search — under <code style="font-family:var(--mono);font-size:11px;">alternatives-search</code>:</strong> known provider ids: <code style="font-family:var(--mono);font-size:11px;">other-colors-results</code> (remaining MOCACO colours), <code style="font-family:var(--mono);font-size:11px;">similars-results</code> (similar products), <code style="font-family:var(--mono);font-size:11px;">personalization-results</code> (search cross-sell grid; use after similars to fill the similars rail when sent). The service may omit providers (e.g. no personalization).</div>
+            <span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. 9e0eafe2-2ba5-468a-a49a-28fc3dd39254 · search-results</span></td>
         </tr>
         <tr>
           <td class="td-field">name</td>
@@ -829,22 +944,14 @@
           <td><span class="badge badge-string">string</span></td>
           <td><span class="badge badge-req">required</span></td>
           <td class="td-constraint">enum</td>
-          <td class="td-desc">Block type. Determines the shape of <code style="font-family:var(--mono);font-size:11px;">metadata</code>.
-            <div class="enum-list">
-              <span class="enum-val">EDITORIAL</span>
-              <span class="enum-val">AUTOTEMPLATE</span>
-              <span class="enum-val">SDUI</span>
-              <span class="enum-val">CAROUSEL</span>
-              <span class="enum-val">PERSONALIZATION</span>
-            </div>
-          </td>
+          <td class="td-desc">no relevant for search at the moment</td>
         </tr>
         <tr class="row-req">
           <td class="td-field">isSectionIndex<span class="req-star">*</span></td>
           <td><span class="badge badge-boolean">boolean</span></td>
           <td><span class="badge badge-req">required</span></td>
           <td class="td-constraint">—</td>
-          <td class="td-desc">Whether this block acts as a section index. When <code style="font-family:var(--mono);font-size:11px;">true</code>, the frontend should treat it as a navigation anchor within the grid.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. false</span></td>
+          <td class="td-desc">no relevant for search at the moment</td>
         </tr>
         <tr class="row-req">
           <td class="td-field">metadata<span class="req-star">*</span></td>
@@ -873,14 +980,14 @@
           <td><span class="badge badge-array">[GridBlockId]</span></td>
           <td><span class="badge badge-req">required</span></td>
           <td class="td-constraint">minItems: 2</td>
-          <td class="td-desc"><strong>List of linked blocks (including this one) that must always be rendered consecutively.</strong> The frontend must not place other elements between blocks belonging to the same linked group. Minimum 2 items (block includes itself).</td>
+          <td class="td-desc">no relevant for search at the moment</td>
         </tr>
         <tr class="row-req">
           <td class="td-field">tags<span class="req-star">*</span></td>
           <td><span class="badge badge-array">[string]</span></td>
           <td><span class="badge badge-req">required</span></td>
           <td class="td-constraint">—</td>
-          <td class="td-desc">Block tags for classification and behaviour. Can be used for conditional rendering logic.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. ["HOME"]</span></td>
+          <td class="td-desc">no relevant for search at the moment</td>
         </tr>
         <tr>
           <td class="td-field">attributes</td>
@@ -891,11 +998,6 @@
         </tr>
       </tbody>
     </table>
-    <div class="callout-wrap">
-      <div class="callout callout-warn">
-        <strong>Note on linkedBlocks:</strong> The frontend must ensure all blocks whose IDs appear in <code style="font-family:var(--mono);font-size:12px;">linkedBlocks</code> are rendered in adjacent positions. Breaking this consecutiveness produces incorrect layouts.
-      </div>
-    </div>
   </div>
 
   <!-- COMMERCIAL COMPONENT -->
@@ -920,13 +1022,13 @@
         <tr>
           <td class="td-field">identifier</td>
           <td><span class="badge badge-object">object</span></td>
-          <td class="td-desc"><strong>Uniquely identifies the commercial component.</strong>
+          <td class="td-desc">Product identifiers and references. Relevant keys for frontends:
             <div style="margin-top:8px;display:flex;flex-direction:column;gap:3px;font-size:12px;">
-              <div><code style="font-family:var(--mono);">id</code> — Internal numeric ID <span style="font-family:var(--mono);color:var(--text-tertiary);">e.g. 16546465</span></div>
-              <div><code style="font-family:var(--mono);">productParentId</code> — Parent product ID <span style="font-family:var(--mono);color:var(--text-tertiary);">e.g. 223703785</span></div>
-              <div><code style="font-family:var(--mono);">reference</code> — Full reference <span style="font-family:var(--mono);color:var(--text-tertiary);">e.g. C07380704800000-V2023</span></div>
-              <div><code style="font-family:var(--mono);">productParentReference</code> — Parent reference <span style="font-family:var(--mono);color:var(--text-tertiary);">e.g. 07380704-V2023</span></div>
-              <div><code style="font-family:var(--mono);">displayReference</code> — Display reference <span style="font-family:var(--mono);color:var(--text-tertiary);">e.g. 7380/704</span></div>
+              <div><code style="font-family:var(--mono);">id</code></div>
+              <div><code style="font-family:var(--mono);">productParentId</code></div>
+              <div><code style="font-family:var(--mono);">reference</code></div>
+              <div><code style="font-family:var(--mono);">productParentReference</code></div>
+              <div><code style="font-family:var(--mono);">displayReference</code></div>
             </div>
           </td>
         </tr>
@@ -977,30 +1079,30 @@
         <tr>
           <td class="td-field">media</td>
           <td><span class="badge badge-array">array</span></td>
-          <td class="td-desc">Product media assets (images, videos). Each item contains:
+          <td class="td-desc">Product media (images, videos). Relevant keys for frontends:
             <div style="margin-top:8px;display:flex;flex-direction:column;gap:3px;font-size:12px;">
-              <div><code style="font-family:var(--mono);">asset.type</code> — Type: <code style="font-family:var(--mono);">image</code> / <code style="font-family:var(--mono);">video</code></div>
-              <div><code style="font-family:var(--mono);">asset.url</code> — Base asset URL</div>
-              <div><code style="font-family:var(--mono);">asset.dimensions</code> — Dimensions: <code style="font-family:var(--mono);">height</code>, <code style="font-family:var(--mono);">width</code></div>
-              <div><code style="font-family:var(--mono);">asset.styles</code> — Asset presentation styles</div>
-              <div><code style="font-family:var(--mono);">asset.editorialName</code> — Editorial name <span style="color:var(--text-tertiary);">e.g. a1</span></div>
-              <div><code style="font-family:var(--mono);">asset.locations</code> — Where to use the asset: <code style="font-family:var(--mono);">CATEGORY_PAGE</code>, <code style="font-family:var(--mono);">PRODUCT_PAGE</code></div>
-              <div><code style="font-family:var(--mono);">layers[]</code> — Additional layers on top of the main asset</div>
+              <div><code style="font-family:var(--mono);">asset.type</code></div>
+              <div><code style="font-family:var(--mono);">asset.url</code></div>
+              <div><code style="font-family:var(--mono);">asset.dimensions</code></div>
+              <div><code style="font-family:var(--mono);">asset.styles</code></div>
+              <div><code style="font-family:var(--mono);">asset.editorialName</code></div>
+              <div><code style="font-family:var(--mono);">asset.locations</code></div>
+              <div><code style="font-family:var(--mono);">layers</code></div>
             </div>
           </td>
         </tr>
         <tr>
           <td class="td-field">sizes</td>
           <td><span class="badge badge-array">array</span></td>
-          <td class="td-desc">Available sizes. Each size includes:
+          <td class="td-desc">Size variants. Relevant keys for frontends:
             <div style="margin-top:8px;display:flex;flex-direction:column;gap:3px;font-size:12px;">
-              <div><code style="font-family:var(--mono);">identifier</code> — id, reference, sku, equivalentSizeId</div>
-              <div><code style="font-family:var(--mono);">nomenclature</code> — name, shortName, description</div>
-              <div><code style="font-family:var(--mono);">availability</code> — <code style="font-family:var(--mono);">in_stock</code> / <code style="font-family:var(--mono);">out_of_stock</code></div>
-              <div><code style="font-family:var(--mono);">sizeType</code> — <code style="font-family:var(--mono);">regular</code> / others</div>
-              <div><code style="font-family:var(--mono);">pricing</code> — Size-specific price (may differ from product price)</div>
-              <div><code style="font-family:var(--mono);">skuDimensions[]</code> — Physical dimensions (HEIGHT, WIDTH, DEPTH)</div>
-              <div><code style="font-family:var(--mono);">twinnedSkus[]</code> — Linked twinned SKUs</div>
+              <div><code style="font-family:var(--mono);">identifier</code></div>
+              <div><code style="font-family:var(--mono);">nomenclature</code></div>
+              <div><code style="font-family:var(--mono);">availability</code></div>
+              <div><code style="font-family:var(--mono);">sizeType</code></div>
+              <div><code style="font-family:var(--mono);">pricing</code></div>
+              <div><code style="font-family:var(--mono);">skuDimensions</code></div>
+              <div><code style="font-family:var(--mono);">twinnedSkus</code></div>
             </div>
           </td>
         </tr>
@@ -1014,17 +1116,24 @@
           <td><span class="badge badge-object">object</span></td>
           <td class="td-desc">Product feature flags. Relevant keys for frontends:
             <div style="margin-top:8px;display:flex;flex-direction:column;gap:3px;font-size:12px;">
-              <div><code style="font-family:var(--mono);">shouldUseColorcutInColorLabel</code> — Use colorcut in the color selector</div>
-              <div><code style="font-family:var(--mono);">isSizeLabelExplanationRequired</code> — Show size tooltip</div>
-              <div><code style="font-family:var(--mono);">highlightPrice</code> — Visually highlight the price</div>
-              <div><code style="font-family:var(--mono);">isVirtualTryOnSupported</code> — Enable Virtual Try-On</div>
+              <div><code style="font-family:var(--mono);">shouldUseColorcutInColorLabel</code></div>
+              <div><code style="font-family:var(--mono);">isSizeLabelExplanationRequired</code></div>
+              <div><code style="font-family:var(--mono);">highlightPrice</code></div>
+              <div><code style="font-family:var(--mono);">isVirtualTryOnSupported</code></div>
             </div>
           </td>
         </tr>
         <tr>
           <td class="td-field">seo</td>
           <td><span class="badge badge-object">object</span></td>
-          <td class="td-desc">Product SEO metadata: <code style="font-family:var(--mono);font-size:11px;">keyword</code>, <code style="font-family:var(--mono);font-size:11px;">seoProductId</code>, <code style="font-family:var(--mono);font-size:11px;">discernProductId</code>, <code style="font-family:var(--mono);font-size:11px;">irrelevant</code> (if <code style="font-family:var(--mono);font-size:11px;">true</code> do not index).</td>
+          <td class="td-desc">Product SEO metadata. Relevant keys for frontends:
+            <div style="margin-top:8px;display:flex;flex-direction:column;gap:3px;font-size:12px;">
+              <div><code style="font-family:var(--mono);">keyword</code></div>
+              <div><code style="font-family:var(--mono);">seoProductId</code></div>
+              <div><code style="font-family:var(--mono);">discernProductId</code></div>
+              <div><code style="font-family:var(--mono);">irrelevant</code></div>
+            </div>
+          </td>
         </tr>
         <tr>
           <td class="td-field">firstAvailabilityDate</td>
@@ -1144,42 +1253,30 @@
       <div class="section-mono">context</div>
     </div>
     <div class="section-intro">
-      Required object holding additional information needed for correct grid and product rendering. The three required fields must be processed by the frontend before rendering any block.
+      Object holding additional information needed for correct grid rendering. Contiene la paginación, el patrón de layout y los atributos globales de configuración.
     </div>
     <table class="fields-table">
       <thead>
         <tr><th>Field</th><th>Type</th><th>Req.</th><th>Description</th></tr>
       </thead>
       <tbody>
-        <tr class="row-req">
-          <td class="td-field">isPlainImageSelectorEnabled<span class="req-star">*</span></td>
-          <td><span class="badge badge-object">—</span></td>
-          <td><span class="badge badge-req">required</span></td>
-          <td class="td-desc">Controls whether the plain image selector is enabled for this grid. Affects the color selection experience in product components.</td>
-        </tr>
-        <tr>
-          <td class="td-field">isOverlayEnabled</td>
-          <td><span class="badge badge-object">—</span></td>
-          <td><span class="badge badge-opt">optional</span></td>
-          <td class="td-desc">Whether the overlay is enabled for the grid (e.g. quick-add, image zoom).</td>
-        </tr>
         <tr>
           <td class="td-field">gridPaginationInfo</td>
           <td><span class="badge badge-object">GridPaginationInfo</span></td>
           <td><span class="badge badge-opt">optional</span></td>
-          <td class="td-desc">Pagination info: total elements, current page, page size. Required to implement infinite scroll or pagination.</td>
+          <td class="td-desc">Pagination info: <code style="font-family:var(--mono);font-size:11px;">total</code>, <code style="font-family:var(--mono);font-size:11px;">hasNextPage</code>, <code style="font-family:var(--mono);font-size:11px;">token</code>. Required to implement infinite scroll. See <a href="#pagination" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,113,227,0.3);">Pagination</a>.</td>
         </tr>
         <tr class="row-req">
           <td class="td-field">autoTemplatePattern<span class="req-star">*</span></td>
           <td><span class="badge badge-object">—</span></td>
           <td><span class="badge badge-req">required</span></td>
-          <td class="td-desc">Auto-template distribution pattern applied to the grid. Defines how product blocks are laid out visually in the grid.</td>
+          <td class="td-desc">no relevant for search at the moment</td>
         </tr>
         <tr class="row-req">
           <td class="td-field">attributes<span class="req-star">*</span></td>
           <td><span class="badge badge-array">[ValuedAttribute]</span></td>
           <td><span class="badge badge-req">required</span></td>
-          <td class="td-desc">Context attributes in key-value format that configure the global rendering behaviour. See <a href="#valuedattr" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(0,113,227,0.3);">ValuedAttribute</a>.</td>
+          <td class="td-desc">Context attributes in key-value format that configure the global rendering behaviour.</td>
         </tr>
         <tr>
           <td class="td-field">categoryTitle</td>
@@ -1187,70 +1284,8 @@
           <td><span class="badge badge-opt">optional</span></td>
           <td class="td-desc">Category title to display in the grid page heading.</td>
         </tr>
-        <tr>
-          <td class="td-field">autoTemplates</td>
-          <td><span class="badge badge-array">array</span></td>
-          <td><span class="badge badge-opt">optional</span></td>
-          <td class="td-desc">Definition of the available auto-templates for the grid.</td>
-        </tr>
       </tbody>
     </table>
-  </div>
-
-  <!-- VALUED ATTRIBUTE -->
-  <div id="valuedattr" class="section">
-    <div class="section-head">
-      <div class="section-dot" style="background:#6b3fa0;"></div>
-      <div>
-        <div class="section-title">ValuedAttribute</div>
-        <div class="section-subtitle">Dynamic key-value attribute — used in <code style="font-family:var(--mono);font-size:12px;">sections[].attributes</code> and <code style="font-family:var(--mono);font-size:12px;">context.attributes</code></div>
-      </div>
-      <div class="section-mono">ValuedAttribute</div>
-    </div>
-    <div class="section-intro">
-      Generic key-value attribute structure used at multiple points in the schema. Both fields are required. Values are always <code style="font-family:var(--mono);font-size:12px;">string</code> even when representing booleans or numbers — the frontend must parse them according to the key's semantics.
-    </div>
-    <table class="fields-table">
-      <thead>
-        <tr><th>Field</th><th>Type</th><th>Req.</th><th>Constraints</th><th>Description</th></tr>
-      </thead>
-      <tbody>
-        <tr class="row-req">
-          <td class="td-field">key<span class="req-star">*</span></td>
-          <td><span class="badge badge-string">string</span></td>
-          <td><span class="badge badge-req">required</span></td>
-          <td class="td-constraint">—</td>
-          <td class="td-desc">Attribute key in <code style="font-family:var(--mono);font-size:11px;">SCREAMING_SNAKE_CASE</code> format.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. EDITORIAL_SECTION</span></td>
-        </tr>
-        <tr class="row-req">
-          <td class="td-field">value<span class="req-star">*</span></td>
-          <td><span class="badge badge-string">string</span></td>
-          <td><span class="badge badge-req">required</span></td>
-          <td class="td-constraint">—</td>
-          <td class="td-desc">Attribute value serialised as a string. Parse according to the key's semantics.<br><span style="font-family:var(--mono);font-size:11px;color:var(--text-tertiary);">e.g. "true"</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="callout-wrap">
-      <div class="callout callout-note">
-        <strong>Integration tip:</strong> Boolean values arrive as strings <code style="font-family:var(--mono);font-size:12px;">"true"</code> / <code style="font-family:var(--mono);font-size:12px;">"false"</code>. Use strict string comparison or parse with <code style="font-family:var(--mono);font-size:12px;">value === "true"</code> to avoid JavaScript coercion errors.
-      </div>
-    </div>
-    <div class="code-wrap">
-      <div class="code-label">Known attribute examples</div>
-      <div class="code-block"><span class="cm">// sections[].attributes — common examples</span>
-[
-  { <span class="ck">"key"</span>: <span class="cs">"EDITORIAL_SECTION"</span>,   <span class="ck">"value"</span>: <span class="cs">"true"</span>  },
-  { <span class="ck">"key"</span>: <span class="cs">"HAS_HEADER"</span>,          <span class="ck">"value"</span>: <span class="cs">"false"</span> },
-  { <span class="ck">"key"</span>: <span class="cs">"SECTION_POSITION"</span>,    <span class="ck">"value"</span>: <span class="cs">"0"</span>     }
-]
-
-<span class="cm">// context.attributes — common examples</span>
-[
-  { <span class="ck">"key"</span>: <span class="cs">"SHOW_FILTERS"</span>,        <span class="ck">"value"</span>: <span class="cs">"true"</span>    },
-  { <span class="ck">"key"</span>: <span class="cs">"GRID_LAYOUT"</span>,         <span class="ck">"value"</span>: <span class="cs">"default"</span> }
-]</div>
-    </div>
   </div>
 
   <div class="footer">
@@ -1260,488 +1295,72 @@
 </div>
 
 <script>
-  /* ── NAV scroll spy ── */
-  const sections = ['overview','searchgrid','gridsection','gridblock','commercial','banner','context','valuedattr'];
-  window.addEventListener('scroll', () => {
+  /* ── NAV scroll spy — barra sticky bajo el borde superior; animación si aún no hay sección activa ── */
+  const sections = ['overview','searchgrid','gridsection','gridblock','commercial','banner','context'];
+  const docNav = document.getElementById('docNav');
+  function updateDocNav() {
     let current = '';
+    const y = window.scrollY;
     sections.forEach(id => {
       const el = document.getElementById(id);
-      if (el && window.scrollY >= el.offsetTop - 70) current = id;
+      if (el && y >= el.offsetTop - 72) current = id;
     });
+    if (docNav) docNav.classList.toggle('nav--at-top', current === '');
     document.querySelectorAll('.nav-link').forEach(link => {
-      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+      link.classList.toggle('active', !!current && link.getAttribute('href') === '#' + current);
     });
-  });
+  }
+  window.addEventListener('scroll', updateDocNav, { passive: true });
+  updateDocNav();
 
-  /* ── JSON VIEWER ── */
-  const EXAMPLE_JSON = {
-    "sections": [
-    {
-      "id": "default-search",
-      "type": "default-search",
-      "elements": [
-        {
-          "id": "search-results",
-          "kind": "AUTOTEMPLATE",
-          "isSectionIndex": false,
-          "metadata": {
-            "commercialComponents": [
-              {
-                "identifier": {
-                  "id": "469501386",
-                  "productParentId": "462205684",
-                  "reference": "C00264456250000-I2025",
-                  "productParentReference": "06224368-I2025",
-                  "displayReference": "0264/456"
-                },
-                "name": "CAMISETA CUELLO BARCO",
-                "type": "Product",
-                "state": {
-                  "visibility": "visible"
-                },
-                "classification": {
-                  "brand": {
-                    "id": 1,
-                    "groupId": 1,
-                    "groupCode": "zara"
-                  },
-                  "section": {
-                    "id": 1,
-                    "name": "WOMAN"
-                  },
-                  "family": {
-                    "id": 83,
-                    "name": "CAMISETA"
-                  },
-                  "subfamily": {
-                    "id": 12479,
-                    "name": "CTAS.BASICAS"
-                  },
-                  "sizeSystem": "5"
-                },
-                "color": {
-                  "id": "733",
-                  "commercialComponentId": "462224475",
-                  "name": "Cream",
-                  "hexCode": "#FCF6E3",
-                  "otherColors": []
-                },
-                "pricing": {
-                  "price": {
-                    "current": {
-                      "value": 2299,
-                      "currency": {
-                        "code": "EUR",
-                        "exponent": -2
-                      }
-                    },
-                    "previous": {
-                      "value": 3995,
-                      "currency": {
-                        "code": "EUR",
-                        "exponent": -2
-                      }
-                    },
-                    "promotion": {
-                      "name": "ECOMLOAD_SEASON_PROMO_PROMOCION_GLOBAL_+_DNWR+_CIRCULAR_82521_ZARA_ES",
-                      "startDate": "2025-09-30T23:00:00Z",
-                      "endDate": "2026-01-15T01:30:00Z"
-                    }
-                  }
-                },
-                "originalPrice": {
-                  "price": {
-                    "value": "1795",
-                    "currency": {
-                      "code": "EUR",
-                      "exponent": "-2"
-                    }
-                  },
-                  "discount": {
-                    "label": "string",
-                    "showDisclaimer": "boolean"
-                  }
-                },
-                "futurePrice": {
-                  "price": {
-                    "current": {
-                      "value": 2299,
-                      "currency": {
-                        "code": "EUR",
-                        "exponent": -2
-                      }
-                    }
-                  },
-                  "promotion": {
-                    "name": "ECOMLOAD_SEASON_PROMO_PROMOCION_GLOBAL_+_DNWR+_CIRCULAR_82521_ZARA_ES",
-                    "startDate": "2025-09-30T23:00:00Z",
-                    "endDate": "2026-01-15T01:30:00Z"
-                  },
-                  "discount": {
-                    "label": "string",
-                    "showDisclaimer": "boolean"
-                  }
-                },
-                "media": [
-                  {
-                    "asset": {
-                      "type": "image",
-                      "assetId": "27a6f2a21d954d938837f63b11125fe8",
-                      "timestamp": "1754474056103",
-                      "url": "https://static.zara.net/assets/public/27a6/f2a2/1d954d938837/f63b11125fe8/06224368733-p/06224368733-p.jpg?ts=1754474056103&w={width}",
-                      "formats": [],
-                      "allowedScreens": [
-                        "small",
-                        "large"
-                      ],
-                      "metaUrl": "https://static.zara.net/assets/public/27a6/f2a2/1d954d938837/f63b11125fe8/meta.json?ts=1754474056108",
-                      "styles": {
-                        "kind": "full"
-                      },
-                      "dimensions": {
-                        "width": 2048,
-                        "height": 3072
-                      },
-                      "editorialName": "p",
-                      "locations": []
-                    }
-                  }
-                ],
-                "sizes": [
-                  {
-                    "identifier": {
-                      "id": 2,
-                      "reference": "0622436873302-I2025",
-                      "sku": 462205686,
-                      "equivalentSizeId": 102
-                    },
-                    "nomenclature": {
-                      "name": "S"
-                    },
-                    "availability": "in_stock",
-                    "sizeType": "regular",
-                    "pricing": {
-                      "price": {
-                        "current": {
-                          "value": 1995,
-                          "currency": {
-                            "code": "EUR",
-                            "exponent": -2
-                          }
-                        }
-                      }
-                    },
-                    "attributes": [
-                      {
-                        "type": "VALUED",
-                        "identifier": "GTINCODE",
-                        "values": [
-                          "8447485151643"
-                        ],
-                        "properties": {}
-                      },
-                      {
-                        "type": "VALUED",
-                        "identifier": "DYEING-PRINTING",
-                        "values": [
-                          "PT"
-                        ],
-                        "properties": {}
-                      },
-                      {
-                        "type": "MARK",
-                        "identifier": "XECOMLOAD_SIZE_GROUP_261",
-                        "values": [],
-                        "properties": {}
-                      },
-                      {
-                        "type": "VALUED",
-                        "identifier": "SIZE_GROUP_FILTER",
-                        "values": [
-                          "XECOMLOAD_SIZE_GROUP_261"
-                        ],
-                        "properties": {}
-                      },
-                      {
-                        "type": "VALUED",
-                        "identifier": "IKPU",
-                        "values": [
-                          "06109001001000000#1124331"
-                        ],
-                        "properties": {}
-                      },
-                      {
-                        "type": "VALUED",
-                        "identifier": "WEAVING",
-                        "values": [
-                          "PT"
-                        ],
-                        "properties": {}
-                      },
-                      {
-                        "type": "MARK",
-                        "identifier": "PACKAGING",
-                        "values": [],
-                        "properties": {}
-                      },
-                      {
-                        "type": "VALUED",
-                        "identifier": "CONFECTION",
-                        "values": [
-                          "MA"
-                        ],
-                        "properties": {}
-                      },
-                      {
-                        "type": "VALUED",
-                        "identifier": "SYNTHETIC_FIBER_PERCENTAGE",
-                        "values": [
-                          "0"
-                        ],
-                        "properties": {}
-                      }
-                    ],
-                    "twinnedSkus": []
-                  }
-                ],
-                "tags": [
-                  {
-                    "displayName": "NEW",
-                    "type": "NEW"
-                  }
-                ],
-                "components": [
-                  {
-                    "id": 2,
-                    "nomenclature": {
-                      "name": "S"
-                    },
-                    "classification": {
-                      "brand": {
-                        "id": 1,
-                        "groupId": 1,
-                        "groupCode": "zara"
-                      },
-                      "section": {
-                        "id": 1,
-                        "name": "WOMAN"
-                      },
-                      "family": {
-                        "id": 83,
-                        "name": "CAMISETA"
-                      },
-                      "subfamily": {
-                        "id": 12479,
-                        "name": "CTAS.BASICAS"
-                      },
-                      "sizeSystem": "5"
-                    },
-                    "pricing": {
-                      "price": {
-                        "current": {
-                          "value": 1995,
-                          "currency": {
-                            "code": "EUR",
-                            "exponent": -2
-                          }
-                        }
-                      }
-                    },
-                    "features": {
-                      "isMainComponent": "true"
-                    }
-                  }
-                ],
-                "relations": [
-                  {
-                    "ids": [
-                      410580484,
-                      465180349,
-                      453962449
-                    ],
-                    "type": "PACMAN-LOOK"
-                  }
-                ],
-                "attributes": [
-                  {
-                    "type": "VALUED",
-                    "identifier": "KNITT",
-                    "values": [
-                      "Circular"
-                    ],
-                    "properties": {}
-                  }
-                ],
-                "features": {
-                  "extraDetailTitle": "Composition, care & origin",
-                  "highlightPrice": "false",
-                  "hasSpecialReturnConditions": "false",
-                  "isSizeGuideEnabled": "true",
-                  "isVirtualTryOnSupported": "false",
-                  "isRecommendedCarouselEnabled": "true",
-                  "isNotReturnable": "false",
-                  "isSizeRecommender": "true",
-                  "hasInteractiveSizeGuide": "true"
-                },
-                "seo": {
-                  "keyword": "embroidered-slogan-t-shirt",
-                  "seoProductId": "06224368",
-                  "discernProductId": 462224475
-                },
-                "messages": {
-                  "netPriceMessage": {
-                    "text": "This product has a smaller fit than usual",
-                    "colorHexCode": "#23f444"
-                  }
-                },
-                "modelInfo": {
-                  "height": 178,
-                  "heightUnit": "cm",
-                  "size": "S",
-                  "description": "The model is 178 cm tall and wears size S"
-                }
-              }
-            ]
-          },
-          "linkedBlocks": [
-            "searchResults",
-            ""
-          ],
-          "tags": []
-        }
-      ]
-    },
-    {
-      "id": "alternatives-search",
-      "type": "alternatives-search",
-      "elements": [
-        {
-          "id": "other-colors-results",
-          "kind": "AUTOTEMPLATE",
-          "isSectionIndex": false,
-          "metadata": {
-            "simplifiedCommercialComponents": []
-          },
-          "linkedBlocks": [
-            "other-colors-results",
-            "similars-results",
-            "preowned-results"
-          ],
-          "tags": []
-        },
-        {
-          "id": "similars-results",
-          "kind": "AUTOTEMPLATE",
-          "isSectionIndex": false,
-          "metadata": {
-            "simplifiedCommercialComponents": []
-          },
-          "linkedBlocks": [
-            "other-colors-results",
-            "similars-results",
-            "preowned-results"
-          ],
-          "tags": []
-        },
-        {
-          "id": "preowned-results",
-          "kind": "AUTOTEMPLATE",
-          "isSectionIndex": false,
-          "metadata": {
-            "simplifiedCommercialComponents": []
-          },
-          "linkedBlocks": [
-            "other-colors-results",
-            "similars-results",
-            "preowned-results"
-          ],
-          "tags": []
-        }
-      ]
-    }
-  ],
-  "promotionalBanners": [
-    {
-      "id": 1,
-      "title": "NEW IN",
-      "description": "Descubre la nueva colección",
-      "disableClose": false,
-      "link": {
-        "datatype": "categoryLink",
-        "id": 2111785,
-        "seoKeyword": "mujer-nuevo",
-        "seoId": "1180"
-      }
-    }
-  ],
-  "context": {
-    "isPlainImageSelectorEnabled": true,
-    "gridPaginationInfo": {
-      "total": 100,
-      "token": "MTA3MDE6OjE3ZDAzZjU3LTU5YjktNGY4MS1iYzk1LWViNjU3N2FlMmM1OTo6c2FsZXMyMDI0OjoxMDozMA=="
-    },
-    "autoTemplatePattern": [
-      "1A"
-    ],
-    "attributes": [],
-    "categoryTitle": "Search Grid"
-  },
-  "filters": [
-    {
-      "kind": "RANGE",
-      "key": "price_facet",
-      "minValue": 495,
-      "maxValue": 29900,
-      "step": 294,
-      "filter": "price_facet:495.0-29900.0"
-    },
-    {
-      "kind": "MULTIVALUED",
-      "key": "color_facet",
-      "values": [
-        {
-          "id": "beige",
-          "count": 1,
-          "value": "Beige",
-          "filter": "color_facet:beige",
-          "extraInfo": {
-            "color": {
-              "hexCode": "#E6D4AB"
-            }
-          }
-        },
-        {
-          "id": "black",
-          "count": 1,
-          "value": "Black",
-          "filter": "color_facet:black",
-          "extraInfo": {
-            "color": {
-              "hexCode": "#251F1F",
-              "cutUrl": null
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "sortings": [
-    {
-      "property": "PRICE",
-      "availableOrders": [
-        "ASC",
-        "DESC"
-      ]
-    }
-  ],
-  "section": "WOMAN",
-  "metadata": {
-    "provider": "Attraqt",
-    "searchpass": "SPELL_CHECK_LONG",
-    "spellchecked": "camiseta"
-  },
-  "additionalEntities": []
-  };
+  // ── FULLSCREEN PANEL ──
+  // position:fixed breaks when a parent has transform/opacity stacking context
+  // (e.g. the fadeUp animation on .schema-split). Fix: reparent panel to <body>.
+  const _fsState = {};   // { panelId: { placeholder, origParent, btn } }
+
+  function togglePanelFs(panelId, btnId) {
+    if (_fsState[panelId]) { _closeSinglePanel(panelId); return; }
+    // close any other open panel first
+    Object.keys(_fsState).forEach(id => _closeSinglePanel(id));
+
+    const panel    = document.getElementById(panelId);
+    const btn      = document.getElementById(btnId);
+    const backdrop = document.getElementById('fsBackdrop');
+
+    // Insert an invisible placeholder so the grid doesn't reflow
+    const placeholder = document.createElement('div');
+    placeholder.style.cssText = `width:${panel.offsetWidth}px;height:${panel.offsetHeight}px;visibility:hidden;flex-shrink:0;`;
+    panel.parentNode.insertBefore(placeholder, panel);
+
+    _fsState[panelId] = { placeholder, origParent: panel.parentNode, btn };
+
+    // Move panel to body — escapes all stacking contexts
+    document.body.appendChild(panel);
+    panel.classList.add('panel-fs');
+    backdrop.classList.add('fs-on');
+    btn.textContent = '✕';
+    btn.title = 'Exit fullscreen';
+  }
+
+  function _closeSinglePanel(panelId) {
+    const state = _fsState[panelId];
+    if (!state) return;
+    const panel = document.getElementById(panelId);
+    // Restore panel to its original position
+    state.origParent.insertBefore(panel, state.placeholder);
+    state.placeholder.remove();
+    panel.classList.remove('panel-fs');
+    state.btn.textContent = '⤢';
+    state.btn.title = 'Fullscreen';
+    delete _fsState[panelId];
+  }
+
+  function closePanelFs() {
+    Object.keys(_fsState).forEach(id => _closeSinglePanel(id));
+    document.getElementById('fsBackdrop').classList.remove('fs-on');
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanelFs(); });
 
   let jvNodeId = 0;
 
@@ -1827,9 +1446,33 @@
     });
   }
 
+  // ── EXAMPLE LOADER ──
+  function loadExample(btn) {
+    document.querySelectorAll('.ex-tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+
+    const viewer  = document.getElementById('jsonViewer');
+    const data    = (window.EXAMPLES || {})[btn.dataset.key];
+
+    // Clear search state
+    const si = document.getElementById('jvSearchInput');
+    if (si) { si.value = ''; }
+    jvMatches = []; jvMatchIdx = -1;
+    const countEl = document.getElementById('jvMatchCount');
+    if (countEl) countEl.textContent = '';
+
+    if (!data) {
+      viewer.innerHTML = `<div class="jv-loading" style="color:#ff6b6b;">Example not found: ${btn.dataset.key}</div>`;
+      return;
+    }
+    jvNodeId = 0;
+    viewer.innerHTML = jvRender(data, null, false);
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('jsonViewer');
-    if (container) container.innerHTML = jvRender(EXAMPLE_JSON, null, false);
+    // Load default example (first tab)
+    const firstTab = document.querySelector('.ex-tab.active');
+    if (firstTab) loadExample(firstTab);
 
     // Search input keyboard shortcuts
     const si = document.getElementById('jvSearchInput');
@@ -1841,13 +1484,6 @@
     }
   });
 
-  // Ctrl+F / Cmd+F → focus JSON search input
-  document.addEventListener('keydown', e => {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
-      const si = document.getElementById('jvSearchInput');
-      if (si) { e.preventDefault(); si.focus(); si.select(); }
-    }
-  });
 
   let jvMatches = [], jvMatchIdx = -1;
 
@@ -1926,5 +1562,6 @@
     document.getElementById('jvMatchCount').textContent = `${jvMatchIdx + 1} / ${jvMatches.length}`;
   }
 </script>
+<div id="fsBackdrop" class="fs-backdrop" onclick="closePanelFs()"></div>
 </body>
 </html>

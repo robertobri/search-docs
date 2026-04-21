@@ -1,0 +1,63 @@
+{
+  "sections": [
+    {
+      "id": "default-search",
+      "type": "default-search",
+      "elements": [
+        {
+          "id": "search-results",
+          "kind": "AUTOTEMPLATE",
+          "isSectionIndex": false,
+          "metadata": {
+            "commercialComponents": []
+          },
+          "linkedBlocks": [
+            "search-results",
+            ""
+          ],
+          "tags": [],
+          "attributes": []
+        }
+      ],
+      "attributes": [],
+      "autoTemplates": []
+    },
+    {
+      "id": "alternatives-search",
+      "type": "alternatives-search",
+      "elements": [],
+      "attributes": [],
+      "autoTemplates": []
+    }
+  ],
+  "context": {
+    "gridPaginationInfo": {
+      "total": 0,
+      "token": "eyJjdXJzb3IiOjAsInByb3ZpZGVyIjoiQXR0cmFxdCJ9",
+      "hasNextPage": false
+    },
+    "autoTemplatePattern": [],
+    "attributes": [],
+    "categoryTitle": "Search Grid"
+  },
+  "filters": [],
+  "sortings": [
+    {
+      "property": "PRICE",
+      "availableOrders": [
+        "ASC",
+        "DESC"
+      ]
+    }
+  ],
+  "section": "WOMAN",
+  "metadata": {
+    "provider": "Attraqt"
+  },
+  "additionalEntities": [
+    {
+      "type": "Direct",
+      "url": "https://www.zara.com/es/es/help"
+    }
+  ]
+}
