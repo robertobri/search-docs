@@ -644,6 +644,99 @@ table.summary td:first-child {
 
 .notes-check-item.checked strong { color: var(--text3); }
 
+/* ── REVISION LOG ── */
+.cl-details { border: none; }
+.cl-details[open] .cl-chevron { transform: rotate(90deg); }
+
+.cl-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  list-style: none;
+  gap: 8px;
+}
+.cl-summary::-webkit-details-marker { display: none; }
+
+.cl-chevron {
+  font-size: 10px;
+  color: var(--text3);
+  transition: transform .15s ease;
+  flex-shrink: 0;
+}
+
+.changelog-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .changelog-body { grid-template-columns: 1fr; }
+}
+
+.changelog-block-title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.changelog-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: var(--mono);
+}
+
+.changelog-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.changelog-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 11.5px;
+  color: var(--text2);
+  line-height: 1.5;
+}
+
+.changelog-dot {
+  flex-shrink: 0;
+  margin-top: 5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.changelog-item strong {
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.changelog-arrow {
+  color: var(--text3);
+  margin: 0 2px;
+  font-size: 10px;
+}
+
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
@@ -1092,6 +1185,12 @@ function buildNav(){
   notesLink.href = '#notes';
   notesLink.textContent = '↓ notes';
   nav.appendChild(notesLink);
+
+  const clLink = document.createElement('a');
+  clLink.className = 'nav-field';
+  clLink.href = '#changelog';
+  clLink.textContent = '↓ revision log';
+  nav.appendChild(clLink);
 }
 
 function buildMain(){
@@ -1172,10 +1271,101 @@ function buildMain(){
   }).join('');
 
   notesSection.innerHTML = `
-    <div class="summary-header">Notes</div>
-    <div class="notes-body">${notesBlocks}</div>`;
+    <details class="cl-details" open>
+      <summary class="cl-summary">
+        <div class="summary-header" style="border:none;padding:14px 20px;flex:1">Notes</div>
+        <span class="cl-chevron" style="margin-right:20px">▸</span>
+      </summary>
+      <div class="notes-body">${notesBlocks}</div>
+    </details>`;
 
   main.appendChild(notesSection);
+
+  // ── REVISION LOG ────────────────────────────────────────────────────────────
+  const CHANGELOG = [
+    {
+      label: 'Removed', color: '#E24B4A', pillBg: '#fdecea', pillTx: '#b71c1c',
+      items: [
+        { src: 'T1.Borrar + T1.Others', note: 'Internal tags with no search value.' },
+        { src: 'T1.Cm', note: 'Measurements with no clear target field.' },
+        { src: 'T1.Details / characteristics', note: 'Only contained "Vainica"; too narrow.' },
+        { src: 'T1.Sales group', note: 'Operational market segmentation; out of scope.' },
+        { src: 'T2.Tipo de cabello', note: 'Beauty-only, no associated field.' },
+        { src: 'T2.Tipo de bajo', note: 'Very few values; absorbed into design_detail.' },
+      ],
+    },
+    {
+      label: 'Merged', color: '#1D9E75', pillBg: '#e0f5ee', pillTx: '#076648',
+      items: [
+        { src: 'T1.Bottom fit + T1.Top fit + T2.Forma + T2.Ajuste', dest: 'fit' },
+        { src: 'T1.Bottom length + T1.Top length + T2.Largo + T2.Largo top', dest: 'length' },
+        { src: 'T1.Sleeve + T2.Tipo de manga', dest: 'sleeve_type' },
+        { src: 'T1.Neck + T2.Tipo de cuello', dest: 'neck_collar' },
+        { src: 'T1.Details + T2.Detalle + T2.Construcción + T2.Tipo de cierre + T2.Tipo de brillo + T2.Ornamentación + T2.Características', dest: 'design_detail' },
+        { src: 'T1.Occasion + T2.Ocasión + T2.Estilo', dest: 'occasion_style' },
+        { src: 'Seasonal values (various)', dest: 'season' },
+        { src: 'T2.Licencia + T2.Colección', dest: 'collection' },
+        { src: 'T2.Familia + T1.Family', dest: 'family' },
+        { src: 'T2.Color + T2.Tonalidad', dest: 'color' },
+      ],
+    },
+    {
+      label: 'Renamed', color: '#378ADD', pillBg: '#e6f0fc', pillTx: '#1a4a80',
+      items: [
+        { src: 'T1.Fabric', dest: 'texture' },
+        { src: 'T1.Print', dest: 'pattern_print' },
+        { src: 'T2.Capa', dest: 'layer' },
+        { src: 'T2.Tipo de producto', dest: 'product_type' },
+        { src: 'T2.Temporada', dest: 'season' },
+        { src: 'T2.Sección', dest: 'section' },
+        { src: 'T3.operational_intent_price', dest: 'operational_intent' },
+      ],
+    },
+    {
+      label: 'Partial', color: '#D85A30', pillBg: '#fbeee9', pillTx: '#7a2a0a',
+      items: [
+        { src: 'T1.Technical details', note: 'Split into thermal_functional + design_detail.' },
+        { src: 'T1.Technical details footwear', note: 'Split into thermal_functional + other_features.' },
+        { src: 'T1.Internal', note: 'Only "new / pre-launch" tags migrate to operational_intent.' },
+        { src: 'T2.Cintura', note: 'Partially absorbed into fit.' },
+      ],
+    },
+  ];
+
+  const clBlocks = CHANGELOG.map(block => {
+    const rows = block.items.map(item => {
+      const dest = item.dest ? `<span class="changelog-arrow">→</span><strong>${item.dest}</strong>` : '';
+      const note = item.note ? `<span style="color:var(--text3);font-size:11px"> — ${item.note}</span>` : '';
+      return `<li class="changelog-item">
+        <span class="changelog-dot" style="background:${block.color}"></span>
+        <span><strong>${item.src}</strong>${dest}${note}</span>
+      </li>`;
+    }).join('');
+    return `<div>
+      <div class="changelog-block-title" style="color:${block.color}">
+        ${block.label}
+        <span class="changelog-pill" style="background:${block.pillBg};color:${block.pillTx}">${block.items.length}</span>
+      </div>
+      <ul class="changelog-list">${rows}</ul>
+    </div>`;
+  }).join('');
+
+  const clSection = document.createElement('div');
+  clSection.className = 'notes-section';
+  clSection.id = 'changelog';
+  clSection.innerHTML = `
+    <details class="cl-details">
+      <summary class="cl-summary">
+        <div class="summary-header" style="border:none;padding:14px 20px;flex:1;display:flex;align-items:baseline;gap:10px">
+          Revision log
+          <span style="font-size:11px;color:var(--text3);font-weight:400">tag consolidation decisions</span>
+        </div>
+        <span class="cl-chevron" style="margin-right:20px">▸</span>
+      </summary>
+      <div class="changelog-body" style="padding:0 20px 20px">${clBlocks}</div>
+    </details>`;
+
+  main.appendChild(clSection);
 }
 
 // ── FILTER & SEARCH ─────────────────────────────────────────────────────────
