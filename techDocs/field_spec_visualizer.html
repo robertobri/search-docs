@@ -649,100 +649,6 @@ table.summary td:first-child {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 10px; }
 
-/* ── REVISION LOG ── */
-.cl-details { border: none; }
-.cl-details[open] .cl-chevron { transform: rotate(90deg); }
-
-.cl-summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  list-style: none;
-  gap: 8px;
-}
-.cl-summary::-webkit-details-marker { display: none; }
-
-.cl-chevron {
-  font-size: 10px;
-  color: var(--text3);
-  transition: transform .15s ease;
-  flex-shrink: 0;
-}
-
-.changelog-body {
-  padding: 16px 20px 20px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-@media (max-width: 900px) {
-  .changelog-body { grid-template-columns: 1fr; }
-}
-
-.changelog-block-title {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .09em;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.changelog-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 20px;
-  padding: 1px 6px;
-  border-radius: 10px;
-  font-size: 10px;
-  font-weight: 600;
-  font-family: var(--mono);
-}
-
-.changelog-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.changelog-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-size: 11.5px;
-  color: var(--text2);
-  line-height: 1.5;
-}
-
-.changelog-dot {
-  flex-shrink: 0;
-  margin-top: 5px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-}
-
-.changelog-item strong {
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 500;
-}
-
-.changelog-arrow {
-  color: var(--text3);
-  margin: 0 2px;
-  font-size: 10px;
-}
-
 /* ── PRINT / HIDDEN ── */
 .no-results {
   text-align: center;
@@ -764,7 +670,7 @@ table.summary td:first-child {
 
 <header>
   <div class="logo">tag_type_field_spec<span>.md</span></div>
-  <div class="header-meta">Proposal 2 · Search-first · English only · 30 fields · 5 groups</div>
+  <div class="header-meta">Proposal 2 · Search-first · English only · 20 fields · 5 groups</div>
 </header>
 
 <div class="layout">
@@ -799,7 +705,7 @@ table.summary td:first-child {
         <span class="filter-label">T2: Business types</span>
         <span class="filter-label">T3: Search-based types</span>
       </div>
-      <span class="count-badge" id="count-badge">30 fields</span>
+      <span class="count-badge" id="count-badge">20 fields</span>
     </div>
 
     <div class="main" id="main"></div>
@@ -811,10 +717,10 @@ table.summary td:first-child {
 // ── DATA ────────────────────────────────────────────────────────────────────
 const GROUPS = [
   { id:'g1', name:'Core identity',        color:'#7F77DD', fields:['section','product_type','family'] },
-  { id:'g2', name:'Garment shape',         color:'#1D9E75', fields:['fit','length','sleeve_type','rise','neck_collar','straps'] },
-  { id:'g3', name:'Visual',               color:'#D85A30', fields:['color','pattern_print','material','texture'] },
-  { id:'g4', name:'Function & technical', color:'#378ADD', fields:['thermal_functional','design_detail','bra_characteristics','briefs_characteristics'] },
-  { id:'g5', name:'Context',              color:'#E24B4A', fields:['occasion_style','season','collection','target_fit_type','operational_intent','activity','other_features'] },
+  { id:'g2', name:'Garment shape',         color:'#1D9E75', fields:['fit','length','sleeve_type','rise','neck_collar'] },
+  { id:'g3', name:'Visual',               color:'#D85A30', fields:['color','pattern_print','material','aesthetic_detail'] },
+  { id:'g4', name:'Function & technical', color:'#378ADD', fields:['functional_detail','construction_detail'] },
+  { id:'g5', name:'Context',              color:'#E24B4A', fields:['occasion_style','season','collection','target_fit_type','operational_intent','other_features'] },
 ];
 
 const COLOR_MAP = {
@@ -846,13 +752,8 @@ const FIELDS = {
   },
   family: {
     type:'Array', set:'open', src:'1+2',
-    examples:['dress','jacket','leggings','sneakers','bikini','parka','trench','blazer','bomber','cardigan','bodysuit','hoodie','swimsuit','bra','shorts','sandals','backpack','tote bag','beanie','gloves','socks','tracksuit','jumpsuit','coat','skirt','polo','vest','windbreaker','raincoat','gilet'],
+    examples:['dress','jacket','leggings','sneakers','bikini','parka','trench','blazer','bomber','cardigan','bodysuit','hoodie','swimsuit','swimwear','bra','underwear','shorts','sandals','backpack','tote bag','beanie','gloves','socks','tracksuit','jumpsuit','coat','skirt','polo','vest','windbreaker','raincoat','gilet'],
     notes:'The main product type or commercially consolidated garment category. Standalone product nouns used independently in search queries. Multiple values allowed when a product belongs to more than one family (e.g. a bra top: `["bra", "top"]`). Prefer the most specific applicable value.',
-  },
-  layer: {
-    type:'Array', set:'closed', src:'3',
-    valid:['upperwear','bottomwear','one-piece','outerwear','underwear','full-body'],
-    notes:'The garment layer or body position category. Not to be confused with family — this field classifies structural position, not product name. A dress is `one-piece`; a coat is `outerwear`; leggings are `bottomwear`.',
   },
   fit: {
     type:'Array', set:'open', src:'1+2+3',
@@ -861,12 +762,12 @@ const FIELDS = {
   },
   length: {
     type:'Array', set:'open', src:'1+3',
-    examples:['mini','short','midi','long','maxi','cropped','ankle-length','knee-length','capri','biker','hot pant','oversize','regular','crop'],
-    notes:'Applicable to both top and bottom garments. Use the most descriptive available term. `cropped` and `crop` are equivalent — normalize to `cropped`.',
+    examples:['mini','short','midi','long','maxi','cropped','ankle-length','knee-length','capri','biker','hot pant'],
+    notes:'Applicable to both top and bottom garments. Use the most descriptive available term. Fit terms such as `oversize` or `regular` belong in `fit`. `cropped` and `crop` are equivalent — normalize to `cropped`.',
   },
   sleeve_type: {
     type:'Array', set:'open', src:'1+2+3',
-    examples:['long sleeve','short sleeve','sleeveless','sleeve 3/4','strapless','off-shoulder','henley'],
+    examples:['long sleeve','short sleeve','sleeveless','sleeve 3/4','strapless','off-shoulder'],
     notes:'Describes the type or length of sleeves. Strapless and off-shoulder are included here when they describe sleeve construction rather than neckline design.',
   },
   rise: {
@@ -876,13 +777,8 @@ const FIELDS = {
   },
   neck_collar: {
     type:'Array', set:'open', src:'1+2',
-    examples:['v-neck','round neck','high neck','turtleneck','square neck','boat neck','mandarin collar','polo collar','wrap cross','bandeau','halter','off-shoulder','asymmetric'],
+    examples:['v-neck','round neck','high neck','turtleneck','square neck','boat neck','mandarin collar','polo collar','henley','wrap cross','bandeau','halter','off-shoulder','asymmetric'],
     notes:'Neckline and collar type. Includes both structural collars (mandarin, polo) and neckline cuts (v-neck, square). When a product has both a collar type and a neckline shape, include both.',
-  },
-  straps: {
-    type:'Array', set:'closed', src:'1',
-    valid:['strapless','wide strap','asymmetric','multiway straps','inner straps'],
-    notes:'Primarily applicable to bras, tops, and swimwear. Only populate when straps are a defining feature of the product. Do not populate for outerwear or bottoms.',
   },
   color: {
     type:'Array', set:'open', src:'1+2',
@@ -898,66 +794,38 @@ const FIELDS = {
   },
   material: {
     type:'Array', set:'open', src:'1+2',
-    examples:['cotton','wool','cashmere','linen','silk','leather','suede','denim','fleece','polyamide','viscose','lyocell','modal','alpaca','merino wool','silicone','faux leather','faux fur','faux shearling','crochet'],
-    notes:'Fiber or raw material content. Distinguished from `texture` (which covers surface finish and fabric construction). Multiple values are expected (e.g. `["cotton", "linen"]`). Use faux- prefix for synthetic versions of natural materials.',
+    examples:['cotton','wool','cashmere','linen','silk','leather','suede','denim','fleece','polyamide','viscose','lyocell','modal','alpaca','merino wool','silicone','faux leather','faux fur','faux shearling','crochet','ribbed','knit','woven','satin','velvet','corduroy','waffle','piqué','poplin','fine knit','chunky knit','brushed','crinkle','pleated','softshell','hardshell'],
+    notes:'Fiber or raw material content, as well as surface finish and fabric construction method. Absorbs the former `texture` field — tactile and structural fabric values (ribbed, satin, velvet, chunky knit, etc.) are now part of this field. Multiple values are expected (e.g. `["cotton", "ribbed"]`). Use faux- prefix for synthetic versions of natural materials. General build properties such as `padded` or `reversible` belong in `construction_detail`.',
   },
-  texture: {
-    type:'Array', set:'open', src:'1',
-    examples:['ribbed','knit','woven','satin','velvet','denim','corduroy','fleece','waffle','piqué','poplin','fine knit','chunky knit','brushed','crinkle','pleated','softshell','hardshell','padded','reversible','elastic'],
-    notes:'Surface quality, tactile finish, or fabric construction method. Distinct from `material` (which is fiber content). Overlaps are expected and acceptable — e.g. a product can have `material: ["wool"]` and `texture: ["chunky knit"]`.',
-  },
-  thermal_functional: {
+  functional_detail: {
     type:'Array', set:'open', src:'1+3',
-    examples:['waterproof','water-resistant','water-repellent','windproof','wind-resistant','breathable','quick dry','thermal','insulated','warm','extra warm','lightweight','packable','seamless','wicking','non-slip','reflective','odor control','high-resistance fabric'],
+    examples:['waterproof','water-resistant','water-repellent','windproof','wind-resistant','breathable','quick dry','thermal','insulated','warm','extra warm','lightweight','packable','wicking','non-slip','reflective','odor control','high-resistance fabric','menstrual'],
     waterproofScale:['water-repellent','water-resistant 3k','water-resistant 5k','water-resistant 10k','water-resistant 15k','water-resistant 20k','waterproof'],
-    notes:'Functional or climate-related properties. Do not include brand-level quality lines here (those go in `quality_line`). Include the numeric waterproofing rating when available rather than the generic term.',
+    notes:'Functional properties such as waterproofing, breathability, thermal performance, odor control, or menstrual protection. Include the numeric waterproofing rating when available rather than the generic term.',
   },
-  design_detail: {
+  construction_detail: {
     type:'Array', set:'open', src:'1+2+3',
     subtypes:{
-      'Structural':['hood','pockets','integrated bra','built-in shorts','zip','half-zip','belt','adjustable waistband','detachable hood'],
-      'Construction':['padded','quilted','reversible','seamless','mesh','sheer','lined'],
-      'Decorative':['embroidered','sequin','ruffles','bow','tie','cutwork','piping'],
-      'Shine':['metallic','glitter','iridescent','shiny'],
-      'Hem / edge':['open back','v-cut back','crossback','asymmetric hem','split hem'],
+      'Components':['hood','pockets','integrated bra','built-in shorts','zip','half-zip','belt','adjustable waistband','detachable hood'],
+      'Support / shaping':['underwired','non-wired','push-up','extreme push-up','balconette','bralette','bandeau','triangle','removable padding','pre-formed cups','fixed cup','no cups','inner bra','enhancing','high support','firm support','medium support','light support','low support','high compression','medium compression','low compression','thong','brazilian','hipster','boyshort','classic','cheeky','shortie','shape','invisible','medium coverage','classic coverage'],
+      'Straps / openings':['strapless','wide strap','asymmetric straps','multiway straps','inner straps','halter','open back','v-cut back','crossback'],
+      'Finish / shape':['padded','quilted','reversible','seamless','mesh','sheer','lined','elastic','asymmetric hem','split hem'],
       'Pack':['pack of 2','pack of 3','pack of 5','pack of 7'],
     },
-    notes:'Concrete structural or decorative design elements. When a detail is also a functional feature (e.g. pockets), include it here even if it could fit `thermal_functional`. The two fields are not mutually exclusive.',
+    notes:'Physical details of how the product is built, grouped into components, support or shaping, straps or openings, finish or shape, and pack format.',
   },
-  quality_line: {
-    type:'Array', set:'controlled', src:'1',
-    examples:['Primaloft','Primaloft Performance','Primaloft Ski','Fellex','Fellex Aerogel','Fellex Merino Wool','Fellex Volcanic','Thindown','Thinsulate 3M','Merino Wool','Woolmark','Seamless','Comfortlux','Compressive','Compressive Core Control','Extra Compressive','Super Extra Compressive','Evermove','Perfect Adapt','Shapewear','Coolmax','Cool Feeling','Laser Cut','Down 100','Down Mix','Neoprene-effect','Modal Brushed'],
-    notes:'Brand-level or proprietary technology and quality line names. These are distinct from generic functional terms in `thermal_functional`. Only use values from the controlled list — do not invent new values. Normalize capitalization as shown.',
-  },
-  compression: {
-    type:'Array', set:'closed', src:'1',
-    valid:['high compression','medium compression','low compression'],
-    notes:'Applicable to leggings, tights, socks, and base layers. Only populate when compression is a defined product feature — do not infer from fabric stretch alone.',
-  },
-  support_level: {
-    type:'Array', set:'closed', src:'1',
-    valid:['high support','firm support','medium support','light support','low support'],
-    notes:'Applicable to sport bras and bras only. Populate based on the brand\'s explicit support classification, not inferred from construction.',
-  },
-  bra_characteristics: {
-    type:'Array', set:'open', src:'1',
-    examples:['underwired','non-wired','push-up','extreme push-up','balconette','bralette','bandeau','triangle','halter','strapless','multiway','asymmetric','lace','removable padding','pre-formed cups','fixed cup','no cups','inner bra','enhancing','top'],
-    notes:'Applicable to bras and lingerie tops only. Multiple values are expected and common. `non-wired` and `unwired` are equivalent — normalize to `non-wired`.',
-  },
-  briefs_characteristics: {
-    type:'Array', set:'open', src:'1',
-    examples:['thong','brazilian','hipster','boyshort','classic','high rise','cheeky','shortie','shape','invisible','menstrual','period','medium coverage','classic coverage'],
-    notes:'Applicable to briefs, underwear bottoms, and bikini bottoms. `menstrual` and `period` are equivalent — normalize to `menstrual`.',
-  },
-  weight: {
-    type:'Array', set:'closed', src:'1',
-    valid:['heavy','light','lightweight','ultralight','weightless'],
-    notes:'Perceived or specified product weight. Particularly relevant for outerwear, bags, and footwear. Do not populate for most apparel unless weight is a stated feature.',
+  aesthetic_detail: {
+    type:'Array', set:'open', src:'1+2',
+    subtypes:{
+      'Decorative':['embroidered','sequin','ruffles','bow','tie','cutwork','piping'],
+      'Shine':['metallic','glitter','iridescent','shiny'],
+    },
+    notes:'Visual and decorative design elements — surface embellishments and finish effects. Distinct from `construction_detail` (which covers physical structure) and `material` (which covers fabric type and texture).',
   },
   occasion_style: {
     type:'Array', set:'open', src:'1+2+3',
-    examples:['active','apres-ski','beach','Christmas','freetime','maternity','rain','running club','swimwear','underwear','winter','party','birthday','night out','ceremony','summer','camp','back to school','Halloween','carnival','casual','running','gym','training','outdoor','cycling'],
-    notes:'Use case, aesthetic, style, or event context. Distinct from `activity` (which is sport/activity-specific) and `season` (which is weather-period). A product can have multiple values across both `occasion_style` and `activity` — they are not mutually exclusive.',
+    examples:['active','apres-ski','beach','Christmas','freetime','rain','running club','party','birthday','night out','ceremony','camp','back to school','Halloween','carnival','casual','running','gym','training','outdoor','cycling','fitness','ski','tennis and padel','travel','trekking','vacation','yoga and pilates'],
+    notes:'Use case, aesthetic, style, event context, or sport/activity purpose. Absorbs the former `activity` field — sport and physical activity values (fitness, running, ski, trekking, yoga and pilates, etc.) are now part of this field. Distinct from `season` (which is weather-period). Body-targeted terms such as `maternity` belong in `target_fit_type`, and season terms such as `winter` or `summer` belong in `season`.',
   },
   season: {
     type:'Array', set:'closed', src:'1+2',
@@ -979,20 +847,10 @@ const FIELDS = {
     valid:['sale','new arrival','new','new color','new size','pre-launch'],
     notes:'Promotional or inventory status signals. Kept in the index for status-based search queries ("sale items", "new arrivals") but should not be used as ranking boosters — weight at query time, not index time. Do not confuse with collection or season.',
   },
-  size_type: {
-    type:'Array', set:'closed', src:'1',
-    valid:['a4 format','cabin','ipad','laptop 13','laptop 16','large','medium','mini','mobile','no cabin','small'],
-    notes:'Applicable to bags and accessories only. Describes the size category of the bag/accessory, not the wearer\'s size. Do not apply to clothing. `cabin` refers to carry-on luggage compliance.',
-  },
-  activity: {
-    type:'Array', set:'closed', src:'1',
-    valid:['fitness','running','ski','tennis and padel','training','travel','trekking','vacation','yoga and pilates'],
-    notes:'Sport or physical activity the product is designed for. Distinct from `occasion_style` — `activity` is technical/functional intent, `occasion_style` is broader use-case context. A trail running shoe would have `activity: ["running", "trekking"]` and `occasion_style: ["outdoor"]`.',
-  },
   other_features: {
     type:'Array', set:'open', src:'3',
     examples:[],
-    notes:'Catch-all for any feature that does not fit the fields above. Before using this field, verify the feature cannot be mapped to `thermal_functional`, `design_detail`, or `quality_line`. Keep values as specific and consistent as possible — avoid generic terms that overlap with existing fields. Values that accumulate here frequently are candidates for promotion to a dedicated field in the next schema revision.',
+    notes:'Catch-all for any feature that does not fit the fields above. Before using this field, verify the feature cannot be mapped to `functional_detail`, `construction_detail`, or `aesthetic_detail`. Keep values as specific and consistent as possible — avoid generic terms that overlap with existing fields. Values that accumulate here frequently are candidates for promotion to a dedicated field in the next schema revision.',
   },
 };
 
@@ -1028,13 +886,17 @@ const FINAL_NOTES = [
     checkable: true,
     items: [
       // [label, text, checked?] — set third value to true when done
-      ['design_detail', 'Can become a “junk drawer” field'],
+      ['design_detail', 'Deleted -> split between construction_detail and aesthetic_detail', true],
       ['weight', 'Sense? -> Deleted', true],
       ['season', 'Weak search signal in some markets unless explicitly queried'],
-      ['layer', 'Interesting but potentially hard for consistency. If it means: base layer, mid layer, outer layer, then closed makes sense. But many garments are context-dependent (overshirt, cardigan, hoodie).-> Deleted', true],
-      ['fields too specific', 'straps, quality_line, compression, support_level, bra_characteristics, briefs_characteristics, size_type -> straps, bra_characteristics, briefs_characteristics into design_detail. The rest deleted', true],
-      ['merge ocassion style and activity', 'Decide -> Merge into activity', true],
+      ['layer', 'Interesting but potentially hard for consistency. If it means: base layer, mid layer, outer layer, then closed makes sense. But many garments are context-dependent (overshirt, cardigan, hoodie). -> Deleted', true],
+      ['fields too specific', 'straps, compression, support_level, bra_characteristics, briefs_characteristics → absorbed into construction_detail', true],
+      ['quality_line', 'Discarded — not applicable in this taxonomy classification', true],
+      ['size_type', 'Deleted', true],
+      ['merge occasion_style and activity', 'Decide → occasion_style stays, activity absorbed into occasion_style', true],
       ['texture and material', 'delete texture -> Texture Deleted', true],
+      ['example cleanup', 'length: moved oversize and regular to fit, and normalized crop to cropped in length; sleeve_type: moved henley to neck_collar; material: moved padded, reversible, and elastic to construction_detail'],
+      ['example cleanup 2', 'functional_detail: moved seamless to construction_detail; occasion_style: moved maternity to target_fit_type, winter and summer to season, and swimwear and underwear to family'],
       ['fit, target_fit_type, size_type', 'May collide semantically. Current interpretation: fit → garment silhouette (slim, oversized), target_fit_type → body/user intent (petite, maternity, tall), size_type → sizing system (plus size, one size, etc.)'],
     ],
   },
@@ -1230,12 +1092,6 @@ function buildNav(){
   notesLink.href = '#notes';
   notesLink.textContent = '↓ notes';
   nav.appendChild(notesLink);
-
-  const clLink = document.createElement('a');
-  clLink.className = 'nav-field';
-  clLink.href = '#changelog';
-  clLink.textContent = '↓ revision log';
-  nav.appendChild(clLink);
 }
 
 function buildMain(){
@@ -1288,8 +1144,9 @@ function buildMain(){
     });
   });
 
+  const totalFields = GROUPS.reduce((a,g)=>a+g.fields.length,0);
   sumSection.innerHTML = `
-    <div class="summary-header">Field summary — 30 fields</div>
+    <div class="summary-header">Field summary — ${totalFields} fields</div>
     <table class="summary">
       <thead><tr><th>Field</th><th>Group</th><th>Type</th><th>Set</th><th>Source</th></tr></thead>
       <tbody>${tableRows}</tbody>
@@ -1314,101 +1171,11 @@ function buildMain(){
     </div>`;
   }).join('');
 
-  // ── REVISION LOG (collapsible, before Notes) ────────────────────────────────
-  const CHANGELOG = [
-    {
-      label: 'Removed', color: '#E24B4A', pillBg: '#fdecea', pillTx: '#b71c1c',
-      items: [
-        { src: 'T1.Borrar + T1.Others', note: 'Internal tags with no search value.' },
-        { src: 'T1.Cm', note: 'Measurements with no clear target field.' },
-        { src: 'T1.Details / characteristics', note: 'Only contained "Vainica"; too narrow.' },
-        { src: 'T1.Sales group', note: 'Operational market segmentation; out of scope.' },
-        { src: 'T2.Tipo de cabello', note: 'Beauty-only, no associated field.' },
-        { src: 'T2.Tipo de bajo', note: 'Very few values; absorbed into design_detail.' },
-      ],
-    },
-    {
-      label: 'Merged', color: '#1D9E75', pillBg: '#e0f5ee', pillTx: '#076648',
-      items: [
-        { src: 'T1.Bottom fit + T1.Top fit + T2.Forma + T2.Ajuste', dest: 'fit' },
-        { src: 'T1.Bottom length + T1.Top length + T2.Largo + T2.Largo top', dest: 'length' },
-        { src: 'T1.Sleeve + T2.Tipo de manga', dest: 'sleeve_type' },
-        { src: 'T1.Neck + T2.Tipo de cuello', dest: 'neck_collar' },
-        { src: 'T1.Details + T2.Detalle + T2.Construcción + T2.Tipo de cierre + T2.Tipo de brillo + T2.Ornamentación + T2.Características', dest: 'design_detail' },
-        { src: 'T1.Occasion + T2.Ocasión + T2.Estilo', dest: 'occasion_style' },
-        { src: 'Seasonal values (various)', dest: 'season' },
-        { src: 'T2.Licencia + T2.Colección', dest: 'collection' },
-        { src: 'T2.Familia + T1.Family', dest: 'family' },
-        { src: 'T2.Color + T2.Tonalidad', dest: 'color' },
-      ],
-    },
-    {
-      label: 'Renamed', color: '#378ADD', pillBg: '#e6f0fc', pillTx: '#1a4a80',
-      items: [
-        { src: 'T1.Fabric', dest: 'texture' },
-        { src: 'T1.Print', dest: 'pattern_print' },
-        { src: 'T2.Capa', dest: 'layer' },
-        { src: 'T2.Tipo de producto', dest: 'product_type' },
-        { src: 'T2.Temporada', dest: 'season' },
-        { src: 'T2.Sección', dest: 'section' },
-        { src: 'T3.operational_intent_price', dest: 'operational_intent' },
-      ],
-    },
-    {
-      label: 'Partial', color: '#D85A30', pillBg: '#fbeee9', pillTx: '#7a2a0a',
-      items: [
-        { src: 'T1.Technical details', note: 'Split into thermal_functional + design_detail.' },
-        { src: 'T1.Technical details footwear', note: 'Split into thermal_functional + other_features.' },
-        { src: 'T1.Internal', note: 'Only "new / pre-launch" tags migrate to operational_intent.' },
-        { src: 'T2.Cintura', note: 'Partially absorbed into fit.' },
-      ],
-    },
-  ];
-
-  const clBlocks = CHANGELOG.map(block => {
-    const rows = block.items.map(item => {
-      const dest = item.dest ? `<span class="changelog-arrow">→</span><strong>${item.dest}</strong>` : '';
-      const note = item.note ? `<span style="color:var(--text3);font-size:11px"> — ${item.note}</span>` : '';
-      return `<li class="changelog-item">
-        <span class="changelog-dot" style="background:${block.color}"></span>
-        <span><strong>${item.src}</strong>${dest}${note}</span>
-      </li>`;
-    }).join('');
-    return `<div>
-      <div class="changelog-block-title" style="color:${block.color}">
-        ${block.label}
-        <span class="changelog-pill" style="background:${block.pillBg};color:${block.pillTx}">${block.items.length}</span>
-      </div>
-      <ul class="changelog-list">${rows}</ul>
-    </div>`;
-  }).join('');
-
-  const clSection = document.createElement('div');
-  clSection.className = 'notes-section';
-  clSection.id = 'changelog';
-  clSection.innerHTML = `
-    <details class="cl-details">
-      <summary class="cl-summary">
-        <div class="summary-header" style="border:none;padding:14px 20px;flex:1;display:flex;align-items:baseline;gap:10px">
-          Revision log
-          <span style="font-size:11px;color:var(--text3);font-weight:400">tag consolidation decisions</span>
-        </div>
-        <span class="cl-chevron" style="margin-right:20px">▸</span>
-      </summary>
-      <div class="changelog-body" style="padding:0 20px 20px">${clBlocks}</div>
-    </details>`;
-
   notesSection.innerHTML = `
-    <details class="cl-details" open>
-      <summary class="cl-summary">
-        <div class="summary-header" style="border:none;padding:14px 20px;flex:1">Notes</div>
-        <span class="cl-chevron" style="margin-right:20px">▸</span>
-      </summary>
-      <div class="notes-body">${notesBlocks}</div>
-    </details>`;
+    <div class="summary-header">Notes</div>
+    <div class="notes-body">${notesBlocks}</div>`;
 
   main.appendChild(notesSection);
-  main.appendChild(clSection);
 }
 
 // ── FILTER & SEARCH ─────────────────────────────────────────────────────────
