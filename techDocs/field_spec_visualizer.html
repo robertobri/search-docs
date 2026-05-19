@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Merged Tag Type — Field Spec</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #f5f4f0;
+  --surface:  #ffffff;
+  --surface2: #f0efe9;
+  --surface3: #e8e6de;
+  --border:   #e2e0d8;
+  --border2:  #cccab8;
+  --text:     #1a1916;
+  --text2:    #6b6858;
+  --text3:    #9c9a8a;
+  --mono:     'DM Mono', monospace;
+  --sans:     'DM Sans', sans-serif;
+  --r:        8px;
+  --rlg:      12px;
+
+  --g1: #7F77DD;
+  --g2: #1D9E75;
+  --g3: #D85A30;
+  --g4: #378ADD;
+  --g5: #E24B4A;
+
+  --src1-bg: #e0f5ee; --src1-tx: #076648;
+  --src2-bg: #faeae7; --src2-tx: #8c3014;
+  --src3-bg: #eeedfe; --src3-tx: #3c3489;
+  --srca-bg: #f0efe9; --srca-tx: #5a5840;
+
+  --closed-bg: #fef9ec; --closed-tx: #7a5200;
+  --open-bg:   #f0f7ff; --open-tx:   #1a4a80;
+  --ctrl-bg:   #f4f0fe; --ctrl-tx:   #4a2ea0;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
+.logo {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+}
+.logo span { color: var(--text3); font-weight: 300; }
+
+.header-meta {
+  font-size: 11px;
+  color: var(--text3);
+  font-family: var(--mono);
+}
+
+/* ── LAYOUT ── */
+.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: calc(100vh - 56px);
+}
+
+/* ── SIDEBAR NAV ── */
+nav {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 20px 0;
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 56px);
+  overflow-y: auto;
+}
+
+.nav-section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  padding: 12px 20px 6px;
+}
+
+.nav-group {
+  padding: 0;
+}
+
+.nav-group-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text2);
+  cursor: pointer;
+  transition: color .12s;
+}
+
+.nav-group-title:hover { color: var(--text); }
+
+.nav-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.nav-field {
+  display: block;
+  padding: 4px 20px 4px 35px;
+  font-size: 12px;
+  font-family: var(--mono);
+  color: var(--text3);
+  text-decoration: none;
+  transition: color .12s, background .12s;
+  border-left: 2px solid transparent;
+}
+
+.nav-field:hover {
+  color: var(--text);
+  background: var(--surface2);
+}
+
+.nav-field.active {
+  color: var(--text);
+  border-left-color: var(--text);
+  background: var(--surface2);
+}
+
+/* ── TOOLBAR ── */
+.toolbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 32px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 200px;
+  max-width: 320px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text3);
+  font-size: 14px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 7px 10px 7px 32px;
+  font-family: var(--sans);
+  font-size: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  background: var(--surface2);
+  color: var(--text);
+  outline: none;
+  transition: border .15s;
+}
+.search-input:focus { border-color: var(--border2); }
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  font-size: 11px;
+  color: var(--text3);
+}
+
+.filter-btn {
+  font-family: var(--sans);
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all .12s;
+}
+.filter-btn:hover, .filter-btn.on {
+  background: var(--text);
+  color: #fff;
+  border-color: var(--text);
+}
+
+.count-badge {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+  margin-left: auto;
+}
+
+/* ── MAIN CONTENT ── */
+.main {
+  overflow-y: auto;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── GROUP SECTION ── */
+.group-section {
+  margin-bottom: 40px;
+}
+
+.group-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border);
+}
+
+.group-stripe {
+  width: 4px;
+  height: 22px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.group-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.group-subtitle {
+  font-size: 12px;
+  color: var(--text3);
+  font-family: var(--mono);
+}
+
+.group-field-count {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+  background: var(--surface2);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+/* ── FIELD CARDS ── */
+.fields-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--rlg);
+  overflow: hidden;
+  transition: box-shadow .15s;
+}
+
+.field-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,.06); }
+.field-card.hidden { display: none; }
+
+.field-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+  user-select: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color .15s;
+}
+
+.field-card.open .field-card-header {
+  border-bottom-color: var(--border);
+}
+
+.field-name {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  flex: 1;
+}
+
+.field-badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.badge {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.badge-closed  { background: var(--closed-bg); color: var(--closed-tx); }
+.badge-open    { background: var(--open-bg);   color: var(--open-tx); }
+.badge-ctrl    { background: var(--ctrl-bg);   color: var(--ctrl-tx); }
+
+.badge-src1 { background: var(--src1-bg); color: var(--src1-tx); }
+.badge-src2 { background: var(--src2-bg); color: var(--src2-tx); }
+.badge-src3 { background: var(--src3-bg); color: var(--src3-tx); }
+.badge-srca { background: var(--srca-bg); color: var(--srca-tx); }
+
+.badge-type {
+  background: var(--surface2);
+  color: var(--text2);
+  font-family: var(--mono);
+}
+
+.chevron {
+  color: var(--text3);
+  font-size: 12px;
+  transition: transform .2s;
+  flex-shrink: 0;
+}
+.field-card.open .chevron { transform: rotate(180deg); }
+
+/* ── FIELD BODY ── */
+.field-body {
+  display: none;
+  padding: 16px;
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.field-card.open .field-body {
+  display: flex;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 8px;
+  align-items: start;
+}
+
+.field-row-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--text3);
+  padding-top: 2px;
+}
+
+.field-row-val {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.field-row-val a {
+  color: var(--text2);
+  text-decoration: underline;
+  text-decoration-color: var(--border2);
+}
+
+/* values list */
+.values-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.val-chip {
+  font-family: var(--mono);
+  font-size: 11px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 2px 8px;
+  color: var(--text2);
+  white-space: nowrap;
+}
+
+.val-chip.strong {
+  background: var(--closed-bg);
+  border-color: #f0dcaa;
+  color: var(--closed-tx);
+}
+
+/* notes */
+.notes-text {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.6;
+  background: var(--surface2);
+  border-radius: var(--r);
+  padding: 10px 12px;
+  border-left: 3px solid var(--border2);
+}
+
+.notes-text code {
+  font-family: var(--mono);
+  font-size: 11px;
+  background: var(--surface3);
+  padding: 1px 4px;
+  border-radius: 3px;
+  color: var(--text);
+}
+
+/* mapping rules */
+.mapping-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.mapping-table td {
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.mapping-table td:first-child {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text2);
+  white-space: nowrap;
+}
+
+.mapping-table td:last-child {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--closed-tx);
+}
+
+.mapping-arrow { color: var(--text3); padding: 0 4px; }
+
+/* sub-types */
+.subtypes { display: flex; flex-direction: column; gap: 8px; }
+
+.subtype-row { display: flex; gap: 8px; align-items: flex-start; }
+
+.subtype-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text3);
+  min-width: 90px;
+  padding-top: 3px;
+  text-transform: capitalize;
+}
+
+/* waterproof scale */
+.wf-scale {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-family: var(--mono);
+}
+
+.wf-step {
+  background: var(--open-bg);
+  color: var(--open-tx);
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid #cde0f5;
+}
+
+.wf-arrow { color: var(--text3); }
+
+/* color swatches */
+.color-grid { display: flex; flex-wrap: wrap; gap: 5px; }
+.color-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-family: var(--mono);
+  color: var(--text2);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 2px 7px 2px 4px;
+}
+.color-dot { width: 10px; height: 10px; border-radius: 50%; border: 1px solid rgba(0,0,0,.12); flex-shrink: 0; }
+
+/* ── SUMMARY TABLE ── */
+.summary-section {
+  margin-top: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--rlg);
+  overflow: hidden;
+}
+
+.summary-header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+table.summary {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+table.summary th {
+  text-align: left;
+  padding: 8px 16px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--text3);
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border);
+}
+
+table.summary td {
+  padding: 9px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+table.summary tr:last-child td { border-bottom: none; }
+table.summary tr:hover td { background: var(--surface2); }
+
+table.summary td:first-child {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.summary-group-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+/* ── FINAL NOTES ── */
+.notes-section {
+  margin-top: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--rlg);
+  overflow: hidden;
+}
+
+.notes-body {
+  padding: 16px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.notes-block-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 8px;
+}
+
+.notes-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.65;
+}
+
+.notes-list li { margin-bottom: 6px; }
+.notes-list li:last-child { margin-bottom: 0; }
+.notes-list strong { color: var(--text); font-weight: 500; }
+
+.notes-checklist {
+  list-style: none;
+  padding-left: 0;
+}
+
+.notes-check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.notes-check-indicator {
+  flex-shrink: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text3);
+  user-select: none;
+}
+
+.notes-check-item.checked .notes-check-indicator { color: var(--text); }
+
+.notes-check-text { flex: 1; }
+
+.notes-check-item.checked .notes-check-text {
+  color: var(--text3);
+  text-decoration: line-through;
+}
+
+.notes-check-item.checked strong { color: var(--text3); }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 10px; }
+
+/* ── PRINT / HIDDEN ── */
+.no-results {
+  text-align: center;
+  padding: 40px;
+  color: var(--text3);
+  font-size: 13px;
+  font-family: var(--mono);
+}
+
+@media print {
+  nav, .toolbar { display: none; }
+  .layout { grid-template-columns: 1fr; }
+  .field-card.open .field-body, .field-body { display: flex !important; }
+  .field-card { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">tag_type_field_spec<span>.md</span></div>
+  <div class="header-meta">Proposal 2 · Search-first · English only · 30 fields · 5 groups</div>
+</header>
+
+<div class="layout">
+
+  <!-- NAV -->
+  <nav id="nav"></nav>
+
+  <!-- MAIN -->
+  <div style="display:flex;flex-direction:column;overflow:hidden">
+    <div class="toolbar">
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input class="search-input" id="search" placeholder="Search fields, values, notes…" oninput="doSearch(this.value)">
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Set:</span>
+        <button class="filter-btn on" data-filter="set" data-val="all" onclick="toggleFilter(this,'set')">All</button>
+        <button class="filter-btn" data-filter="set" data-val="closed" onclick="toggleFilter(this,'set')">Closed</button>
+        <button class="filter-btn" data-filter="set" data-val="open" onclick="toggleFilter(this,'set')">Open</button>
+        <button class="filter-btn" data-filter="set" data-val="controlled" onclick="toggleFilter(this,'set')">Controlled</button>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Source:</span>
+        <button class="filter-btn on" data-filter="src" data-val="all" onclick="toggleFilter(this,'src')">All</button>
+        <button class="filter-btn" data-filter="src" data-val="1" onclick="toggleFilter(this,'src')">T1</button>
+        <button class="filter-btn" data-filter="src" data-val="2" onclick="toggleFilter(this,'src')">T2</button>
+        <button class="filter-btn" data-filter="src" data-val="3" onclick="toggleFilter(this,'src')">T3</button>
+        <button class="filter-btn" data-filter="src" data-val="multi" onclick="toggleFilter(this,'src')">Multi</button>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">T1: Commercial types</span>
+        <span class="filter-label">T2: Business types</span>
+        <span class="filter-label">T3: Search-based types</span>
+      </div>
+      <span class="count-badge" id="count-badge">30 fields</span>
+    </div>
+
+    <div class="main" id="main"></div>
+  </div>
+
+</div>
+
+<script>
+// ── DATA ────────────────────────────────────────────────────────────────────
+const GROUPS = [
+  { id:'g1', name:'Core identity',        color:'#7F77DD', fields:['section','product_type','family'] },
+  { id:'g2', name:'Garment shape',         color:'#1D9E75', fields:['fit','length','sleeve_type','rise','neck_collar','straps'] },
+  { id:'g3', name:'Visual',               color:'#D85A30', fields:['color','pattern_print','material','texture'] },
+  { id:'g4', name:'Function & technical', color:'#378ADD', fields:['thermal_functional','design_detail','bra_characteristics','briefs_characteristics'] },
+  { id:'g5', name:'Context',              color:'#E24B4A', fields:['occasion_style','season','collection','target_fit_type','operational_intent','activity','other_features'] },
+];
+
+const COLOR_MAP = {
+  black:'#1a1916', white:'#f5f4f0', grey:'#9c9a8a', beige:'#d4c9a8', brown:'#8b6645',
+  blue:'#3b7dd8', red:'#c0392b', pink:'#e8799e', green:'#2e8b57', yellow:'#f0c040',
+  orange:'#e67e22', purple:'#8e44ad', navy:'#1b2a4a', nude:'#d4a98a', khaki:'#8b8b5a',
+  multicolored:'linear-gradient(135deg,#e74c3c,#3498db,#2ecc71)', silver:'#b0b0b0',
+  gold:'#d4a017', turquoise:'#1abc9c', burgundy:'#800020', transparent:'rgba(0,0,0,0)',
+};
+
+const FIELDS = {
+  section: {
+    type:'String', set:'closed', src:'3',
+    valid:['WOMAN','MAN','KIDS','HOME','""'],
+    notes:'The explicit section the product belongs to. Empty string when not applicable or cross-section. Do not infer — only populate when explicitly indicated.',
+  },
+  product_type: {
+    type:'Array', set:'closed', src:'3',
+    valid:['clothing','footwear','accessories','beauty','home','gift card'],
+    mapping:[
+      ['clothes / apparel / garments','clothing'],
+      ['shoes / sneakers / boots','footwear'],
+      ['house / hogar / decor','home'],
+      ['cosmetics / makeup','beauty'],
+      ['jewelry / bags / hats','accessories'],
+      ['voucher / gift voucher','gift card'],
+    ],
+    notes:'Broadest product classification. More specific categories (lingerie, bags, makeup) are families, not product types. Only populate when the query explicitly mentions a product-type-level term.',
+  },
+  family: {
+    type:'Array', set:'open', src:'1+2',
+    examples:['dress','jacket','leggings','sneakers','bikini','parka','trench','blazer','bomber','cardigan','bodysuit','hoodie','swimsuit','bra','shorts','sandals','backpack','tote bag','beanie','gloves','socks','tracksuit','jumpsuit','coat','skirt','polo','vest','windbreaker','raincoat','gilet'],
+    notes:'The main product type or commercially consolidated garment category. Standalone product nouns used independently in search queries. Multiple values allowed when a product belongs to more than one family (e.g. a bra top: `["bra", "top"]`). Prefer the most specific applicable value.',
+  },
+  layer: {
+    type:'Array', set:'closed', src:'3',
+    valid:['upperwear','bottomwear','one-piece','outerwear','underwear','full-body'],
+    notes:'The garment layer or body position category. Not to be confused with family — this field classifies structural position, not product name. A dress is `one-piece`; a coat is `outerwear`; leggings are `bottomwear`.',
+  },
+  fit: {
+    type:'Array', set:'open', src:'1+2+3',
+    examples:['slim fit','regular','oversize','relaxed','skinny','fitted','loose','wide leg','flared','straight','tapered','barrel','balloon','cargo','baggy','bootcut','palazzo','culotte','mom fit','cocoon','boxy','adjustable'],
+    notes:'Covers fit (how it sits on the body), silhouette, and shape. Rise and waist type are captured separately in `rise`. Do not duplicate values across `fit` and `rise`.',
+  },
+  length: {
+    type:'Array', set:'open', src:'1+3',
+    examples:['mini','short','midi','long','maxi','cropped','ankle-length','knee-length','capri','biker','hot pant','oversize','regular','crop'],
+    notes:'Applicable to both top and bottom garments. Use the most descriptive available term. `cropped` and `crop` are equivalent — normalize to `cropped`.',
+  },
+  sleeve_type: {
+    type:'Array', set:'open', src:'1+2+3',
+    examples:['long sleeve','short sleeve','sleeveless','sleeve 3/4','strapless','off-shoulder','henley'],
+    notes:'Describes the type or length of sleeves. Strapless and off-shoulder are included here when they describe sleeve construction rather than neckline design.',
+  },
+  rise: {
+    type:'Array', set:'closed', src:'1',
+    valid:['high rise','super high rise','medium rise','low rise'],
+    notes:'Applicable to bottoms and swimwear only. Do not apply to tops or outerwear. `super high rise` is a distinct value from `high rise` — do not collapse them.',
+  },
+  neck_collar: {
+    type:'Array', set:'open', src:'1+2',
+    examples:['v-neck','round neck','high neck','turtleneck','square neck','boat neck','mandarin collar','polo collar','wrap cross','bandeau','halter','off-shoulder','asymmetric'],
+    notes:'Neckline and collar type. Includes both structural collars (mandarin, polo) and neckline cuts (v-neck, square). When a product has both a collar type and a neckline shape, include both.',
+  },
+  straps: {
+    type:'Array', set:'closed', src:'1',
+    valid:['strapless','wide strap','asymmetric','multiway straps','inner straps'],
+    notes:'Primarily applicable to bras, tops, and swimwear. Only populate when straps are a defining feature of the product. Do not populate for outerwear or bottoms.',
+  },
+  color: {
+    type:'Array', set:'open', src:'1+2',
+    baseColors:['black','white','grey','beige','brown','blue','red','pink','green','yellow','orange','purple','navy','nude','khaki','multicolored','natural tones','transparent','silver','gold','turquoise','burgundy'],
+    shadeQualifiers:['light','dark','pastel','electric','vibrant','neon','off-white','camel','mustard','coral','lilac','metallic'],
+    examples:['black','light blue','pastel pink','dark green','off-white','mustard','coral','burgundy','navy','nude','khaki','multicolored'],
+    notes:'Include both the base color and qualified variants when both are searchable (e.g. `["blue", "light blue"]`). Normalize spelling: `grey` not `gray`, `khaki` not `kakhi`.',
+  },
+  pattern_print: {
+    type:'Array', set:'open', src:'1+2',
+    examples:['plain','striped','animal print','floral','leopard','polka dots','checkered','gingham','houndstooth','camouflage','geometric','jacquard','logo','image','mini print','sailor','snake','tortoiseshell','iridescent','metallic','heathered','printed'],
+    notes:'`plain` should be explicitly tagged when a product has no print — this is a positive search signal for "plain t-shirt" queries. Jacquard refers to woven-in pattern, not print-on-fabric.',
+  },
+  material: {
+    type:'Array', set:'open', src:'1+2',
+    examples:['cotton','wool','cashmere','linen','silk','leather','suede','denim','fleece','polyamide','viscose','lyocell','modal','alpaca','merino wool','silicone','faux leather','faux fur','faux shearling','crochet'],
+    notes:'Fiber or raw material content. Distinguished from `texture` (which covers surface finish and fabric construction). Multiple values are expected (e.g. `["cotton", "linen"]`). Use faux- prefix for synthetic versions of natural materials.',
+  },
+  texture: {
+    type:'Array', set:'open', src:'1',
+    examples:['ribbed','knit','woven','satin','velvet','denim','corduroy','fleece','waffle','piqué','poplin','fine knit','chunky knit','brushed','crinkle','pleated','softshell','hardshell','padded','reversible','elastic'],
+    notes:'Surface quality, tactile finish, or fabric construction method. Distinct from `material` (which is fiber content). Overlaps are expected and acceptable — e.g. a product can have `material: ["wool"]` and `texture: ["chunky knit"]`.',
+  },
+  thermal_functional: {
+    type:'Array', set:'open', src:'1+3',
+    examples:['waterproof','water-resistant','water-repellent','windproof','wind-resistant','breathable','quick dry','thermal','insulated','warm','extra warm','lightweight','packable','seamless','wicking','non-slip','reflective','odor control','high-resistance fabric'],
+    waterproofScale:['water-repellent','water-resistant 3k','water-resistant 5k','water-resistant 10k','water-resistant 15k','water-resistant 20k','waterproof'],
+    notes:'Functional or climate-related properties. Do not include brand-level quality lines here (those go in `quality_line`). Include the numeric waterproofing rating when available rather than the generic term.',
+  },
+  design_detail: {
+    type:'Array', set:'open', src:'1+2+3',
+    subtypes:{
+      'Structural':['hood','pockets','integrated bra','built-in shorts','zip','half-zip','belt','adjustable waistband','detachable hood'],
+      'Construction':['padded','quilted','reversible','seamless','mesh','sheer','lined'],
+      'Decorative':['embroidered','sequin','ruffles','bow','tie','cutwork','piping'],
+      'Shine':['metallic','glitter','iridescent','shiny'],
+      'Hem / edge':['open back','v-cut back','crossback','asymmetric hem','split hem'],
+      'Pack':['pack of 2','pack of 3','pack of 5','pack of 7'],
+    },
+    notes:'Concrete structural or decorative design elements. When a detail is also a functional feature (e.g. pockets), include it here even if it could fit `thermal_functional`. The two fields are not mutually exclusive.',
+  },
+  quality_line: {
+    type:'Array', set:'controlled', src:'1',
+    examples:['Primaloft','Primaloft Performance','Primaloft Ski','Fellex','Fellex Aerogel','Fellex Merino Wool','Fellex Volcanic','Thindown','Thinsulate 3M','Merino Wool','Woolmark','Seamless','Comfortlux','Compressive','Compressive Core Control','Extra Compressive','Super Extra Compressive','Evermove','Perfect Adapt','Shapewear','Coolmax','Cool Feeling','Laser Cut','Down 100','Down Mix','Neoprene-effect','Modal Brushed'],
+    notes:'Brand-level or proprietary technology and quality line names. These are distinct from generic functional terms in `thermal_functional`. Only use values from the controlled list — do not invent new values. Normalize capitalization as shown.',
+  },
+  compression: {
+    type:'Array', set:'closed', src:'1',
+    valid:['high compression','medium compression','low compression'],
+    notes:'Applicable to leggings, tights, socks, and base layers. Only populate when compression is a defined product feature — do not infer from fabric stretch alone.',
+  },
+  support_level: {
+    type:'Array', set:'closed', src:'1',
+    valid:['high support','firm support','medium support','light support','low support'],
+    notes:'Applicable to sport bras and bras only. Populate based on the brand\'s explicit support classification, not inferred from construction.',
+  },
+  bra_characteristics: {
+    type:'Array', set:'open', src:'1',
+    examples:['underwired','non-wired','push-up','extreme push-up','balconette','bralette','bandeau','triangle','halter','strapless','multiway','asymmetric','lace','removable padding','pre-formed cups','fixed cup','no cups','inner bra','enhancing','top'],
+    notes:'Applicable to bras and lingerie tops only. Multiple values are expected and common. `non-wired` and `unwired` are equivalent — normalize to `non-wired`.',
+  },
+  briefs_characteristics: {
+    type:'Array', set:'open', src:'1',
+    examples:['thong','brazilian','hipster','boyshort','classic','high rise','cheeky','shortie','shape','invisible','menstrual','period','medium coverage','classic coverage'],
+    notes:'Applicable to briefs, underwear bottoms, and bikini bottoms. `menstrual` and `period` are equivalent — normalize to `menstrual`.',
+  },
+  weight: {
+    type:'Array', set:'closed', src:'1',
+    valid:['heavy','light','lightweight','ultralight','weightless'],
+    notes:'Perceived or specified product weight. Particularly relevant for outerwear, bags, and footwear. Do not populate for most apparel unless weight is a stated feature.',
+  },
+  occasion_style: {
+    type:'Array', set:'open', src:'1+2+3',
+    examples:['active','apres-ski','beach','Christmas','freetime','maternity','rain','running club','swimwear','underwear','winter','party','birthday','night out','ceremony','summer','camp','back to school','Halloween','carnival','casual','running','gym','training','outdoor','cycling'],
+    notes:'Use case, aesthetic, style, or event context. Distinct from `activity` (which is sport/activity-specific) and `season` (which is weather-period). A product can have multiple values across both `occasion_style` and `activity` — they are not mutually exclusive.',
+  },
+  season: {
+    type:'Array', set:'closed', src:'1+2',
+    valid:['winter','summer','mid-season'],
+    notes:'Season or weather-period relevance. Populate based on product design intent, not just color palette. `mid-season` is the English translation of T2\'s Entretiempo, covering transitional spring/autumn products.',
+  },
+  collection: {
+    type:'Array', set:'controlled', src:'2',
+    examples:['Disney','Marvel','Mickey Mouse','Minnie Mouse','Harry Potter','Pokémon','Snoopy','Miffy','Minecraft','Paw Patrol','Toy Story','Lilo & Stitch','Sanrio','Hello Kitty','NBA','Champion x Zara','Zara Athleticz','Studio Collection','SRPLS','TRF','Origins','Limited Edition','Basic','Ramadan','Aaron Levine','Ludovic de Saint Sernin','Willy Chavarria',"Dylan's",'Havaianas'],
+    notes:'Collection names, collaborations, licenses, and cultural references. Normalize to canonical display names. Both the license holder and the collaboration name should be included when applicable (e.g. `["Champion", "Champion x Zara"]`).',
+  },
+  target_fit_type: {
+    type:'Array', set:'open', src:'3',
+    examples:['maternity','petite','tall','plus size','unisex','nursing','post-surgery'],
+    notes:'Body-targeted or sizing category. Only populate when the product is specifically designed for that body type or sizing need — do not apply generically. `maternity` and `nursing` are distinct values.',
+  },
+  operational_intent: {
+    type:'Array', set:'open', src:'3+1',
+    valid:['sale','new arrival','new','new color','new size','pre-launch'],
+    notes:'Promotional or inventory status signals. Kept in the index for status-based search queries ("sale items", "new arrivals") but should not be used as ranking boosters — weight at query time, not index time. Do not confuse with collection or season.',
+  },
+  size_type: {
+    type:'Array', set:'closed', src:'1',
+    valid:['a4 format','cabin','ipad','laptop 13','laptop 16','large','medium','mini','mobile','no cabin','small'],
+    notes:'Applicable to bags and accessories only. Describes the size category of the bag/accessory, not the wearer\'s size. Do not apply to clothing. `cabin` refers to carry-on luggage compliance.',
+  },
+  activity: {
+    type:'Array', set:'closed', src:'1',
+    valid:['fitness','running','ski','tennis and padel','training','travel','trekking','vacation','yoga and pilates'],
+    notes:'Sport or physical activity the product is designed for. Distinct from `occasion_style` — `activity` is technical/functional intent, `occasion_style` is broader use-case context. A trail running shoe would have `activity: ["running", "trekking"]` and `occasion_style: ["outdoor"]`.',
+  },
+  other_features: {
+    type:'Array', set:'open', src:'3',
+    examples:[],
+    notes:'Catch-all for any feature that does not fit the fields above. Before using this field, verify the feature cannot be mapped to `thermal_functional`, `design_detail`, or `quality_line`. Keep values as specific and consistent as possible — avoid generic terms that overlap with existing fields. Values that accumulate here frequently are candidates for promotion to a dedicated field in the next schema revision.',
+  },
+};
+
+const FINAL_NOTES = [
+  {
+    title: 'Source types',
+    items: [
+      ['T1 — Commercial types', 'PACMAN'],
+      ['T2 — Business types', 'EXCEL'],
+      ['T3 — Search-based types', 'DEFINICIÓN SEEK'],
+      ['Multi-source', 'Fields that merge values from more than one origin (e.g. T1+T2+T3).'],
+    ],
+  },
+  {
+    title: 'Set semantics',
+    items: [
+      ['Closed', 'Fixed enumerated values — no new values without a schema revision.'],
+      ['Open', 'Controlled vocabulary that can grow when a value cannot be mapped elsewhere.'],
+      ['Controlled', 'Brand-managed list with explicit normalization rules (e.g. `quality_line`, `collection`).'],
+    ],
+  },
+  {
+    title: 'General principles',
+    items: [
+      ['English only', 'All values normalized to English at index time.'],
+      ['Do not infer', 'Populate fields only when explicitly indicated or defined — avoid guessing from context.'],
+      ['Arrays', 'Multiple values per field are expected where applicable.'],
+      ['Non-exclusive fields', 'Fields are not mutually exclusive unless explicitly noted in the field notes.'],
+      ['Last resort', 'Use `other_features` only after verifying the feature cannot map to a dedicated field.'],
+    ],
+  },{
+    title: 'Notes',
+    checkable: true,
+    items: [
+      // [label, text, checked?] — set third value to true when done
+      ['design_detail', 'Can become a “junk drawer” field'],
+      ['weight', 'Sense? -> Deleted', true],
+      ['season', 'Weak search signal in some markets unless explicitly queried'],
+      ['layer', 'Interesting but potentially hard for consistency. If it means: base layer, mid layer, outer layer, then closed makes sense. But many garments are context-dependent (overshirt, cardigan, hoodie).-> Deleted', true],
+      ['fields too specific', 'straps, quality_line, compression, support_level, bra_characteristics, briefs_characteristics, size_type -> straps, bra_characteristics, briefs_characteristics into design_detail. The rest deleted', true],
+      ['merge ocassion style and activity', 'Decide -> Merge into activity', true],
+      ['texture and material', 'delete texture -> Texture Deleted', true],
+      ['fit, target_fit_type, size_type', 'May collide semantically. Current interpretation: fit → garment silhouette (slim, oversized), target_fit_type → body/user intent (petite, maternity, tall), size_type → sizing system (plus size, one size, etc.)'],
+    ],
+  },
+];
+
+// ── FILTER STATE ────────────────────────────────────────────────────────────
+let filterSet = 'all';
+let filterSrc = 'all';
+let searchQ   = '';
+
+// ── BUILD UI ────────────────────────────────────────────────────────────────
+function srcClass(src){
+  if(src.includes('+')) return 'badge-srca';
+  return 'badge-src'+src;
+}
+
+function srcLabel(src){
+  if(src.includes('+')) return src.split('+').map(s=>'T'+s).join('+');
+  return 'T'+src;
+}
+
+function setClass(set){
+  if(set==='closed') return 'badge-closed';
+  if(set==='controlled') return 'badge-ctrl';
+  return 'badge-open';
+}
+
+function setLabel(set){
+  if(set==='closed') return 'Closed';
+  if(set==='controlled') return 'Controlled';
+  return 'Open';
+}
+
+function noteHtml(note){
+  return note
+    .replace(/`([^`]+)`/g, '<code>$1</code>');
+}
+
+function renderNotesItem(label, text, checkable, checked){
+  if(checkable){
+    return `<li class="notes-check-item${checked?' checked':''}">
+      <span class="notes-check-indicator" aria-hidden="true">${checked?'☑':'☐'}</span>
+      <span class="notes-check-text"><strong>${label}:</strong> ${noteHtml(text)}</span>
+    </li>`;
+  }
+  return `<li><strong>${label}:</strong> ${noteHtml(text)}</li>`;
+}
+
+function buildFieldCard(fieldId, groupColor){
+  const f = FIELDS[fieldId];
+  if(!f) return null;
+
+  const card = document.createElement('div');
+  card.className = 'field-card';
+  card.id = 'field-'+fieldId;
+  card.dataset.set = f.set;
+  card.dataset.src = f.src;
+
+  // header
+  const hdr = document.createElement('div');
+  hdr.className = 'field-card-header';
+  hdr.onclick = ()=>{ card.classList.toggle('open'); };
+
+  const name = document.createElement('div');
+  name.className = 'field-name';
+  name.textContent = fieldId;
+
+  const badges = document.createElement('div');
+  badges.className = 'field-badges';
+
+  badges.innerHTML = `
+    <span class="badge badge-type">${f.type}</span>
+    <span class="badge ${setClass(f.set)}">${setLabel(f.set)}</span>
+    <span class="badge ${srcClass(f.src)}">${srcLabel(f.src)}</span>
+    <span class="chevron">▾</span>`;
+
+  hdr.appendChild(name);
+  hdr.appendChild(badges);
+  card.appendChild(hdr);
+
+  // body
+  const body = document.createElement('div');
+  body.className = 'field-body';
+
+  // source row
+  const srcFull = f.src.includes('+')?
+    f.src.split('+').map(s=>`Type ${s}`).join(' + ') :
+    `Type ${f.src}`;
+  body.appendChild(makeRow('Source', `<span style="font-size:13px">${srcFull}</span>`));
+
+  // valid values
+  if(f.valid){
+    const chips = f.valid.map(v=>`<span class="val-chip strong">${v}</span>`).join('');
+    body.appendChild(makeRow('Valid values', `<div class="values-list">${chips}</div>`));
+  }
+
+  // mapping rules
+  if(f.mapping){
+    let rows = f.mapping.map(([from,to])=>`<tr><td>${from}</td><td class="mapping-arrow">→</td><td>${to}</td></tr>`).join('');
+    body.appendChild(makeRow('Mapping rules',`<table class="mapping-table"><tbody>${rows}</tbody></table>`));
+  }
+
+  // color-specific
+  if(fieldId==='color'){
+    const base = f.baseColors.map(c=>{
+      const bg = COLOR_MAP[c] || '#ccc';
+      return `<div class="color-item"><div class="color-dot" style="background:${bg}"></div>${c}</div>`;
+    }).join('');
+    body.appendChild(makeRow('Base colors', `<div class="color-grid">${base}</div>`));
+
+    const quals = f.shadeQualifiers.map(v=>`<span class="val-chip">${v}</span>`).join('');
+    body.appendChild(makeRow('Shade qualifiers', `<div class="values-list">${quals}</div>`));
+  }
+
+  // waterproof scale
+  if(f.waterproofScale){
+    const steps = f.waterproofScale.map(s=>`<span class="wf-step">${s}</span>`).join('<span class="wf-arrow"> → </span>');
+    body.appendChild(makeRow('Waterproof scale', `<div class="wf-scale">${steps}</div>`));
+  }
+
+  // subtypes
+  if(f.subtypes){
+    let html = '<div class="subtypes">';
+    for(const [label, vals] of Object.entries(f.subtypes)){
+      const chips = vals.map(v=>`<span class="val-chip">${v}</span>`).join('');
+      html += `<div class="subtype-row"><span class="subtype-label">${label}</span><div class="values-list">${chips}</div></div>`;
+    }
+    html += '</div>';
+    body.appendChild(makeRow('Sub-types', html));
+  }
+
+  // example values
+  if(f.examples && f.examples.length > 0){
+    const chips = f.examples.map(v=>`<span class="val-chip">${v}</span>`).join('');
+    body.appendChild(makeRow('Example values', `<div class="values-list">${chips}</div>`));
+  } else if(f.examples && f.examples.length === 0 && f.set==='open'){
+    body.appendChild(makeRow('Example values', '<span style="color:var(--text3);font-size:12px;font-style:italic">None pre-defined — values added when they cannot be mapped to an existing field</span>'));
+  }
+
+  // notes
+  if(f.notes){
+    body.appendChild(makeRow('Notes', `<div class="notes-text">${noteHtml(f.notes)}</div>`));
+  }
+
+  card.appendChild(body);
+  return card;
+}
+
+function makeRow(label, html){
+  const row = document.createElement('div');
+  row.className = 'field-row';
+  row.innerHTML = `<div class="field-row-label">${label}</div><div class="field-row-val">${html}</div>`;
+  return row;
+}
+
+function buildNav(){
+  const nav = document.getElementById('nav');
+  nav.innerHTML = `<div class="nav-section-label">Groups</div>`;
+  GROUPS.forEach(g=>{
+    const grp = document.createElement('div');
+    grp.className = 'nav-group';
+    const title = document.createElement('a');
+    title.className = 'nav-group-title';
+    title.href = '#group-'+g.id;
+    title.innerHTML = `<span class="nav-dot" style="background:${g.color}"></span>${g.name}`;
+    grp.appendChild(title);
+    g.fields.forEach(fid=>{
+      const link = document.createElement('a');
+      link.className = 'nav-field';
+      link.href = '#field-'+fid;
+      link.textContent = fid;
+      link.onclick = ()=>{
+        document.querySelectorAll('.nav-field').forEach(l=>l.classList.remove('active'));
+        link.classList.add('active');
+        const card = document.getElementById('field-'+fid);
+        if(card) card.classList.add('open');
+      };
+      grp.appendChild(link);
+    });
+    nav.appendChild(grp);
+  });
+
+  // summary link
+  const sumLink = document.createElement('a');
+  sumLink.className = 'nav-field';
+  sumLink.href = '#summary';
+  sumLink.textContent = '↓ summary table';
+  sumLink.style.marginTop = '12px';
+  nav.appendChild(sumLink);
+
+  const notesLink = document.createElement('a');
+  notesLink.className = 'nav-field';
+  notesLink.href = '#notes';
+  notesLink.textContent = '↓ notes';
+  nav.appendChild(notesLink);
+}
+
+function buildMain(){
+  const main = document.getElementById('main');
+  main.innerHTML = '';
+
+  GROUPS.forEach(g=>{
+    const section = document.createElement('div');
+    section.className = 'group-section';
+    section.id = 'group-'+g.id;
+
+    section.innerHTML = `
+      <div class="group-header">
+        <div class="group-stripe" style="background:${g.color}"></div>
+        <div class="group-title">${g.name}</div>
+        <div class="group-field-count">${g.fields.length} fields</div>
+      </div>`;
+
+    const grid = document.createElement('div');
+    grid.className = 'fields-grid';
+
+    g.fields.forEach(fid=>{
+      const card = buildFieldCard(fid, g.color);
+      if(card) grid.appendChild(card);
+    });
+
+    section.appendChild(grid);
+    main.appendChild(section);
+  });
+
+  // summary table
+  const sumSection = document.createElement('div');
+  sumSection.className = 'summary-section';
+  sumSection.id = 'summary';
+
+  let tableRows = '';
+  GROUPS.forEach(g=>{
+    g.fields.forEach(fid=>{
+      const f = FIELDS[fid];
+      if(!f) return;
+      const srcFull = f.src.includes('+')?
+        f.src.split('+').map(s=>`T${s}`).join('+') : `T${f.src}`;
+      tableRows += `<tr>
+        <td>${fid}</td>
+        <td><span class="summary-group-dot" style="background:${g.color}"></span>${g.name}</td>
+        <td>${f.type}</td>
+        <td><span class="badge ${setClass(f.set)}" style="font-size:10px">${setLabel(f.set)}</span></td>
+        <td><span class="badge ${srcClass(f.src)}" style="font-size:10px">${srcFull}</span></td>
+      </tr>`;
+    });
+  });
+
+  sumSection.innerHTML = `
+    <div class="summary-header">Field summary — 30 fields</div>
+    <table class="summary">
+      <thead><tr><th>Field</th><th>Group</th><th>Type</th><th>Set</th><th>Source</th></tr></thead>
+      <tbody>${tableRows}</tbody>
+    </table>`;
+
+  main.appendChild(sumSection);
+
+  // final notes
+  const notesSection = document.createElement('div');
+  notesSection.className = 'notes-section';
+  notesSection.id = 'notes';
+
+  const notesBlocks = FINAL_NOTES.map(block=>{
+    const items = block.items.map(item=>{
+      const [label, text, checked] = item;
+      return renderNotesItem(label, text, !!block.checkable, !!checked);
+    }).join('');
+    const listClass = block.checkable ? 'notes-list notes-checklist' : 'notes-list';
+    return `<div class="notes-block">
+      <div class="notes-block-title">${block.title}</div>
+      <ul class="${listClass}">${items}</ul>
+    </div>`;
+  }).join('');
+
+  notesSection.innerHTML = `
+    <div class="summary-header">Notes</div>
+    <div class="notes-body">${notesBlocks}</div>`;
+
+  main.appendChild(notesSection);
+}
+
+// ── FILTER & SEARCH ─────────────────────────────────────────────────────────
+function applyFilters(){
+  let visible = 0;
+  document.querySelectorAll('.field-card').forEach(card=>{
+    const set = card.dataset.set;
+    const src = card.dataset.src;
+    const text = card.textContent.toLowerCase();
+
+    const setOk = filterSet==='all' || set===filterSet;
+    const srcOk = filterSrc==='all' ||
+      (filterSrc==='multi' && src.includes('+')) ||
+      (!src.includes('+') && src===filterSrc);
+    const searchOk = !searchQ || text.includes(searchQ);
+
+    const show = setOk && srcOk && searchOk;
+    card.classList.toggle('hidden', !show);
+    if(show) visible++;
+  });
+
+  document.getElementById('count-badge').textContent = visible+' field'+(visible!==1?'s':'');
+
+  // hide empty group sections
+  document.querySelectorAll('.group-section').forEach(sec=>{
+    const cards = sec.querySelectorAll('.field-card:not(.hidden)');
+    sec.style.display = cards.length===0?'none':'';
+  });
+}
+
+function toggleFilter(btn, type){
+  const val = btn.dataset.val;
+  document.querySelectorAll(`[data-filter="${type}"]`).forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  if(type==='set') filterSet = val;
+  if(type==='src') filterSrc = val;
+  applyFilters();
+}
+
+function doSearch(val){
+  searchQ = val.toLowerCase().trim();
+  applyFilters();
+}
+
+// ── INIT ────────────────────────────────────────────────────────────────────
+buildNav();
+buildMain();
+applyFilters();
+</script>
+</body>
+</html>
