@@ -763,7 +763,7 @@ table.summary td:first-child {
 
 <header>
   <div class="logo">tag_type_field_spec<span>.md</span></div>
-  <div class="header-meta">Proposal 2 · Search-first · English only · 20 fields · 5 groups</div>
+  <div class="header-meta">Proposal 2 · Search-first · English only · 22 fields · 5 groups</div>
 </header>
 
 <div class="layout">
@@ -798,7 +798,7 @@ table.summary td:first-child {
         <span class="filter-label">T2: Business types</span>
         <span class="filter-label">T3: Search-based types</span>
       </div>
-      <span class="count-badge" id="count-badge">20 fields</span>
+      <span class="count-badge" id="count-badge">22 fields</span>
     </div>
 
     <div class="main" id="main"></div>
@@ -810,8 +810,8 @@ table.summary td:first-child {
 // ── DATA ────────────────────────────────────────────────────────────────────
 const GROUPS = [
   { id:'g1', name:'Core identity',        color:'#7F77DD', fields:['section','product_type','family'] },
-  { id:'g2', name:'Garment shape',         color:'#1D9E75', fields:['fit','length','sleeve_type','rise','neck_collar'] },
-  { id:'g3', name:'Visual',               color:'#D85A30', fields:['color','pattern_print','material','aesthetic_detail'] },
+  { id:'g2', name:'Garment shape',         color:'#1D9E75', fields:['fit','length','sleeve_type','rise','neck_collar','straps'] },
+  { id:'g3', name:'Visual',               color:'#D85A30', fields:['color','pattern_print','material','texture','aesthetic_detail'] },
   { id:'g4', name:'Function & technical', color:'#378ADD', fields:['functional_detail','construction_detail'] },
   { id:'g5', name:'Context',              color:'#E24B4A', fields:['occasion_style','season','collection','target_fit_type','operational_intent','other_features'] },
 ];
@@ -860,8 +860,8 @@ const FIELDS = {
   },
   sleeve_type: {
     type:'Array', set:'open', src:'1+2+3',
-    examples:['long sleeve','short sleeve','sleeveless','sleeve 3/4','strapless','off-shoulder'],
-    notes:'Describes the type or length of sleeves. Strapless and off-shoulder are included here when they describe sleeve construction rather than neckline design.',
+    examples:['long sleeve','short sleeve','sleeveless','sleeve 3/4','puff sleeve','asymmetric sleeve'],
+    notes:'Describes sleeve presence, length, or sleeve-specific shape. Use qualified sleeve values such as `asymmetric sleeve` when needed. Do not use this field for strap construction or neckline concepts.',
   },
   rise: {
     type:'Array', set:'closed', src:'1',
@@ -870,8 +870,13 @@ const FIELDS = {
   },
   neck_collar: {
     type:'Array', set:'open', src:'1+2',
-    examples:['v-neck','round neck','high neck','turtleneck','square neck','boat neck','mandarin collar','polo collar','henley','wrap cross','bandeau','halter','off-shoulder','asymmetric'],
-    notes:'Neckline and collar type. Includes both structural collars (mandarin, polo) and neckline cuts (v-neck, square). When a product has both a collar type and a neckline shape, include both.',
+    examples:['v-neck','round neck','high neck','turtleneck','square neck','boat neck','mandarin collar','polo collar','henley','wrap cross','bandeau','halter','off-shoulder','asymmetric neckline'],
+    notes:'Neckline and collar type. Includes both structural collars (mandarin, polo) and neckline cuts (v-neck, square). Use this field for neckline-specific asymmetry such as `asymmetric neckline`, not for generic `asymmetric` or strap construction.',
+  },
+  straps: {
+    type:'Array', set:'closed', src:'1',
+    valid:['strapless','wide strap','asymmetric strap','multiway straps','inner straps'],
+    notes:'Primarily applicable to bras, tops, and swimwear. Only populate when straps are a defining feature of the product. Use explicit strap terms such as `asymmetric strap`; generic `asymmetric` belongs in `construction_detail`. Do not populate for outerwear or bottoms.',
   },
   color: {
     type:'Array', set:'open', src:'1+2',
@@ -882,13 +887,18 @@ const FIELDS = {
   },
   pattern_print: {
     type:'Array', set:'open', src:'1+2',
-    examples:['plain','striped','animal print','floral','leopard','polka dots','checkered','gingham','houndstooth','camouflage','geometric','jacquard','logo','image','mini print','sailor','snake','tortoiseshell','iridescent','metallic','heathered','printed'],
+    examples:['plain','striped','animal print','floral','leopard','polka dots','checkered','gingham','houndstooth','camouflage','geometric','jacquard','logo','image','mini print','sailor','snake','tortoiseshell','heathered','printed'],
     notes:'`plain` should be explicitly tagged when a product has no print — this is a positive search signal for "plain t-shirt" queries. Jacquard refers to woven-in pattern, not print-on-fabric.',
   },
   material: {
     type:'Array', set:'open', src:'1+2',
-    examples:['cotton','wool','cashmere','linen','silk','leather','suede','denim','fleece','polyamide','viscose','lyocell','modal','alpaca','merino wool','silicone','faux leather','faux fur','faux shearling','crochet','ribbed','knit','woven','satin','velvet','corduroy','waffle','piqué','poplin','fine knit','chunky knit','brushed','crinkle','pleated','softshell','hardshell'],
-    notes:'Fiber or raw material content, as well as surface finish and fabric construction method. Absorbs the former `texture` field — tactile and structural fabric values (ribbed, satin, velvet, chunky knit, etc.) are now part of this field. Multiple values are expected (e.g. `["cotton", "ribbed"]`). Use faux- prefix for synthetic versions of natural materials. General build properties such as `padded` or `reversible` belong in `construction_detail`.',
+    examples:['cotton','wool','cashmere','linen','silk','leather','suede','polyamide','viscose','lyocell','modal','alpaca','merino wool','silicone','faux leather','faux fur','faux shearling','crochet','knit','woven','satin','velvet','corduroy','denim','fleece','piqué','poplin'],
+    notes:'Fiber, raw material, or fabric identity. Material-adjacent fabric descriptors such as `knit`, `woven`, `satin`, `velvet`, `corduroy`, `denim`, `fleece`, `crochet`, `piqué`, and `poplin` belong here. Surface-quality descriptors belong in `texture`. Multiple values are expected where needed (e.g. `["cotton", "wool"]`). Use faux- prefix for synthetic versions of natural materials.',
+  },
+  texture: {
+    type:'Array', set:'open', src:'1',
+    examples:['soft','hard','smooth','rough','matte'],
+    notes:'Surface quality or tactile finish only. Use this field for touch/feel descriptors such as `soft`, `hard`, `smooth`, or `rough`. Fabric-identity values such as `knit`, `woven`, `satin`, or `denim` belong in `material`. Structural finish values such as `padded`, `reversible`, or `elastic` belong in `construction_detail`.',
   },
   functional_detail: {
     type:'Array', set:'open', src:'1+3',
@@ -901,19 +911,19 @@ const FIELDS = {
     subtypes:{
       'Components':['hood','pockets','integrated bra','built-in shorts','zip','half-zip','belt','adjustable waistband','detachable hood'],
       'Support / shaping':['underwired','non-wired','push-up','extreme push-up','balconette','bralette','bandeau','triangle','removable padding','pre-formed cups','fixed cup','no cups','inner bra','enhancing','high support','firm support','medium support','light support','low support','high compression','medium compression','low compression','thong','brazilian','hipster','boyshort','classic','cheeky','shortie','shape','invisible','medium coverage','classic coverage'],
-      'Straps / openings':['strapless','wide strap','asymmetric straps','multiway straps','inner straps','halter','open back','v-cut back','crossback'],
-      'Finish / shape':['padded','quilted','reversible','seamless','mesh','sheer','lined','elastic','asymmetric hem','split hem'],
+      'Back / openings':['open back','v-cut back','crossback'],
+      'Finish / shape':['padded','quilted','reversible','seamless','mesh','sheer','lined','elastic','asymmetric','asymmetric hem','split hem','brushed','crinkle','pleated'],
       'Pack':['pack of 2','pack of 3','pack of 5','pack of 7'],
     },
-    notes:'Physical details of how the product is built, grouped into components, support or shaping, straps or openings, finish or shape, and pack format.',
+    notes:'Physical details of how the product is built, grouped into components, support or shaping, back or opening construction, finish or shape, and pack format. Use this field for generic `asymmetric` and for structural finish terms such as `padded`, `reversible`, `elastic`, `crinkle`, or `pleated`.',
   },
   aesthetic_detail: {
     type:'Array', set:'open', src:'1+2',
     subtypes:{
       'Decorative':['embroidered','sequin','ruffles','bow','tie','cutwork','piping'],
-      'Shine':['metallic','glitter','iridescent','shiny'],
+      'Shine':['glitter','shiny'],
     },
-    notes:'Visual and decorative design elements — surface embellishments and finish effects. Distinct from `construction_detail` (which covers physical structure) and `material` (which covers fabric type and texture).',
+    notes:'Visual and decorative design elements — surface embellishments and finish effects. Distinct from `construction_detail` (which covers physical structure), `material` (which covers fiber or fabric identity), and `texture` (which covers tactile surface quality). Decorative finish effects such as `glitter` or `shiny` belong here. Treat `metallic` as a color value instead of an aesthetic detail example.',
   },
   occasion_style: {
     type:'Array', set:'open', src:'1+2+3',
@@ -983,12 +993,13 @@ const FINAL_NOTES = [
       ['weight', 'Sense? -> Deleted', true],
       ['season', 'Weak search signal in some markets unless explicitly queried'],
       ['layer', 'Interesting but potentially hard for consistency. If it means: base layer, mid layer, outer layer, then closed makes sense. But many garments are context-dependent (overshirt, cardigan, hoodie). -> Deleted', true],
-      ['fields too specific', 'straps, compression, support_level, bra_characteristics, briefs_characteristics → absorbed into construction_detail', true],
+      ['fields too specific', 'compression, support_level, bra_characteristics, briefs_characteristics → absorbed into construction_detail', true],
       ['quality_line', 'Discarded — not applicable in this taxonomy classification', true],
       ['size_type', 'Deleted', true],
       ['merge occasion_style and activity', 'Decide → occasion_style stays, activity absorbed into occasion_style', true],
-      ['texture and material', 'delete texture -> Texture Deleted', true],
-      ['example cleanup', 'length: moved oversize and regular to fit, and normalized crop to cropped in length; sleeve_type: moved henley to neck_collar; material: moved padded, reversible, and elastic to construction_detail'],
+      ['straps', 'Restored as a standalone field and removed from construction_detail'],
+      ['texture and material', 'Texture restored as a standalone field; removed from material so material stays focused on fiber/raw material content'],
+      ['example cleanup', 'length: moved oversize and regular to fit, and normalized crop to cropped in length; sleeve_type: moved henley to neck_collar; material: removed texture-like values after restoring texture as a standalone field'],
       ['example cleanup 2', 'functional_detail: moved seamless to construction_detail; occasion_style: moved maternity to target_fit_type, winter and summer to season, and swimwear and underwear to family'],
       ['fit, target_fit_type, size_type', 'May collide semantically. Current interpretation: fit → garment silhouette (slim, oversized), target_fit_type → body/user intent (petite, maternity, tall), size_type → sizing system (plus size, one size, etc.)'],
     ],
