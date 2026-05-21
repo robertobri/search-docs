@@ -810,10 +810,10 @@ table.summary td:first-child {
 // ── DATA ────────────────────────────────────────────────────────────────────
 const GROUPS = [
   { id:'g1', name:'Core identity',        color:'#7F77DD', fields:['section','product_type','family'] },
-  { id:'g2', name:'Garment shape',         color:'#1D9E75', fields:['fit','length','sleeve_type','rise','neck_collar','straps'] },
+  { id:'g2', name:'Garment shape',         color:'#1D9E75', fields:['fit','length','sleeve_type','rise','neck_collar','hem_type','closure_type'] },
   { id:'g3', name:'Visual',               color:'#D85A30', fields:['color','pattern_print','material','texture','aesthetic_detail'] },
   { id:'g4', name:'Function & technical', color:'#378ADD', fields:['functional_detail','construction_detail'] },
-  { id:'g5', name:'Context',              color:'#E24B4A', fields:['occasion_style','season','collection','target_fit_type','operational_intent','other_features'] },
+  { id:'g5', name:'Context',              color:'#E24B4A', fields:['occasion_style','season','collection','other_features'] },
 ];
 
 const COLOR_MAP = {
@@ -860,7 +860,7 @@ const FIELDS = {
   },
   sleeve_type: {
     type:'Array', set:'open', src:'1+2+3',
-    examples:['long sleeve','short sleeve','sleeveless','sleeve 3/4','puff sleeve','asymmetric sleeve'],
+    examples:['long sleeve','short sleeve','sleeveless','sleeve 3/4','puff sleeve','asymmetric sleeve', 'strapless','wide strap','asymmetric strap','multiway straps','inner straps'],
     notes:'Describes sleeve presence, length, or sleeve-specific shape. Use qualified sleeve values such as `asymmetric sleeve` when needed. Do not use this field for strap construction or neckline concepts.',
   },
   rise: {
@@ -880,9 +880,10 @@ const FIELDS = {
   },
   color: {
     type:'Array', set:'open', src:'1+2',
-    baseColors:['black','white','grey','beige','brown','blue','red','pink','green','yellow','orange','purple','navy','nude','khaki','multicolored','natural tones','transparent','silver','gold','turquoise','burgundy'],
-    shadeQualifiers:['light','dark','pastel','electric','vibrant','neon','off-white','camel','mustard','coral','lilac','metallic'],
-    examples:['black','light blue','pastel pink','dark green','off-white','mustard','coral','burgundy','navy','nude','khaki','multicolored'],
+    baseColors:['black','white','grey','beige','brown','blue','red','pink','green','yellow','orange','purple','silver','gold','turquoise','burgundy'],
+    specialColors:['amarillo','amarillo pastel','canary','mostaza','dorado','azul cielo','azul claro','azul hielo','azul marino','azul medio','azul petróleo','blue aura','cloud blue'],
+    shadeQualifiers:['light','dark','pastel','electric','vibrant','neon','off-white','metallic', 'transparent'],
+    examples:['black','light blue','pastel pink','dark green','off-white','mustard','coral','burgundy','navy','nude','khaki','multicolored', 'amarillo pastel', 'canary', 'mostaza', 'dorado', 'azul cielo', 'azul claro', 'azul hielo', 'azul marino', 'azul medio', 'azul petróleo', 'blue aura', 'cloud blue'],
     notes:'Include both the base color and qualified variants when both are searchable (e.g. `["blue", "light blue"]`). Normalize spelling: `grey` not `gray`, `khaki` not `kakhi`.',
   },
   pattern_print: {
@@ -905,6 +906,16 @@ const FIELDS = {
     examples:['waterproof','water-resistant','water-repellent','windproof','wind-resistant','breathable','quick dry','thermal','insulated','warm','extra warm','lightweight','packable','wicking','non-slip','reflective','odor control','high-resistance fabric','menstrual'],
     waterproofScale:['water-repellent','water-resistant 3k','water-resistant 5k','water-resistant 10k','water-resistant 15k','water-resistant 20k','waterproof'],
     notes:'Functional properties such as waterproofing, breathability, thermal performance, odor control, or menstrual protection. Include the numeric waterproofing rating when available rather than the generic term.',
+  },
+  hem_type: {
+  type: 'Array', set: 'closed', src: '2',
+  valid: ['straight', 'flared', 'split', 'fringe', 'asymmetric'],
+  notes: 'The finish or cut of the garment hem. Applicable to tops, dresses, skirts, and trousers. Distinct from `length` (which describes how long) and `fit` (which describes silhouette) — `hem_type` describes only the edge treatment. A flared hem on a straight-fit trouser would have `fit: ["straight"]` and `hem_type: ["flared"]`.',
+  },
+  closure_type: {
+    type: 'Array', set: 'closed', src: '2',
+    valid: ['front closure', 'back closure', 'interior closure', 'zip', 'button'],
+    notes: 'The type or position of the garment closure. Pulled out of `design_detail` as a standalone field given its direct search relevance ("zip-up jacket", "button-front shirt"). Position values (front, back, interior) and mechanism values (zip, button) are not mutually exclusive — a product can have both (e.g. `["front closure", "zip"]`).',
   },
   construction_detail: {
     type:'Array', set:'open', src:'1+2+3',
@@ -997,11 +1008,12 @@ const FINAL_NOTES = [
       ['quality_line', 'Discarded — not applicable in this taxonomy classification', true],
       ['size_type', 'Deleted', true],
       ['merge occasion_style and activity', 'Decide → occasion_style stays, activity absorbed into occasion_style', true],
-      ['straps', 'Restored as a standalone field and removed from construction_detail'],
+      ['straps', 'straps into sleeve_type', true],
       ['texture and material', 'Texture restored as a standalone field; removed from material so material stays focused on fiber/raw material content'],
-      ['example cleanup', 'length: moved oversize and regular to fit, and normalized crop to cropped in length; sleeve_type: moved henley to neck_collar; material: removed texture-like values after restoring texture as a standalone field'],
-      ['example cleanup 2', 'functional_detail: moved seamless to construction_detail; occasion_style: moved maternity to target_fit_type, winter and summer to season, and swimwear and underwear to family'],
-      ['fit, target_fit_type, size_type', 'May collide semantically. Current interpretation: fit → garment silhouette (slim, oversized), target_fit_type → body/user intent (petite, maternity, tall), size_type → sizing system (plus size, one size, etc.)'],
+      ['added tempe values to family', '', true],
+      ['hem_type and closure_type', 'Restored as standalone fields', true],
+      ['removed target_fit_type', 'Too specific for ZA', true],
+      ['removed operational_intent', 'No need on the tagger', true],
     ],
   },
 ];
